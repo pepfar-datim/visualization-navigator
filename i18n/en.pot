@@ -1,0 +1,56 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2021-08-19T20:32:02.807Z\n"
+"PO-Revision-Date: 2021-08-19T20:32:02.807Z\n"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Add filter"
+msgstr "Add filter"
+
+msgid "Execute search"
+msgstr "Execute search"
+
+msgid "Search visualization items"
+msgstr "Search visualization items"
+
+msgid "Data Element"
+msgstr "Data Element"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Dimensions"
+msgstr "Dimensions"
+
+msgid "Show details"
+msgstr "Show details"
+
+msgid "Update sharing"
+msgstr "Update sharing"
+
+msgid "Open in visualizer"
+msgstr "Open in visualizer"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Save"
+msgstr "Save"
+
+msgctxt "count}} times"
+msgid "viewed {{view"
+msgstr "viewed {{view_count}} times"
+
+msgctxt "date}}"
+msgid "last viewed {{view"
+msgstr "last viewed {{view_date}}"
