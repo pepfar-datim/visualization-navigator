@@ -5,7 +5,6 @@ import SharingDialog from "@dhis2/d2-ui-sharing-dialog";
 import {
   Button,
   Checkbox,
-  IconCross16,
   IconInfo16,
   IconShare16,
   IconMore16,
@@ -21,11 +20,15 @@ import {
   TableRow,
   TableCell,
 } from "@dhis2/ui";
+import PropTypes from "prop-types";
 import React, { createRef, useState } from "react";
 import { Link } from "react-router-dom";
+import ConfirmAllSharing from "./ConfirmAllSharing";
 
 const FavoritesMoreMenu = ({
   id,
+  name,
+  allShareOption,
   moreButtonRef,
   toggleMoreMenu,
   toggleSharingDialog,
@@ -50,15 +53,54 @@ const FavoritesMoreMenu = ({
                   label={i18n.t("Show details")}
                 />
               </Link>
-              <MenuItem
-                icon={<IconShare16 />}
-                dense
-                label={i18n.t("Update sharing")}
-                onClick={() => {
-                  toggleMoreMenu();
-                  toggleSharingDialog({ open: true, id });
-                }}
-              />
+              {allShareOption ? (
+                <>
+                  <MenuItem
+                    icon={<IconShare16 />}
+                    dense
+                    label={i18n.t("Update sharing (this item)")}
+                    onClick={() => {
+                      toggleMoreMenu();
+                      toggleSharingDialog({
+                        open: true,
+                        id,
+                        name,
+                        allItems: false,
+                      });
+                    }}
+                  />
+                  <MenuItem
+                    icon={<IconShare16 />}
+                    dense
+                    label={i18n.t("Update sharing (all selected items)")}
+                    onClick={() => {
+                      toggleMoreMenu();
+                      toggleSharingDialog({
+                        open: true,
+                        id,
+                        name,
+                        allItems: true,
+                      });
+                    }}
+                  />
+                </>
+              ) : (
+                <MenuItem
+                  icon={<IconShare16 />}
+                  dense
+                  label={i18n.t("Update sharing")}
+                  onClick={() => {
+                    toggleMoreMenu();
+                    toggleSharingDialog({
+                      open: true,
+                      id,
+                      name,
+                      allItems: false,
+                    });
+                  }}
+                />
+              )}
+
               <MenuItem
                 icon={<IconVisualizationArea16 />}
                 dense
@@ -87,10 +129,21 @@ const FavoritesMoreMenu = ({
   );
 };
 
+FavoritesMoreMenu.propTypes = {
+  allShareOption: PropTypes.bool,
+  id: PropTypes.string,
+  moreButtonRef: PropTypes.obj,
+  name: PropTypes.string,
+  toggleMoreMenu: PropTypes.func,
+  toggleSharingDialog: PropTypes.func,
+};
+
 const FavoritesRow = ({
   id,
   dataRow,
+  headers,
   checked,
+  multipleCheckedItems,
   updateIndividualChecked,
   toggleSharingDialog,
   sharingDialogOpen,
@@ -106,16 +159,16 @@ const FavoritesRow = ({
   return (
     <TableRow>
       <>
-        <TableCell>
+        <TableCell key={`check_${id}`}>
           <Checkbox
             checked={checked}
             onChange={() => updateIndividualChecked(id)}
           />
         </TableCell>
-        {dataRow.slice(1).map((val) => (
-          <TableCell>{val}</TableCell>
+        {dataRow.slice(1).map((val, ind) => (
+          <TableCell key={`cell_${id}_${headers[ind].name}`}>{val}</TableCell>
         ))}
-        <TableCell>
+        <TableCell key={`more_buttons_${id}`}>
           <div ref={moreButtonRef}>
             <Button
               icon={<IconMore16 />}
@@ -126,6 +179,8 @@ const FavoritesRow = ({
           {moreMenuOpen && !sharingDialogOpen.open && (
             <FavoritesMoreMenu
               id={id}
+              name={dataRow[1]}
+              allShareOption={checked && multipleCheckedItems}
               moreButtonRef={moreButtonRef}
               toggleMoreMenu={toggleMoreMenu}
               toggleSharingDialog={toggleSharingDialog}
@@ -137,14 +192,31 @@ const FavoritesRow = ({
   );
 };
 
+FavoritesRow.propTypes = {
+  checked: PropTypes.bool,
+  dataRow: PropTypes.array,
+  headers: PropTypes.array,
+  id: PropTypes.string,
+  multipleCheckedItems: PropTypes.bool,
+  sharingDialogOpen: PropTypes.object,
+  toggleSharingDialog: PropTypes.func,
+  updateIndividualChecked: PropTypes.func,
+};
+
 const FavoritesTable = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
+  const [sharingAllModalOpen, setSharingAllModalOpen] = useState({
+    open: false,
+    name: "cat",
+  });
 
   const { d2 } = useD2();
   const [sharingDialogOpen, toggleSharingDialog] = useState({
     open: false,
     id: "",
+    name: "",
+    allItems: false,
   });
 
   const updateIndividualChecked = (uid) => {
@@ -166,6 +238,14 @@ const FavoritesTable = ({ data }) => {
 
   return (
     <>
+      {!sharingDialogOpen.open && sharingAllModalOpen.open && (
+        <ConfirmAllSharing
+          id={sharingAllModalOpen.id}
+          name={sharingAllModalOpen.name}
+          checkedItems={checkedItems}
+          onClose={() => setSharingAllModalOpen({ open: false, name: "" })}
+        />
+      )}
       <div className="tableContainer">
         <Table>
           <TableHead>
@@ -178,7 +258,9 @@ const FavoritesTable = ({ data }) => {
                   />
                 </TableCellHead>
                 {data.headers.slice(1).map((h) => (
-                  <TableCellHead>{i18n.t(h.name)}</TableCellHead>
+                  <TableCellHead key={`header_${h.name}`}>
+                    {i18n.t(h.name)}
+                  </TableCellHead>
                 ))}
                 <TableCellHead></TableCellHead>
               </>
@@ -187,9 +269,12 @@ const FavoritesTable = ({ data }) => {
           <TableBody>
             {data.rows.map((dRow) => (
               <FavoritesRow
+                key={`FavoritesRow_${dRow[0]}`}
+                headers={data.headers.slice(1)}
                 id={dRow[0]}
                 dataRow={dRow}
                 checked={checkedItems.indexOf(dRow[0]) > -1}
+                multipleCheckedItems={checkedItems.length > 1}
                 updateIndividualChecked={updateIndividualChecked}
                 toggleSharingDialog={toggleSharingDialog}
                 sharingDialogOpen={sharingDialogOpen}
@@ -204,7 +289,19 @@ const FavoritesTable = ({ data }) => {
             type="visualization"
             open={sharingDialogOpen}
             onRequestClose={() => {
-              toggleSharingDialog({ open: false, id: "" });
+              if (sharingDialogOpen.allItems) {
+                setSharingAllModalOpen({
+                  open: true,
+                  name: sharingDialogOpen.name,
+                  id: sharingDialogOpen.id,
+                });
+              }
+              toggleSharingDialog({
+                open: false,
+                id: "",
+                name: "",
+                allItems: false,
+              });
             }}
             insertTheme={true}
           />
@@ -213,13 +310,17 @@ const FavoritesTable = ({ data }) => {
       <style jsx>
         {`
           .tableContainer {
-            width: 95%;
-            margin: 32px auto 32px 8px;
+            margin: var(--spacers-dp24) var(--spacers-dp16) var(--spacers-dp24)
+              var(--spacers-dp16);
           }
         `}
       </style>
     </>
   );
+};
+
+FavoritesTable.propTypes = {
+  data: PropTypes.object,
 };
 
 export default FavoritesTable;

@@ -1,8 +1,5 @@
-import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import {
-  Button,
-  IconSearch16,
   Table,
   TableHead,
   TableRowHead,
@@ -11,6 +8,7 @@ import {
   TableRow,
   TableCell,
 } from "@dhis2/ui";
+import PropTypes from "prop-types";
 import React from "react";
 
 const transformFromCamelCase = (camelString) => {
@@ -24,7 +22,7 @@ const transformFromCamelCase = (camelString) => {
 };
 
 const extractDataDimensions = ({ dimMetadata, groupSet, dimGroups, type }) => {
-  let extractedDimensions = [];
+  const extractedDimensions = [];
   dimMetadata.forEach((dimSet) => {
     dimSet[dimGroups].forEach((dimGroup) => {
       extractedDimensions.push({
@@ -71,7 +69,7 @@ const transformData = (metadata) => {
     },
     INDICATOR: { display: i18n.t("Indicator"), key: "indicator" },
   };
-  let datDimensions = [];
+  const datDimensions = [];
   metadata.dataDimensionItems.forEach((ddi) => {
     const ddiKey = dataDimensionTypes[ddi.dataDimensionItemType].key;
 
@@ -109,18 +107,27 @@ const transformData = (metadata) => {
     uid: ou.id,
   }));
 
-  let userOrganisationUnit = metadata.userOrganisationUnit
-    ? [
-        {
-          type: "Organisation Units",
-          name: "Relative",
-          item: "User Org Unit",
-          uid: "",
-        },
-      ]
+  const relativeOrgUnitTemplate = {
+    type: "Organisation Units",
+    name: "Relative",
+    item: "",
+    uid: "",
+  };
+
+  const userOrganisationUnit = metadata.userOrganisationUnit
+    ? [{ ...relativeOrgUnitTemplate, item: "User Org Unit" }]
     : [];
 
-  let programIndicatorDimensions = metadata.programIndicatorDimensions.map(
+  const userOrganisationUnitChildren = metadata.userOrganisationUnitChildren
+    ? [{ ...relativeOrgUnitTemplate, item: "User Org Unit Children" }]
+    : [];
+
+  const userOrganisationUnitGrandchildren =
+    metadata.userOrganisationUnitGrandchildren
+      ? [{ ...relativeOrgUnitTemplate, item: "User Org Unit Grandchildren" }]
+      : [];
+
+  const programIndicatorDimensions = metadata.programIndicatorDimensions.map(
     (pi) => ({
       type: "Data",
       name: "Program Indicator",
@@ -137,12 +144,14 @@ const transformData = (metadata) => {
     ...organisationUnits,
     ...organisationUnitLevels,
     ...userOrganisationUnit,
+    ...userOrganisationUnitChildren,
+    ...userOrganisationUnitGrandchildren,
     ...organisationUnitGroupSetDimensions,
   ];
 };
 
 const ContentTable = ({ metadata }) => {
-  const headers = ["type", "name", "item", "uid", "used elsewhere"];
+  const headers = ["type", "name", "item", "uid"];
   return (
     <>
       <div className="contentTableContainer">
@@ -151,23 +160,18 @@ const ContentTable = ({ metadata }) => {
           <TableHead>
             <TableRowHead>
               {headers.map((h) => (
-                <TableCellHead>{i18n.t(h)}</TableCellHead>
+                <TableCellHead key={`header_${h}`}>{i18n.t(h)}</TableCellHead>
               ))}
             </TableRowHead>
           </TableHead>
           <TableBody>
             {transformData(metadata).map((d) => (
-              <TableRow>
+              <TableRow key={`row_${d.uid || d.item.replace(/\s/g, "_")}`}>
                 {headers
                   .filter((h) => h !== "used elsewhere")
                   .map((h) => (
-                    <TableCell>{d[h]}</TableCell>
+                    <TableCell key={`cell_${d.uid}_${h}`}>{d[h]}</TableCell>
                   ))}
-                <TableCell>
-                  <Button icon={<IconSearch16 />}>
-                    Other favorites using this item
-                  </Button>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -175,12 +179,23 @@ const ContentTable = ({ metadata }) => {
       </div>
       <style jsx>{`
         .contentTableContainer {
-          width: 95%;
-          margin-left: 10px;
+          margin: var(--spacers-dp16);
         }
       `}</style>
     </>
   );
+};
+
+/*
+                <TableCell key={`cell_${d.uid}_otherButton`}>
+                  <Button icon={<IconSearch16 />}>
+                    {i18n.t("Other favorites using this item")}
+                  </Button>
+                </TableCell>
+*/
+
+ContentTable.propTypes = {
+  metadata: PropTypes.object,
 };
 
 export default ContentTable;

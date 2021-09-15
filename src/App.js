@@ -1,22 +1,24 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import { D2Shim } from "@dhis2/app-runtime-adapter-d2";
 import i18n from "@dhis2/d2-i18n";
-import React, { useState } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import "./locales";
-import { appConfig, includeUser } from "./app.config.js";
-import classes from "./App.module.css";
 import {
   Button,
   ButtonStrip,
+  CssVariables,
+  CircularLoader,
   IconAddCircle16,
-  IconCross16,
   IconDelete16,
   IconSearch16,
   InputField,
   SingleSelectField,
   SingleSelectOption,
 } from "@dhis2/ui";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { appConfig, includeUser } from "./app.config.js";
+import classes from "./App.module.css";
 import FavoritesTable from "./FavoritesTable";
 import ViewContent from "./ViewContent";
 
@@ -68,7 +70,11 @@ const FilterInputFields = ({ filterInfo, updateFilter, filterMap }) => {
           }}
         >
           {filterMap[filterInfo.prop].allowedValues.map((av) => (
-            <SingleSelectOption value={av.value} label={av.label} />
+            <SingleSelectOption
+              key={`filtValue_${filterInfo.id}_${av.value}`}
+              value={av.value}
+              label={av.label}
+            />
           ))}
         </SingleSelectField>
       );
@@ -85,9 +91,12 @@ const FilterInputFields = ({ filterInfo, updateFilter, filterMap }) => {
         />
       );
   }
-  /*
+};
 
-*/
+FilterInputFields.propTypes = {
+  filterInfo: PropTypes.object,
+  filterMap: PropTypes.object,
+  updateFilter: PropTypes.func,
 };
 
 const Filter = ({
@@ -116,7 +125,11 @@ const Filter = ({
           }}
         >
           {availableFilters.map((f) => (
-            <SingleSelectOption label={f.displayName} value={f.prop} />
+            <SingleSelectOption
+              key={`filtProp_${filterInfo.id}_${f.prop}`}
+              label={f.displayName}
+              value={f.prop}
+            />
           ))}
         </SingleSelectField>
         {filterInfo.prop && (
@@ -132,7 +145,11 @@ const Filter = ({
               }}
             >
               {filterMap[filterInfo.prop].options.map((opt) => (
-                <SingleSelectOption value={opt.value} label={opt.label} />
+                <SingleSelectOption
+                  key={`${filterInfo.prop}_${opt.value}`}
+                  value={opt.value}
+                  label={opt.label}
+                />
               ))}
             </SingleSelectField>
             <FilterInputFields
@@ -164,6 +181,14 @@ const Filter = ({
       </style>
     </>
   );
+};
+
+Filter.propTypes = {
+  availableFilters: PropTypes.array,
+  deleteFilter: PropTypes.func,
+  filterInfo: PropTypes.object,
+  filterMap: PropTypes.object,
+  updateFilter: PropTypes.func,
 };
 
 const parameterizeVariables = ({ filters }) => {
@@ -248,10 +273,10 @@ const FilterSelections = ({ fetchData }) => {
     ],
     enum: [{ label: "is", value: "eq" }],
     number: [
-      { label: "greater than", value: "gt" },
-      { label: "greater than or equal to", value: "gte" },
-      { label: "less than", value: "lt" },
-      { label: "less than or equal to", value: "lte" },
+      { label: ">", value: "gt" },
+      { label: ">=", value: "gte" },
+      { label: "<", value: "lt" },
+      { label: "<=", value: "lte" },
     ],
     date: [
       { label: "after", value: "gt" },
@@ -307,6 +332,7 @@ const FilterSelections = ({ fetchData }) => {
       <div>
         {filters.map((f) => (
           <Filter
+            key={`filter_${f.id}`}
             filterInfo={f}
             filterMap={filterMap}
             availableFilters={getAvailableFilters(f)}
@@ -330,12 +356,10 @@ const FilterSelections = ({ fetchData }) => {
             icon={<IconSearch16 />}
             primary
             onClick={() => {
-              console.log(JSON.stringify(filters));
               fetchData({
                 id: appConfig.sqlQuery,
                 queryVariables: parameterizeVariables({ filters }),
               });
-              console.log("Execute search");
             }}
           >
             {i18n.t("Execute search")}
@@ -353,6 +377,10 @@ const FilterSelections = ({ fetchData }) => {
   );
 };
 
+FilterSelections.propTypes = {
+  fetchData: PropTypes.function,
+};
+
 const SearchPage = () => {
   const { data, loading, error, refetch } = useDataQuery(sqlQuery, {
     lazy: true,
@@ -361,9 +389,26 @@ const SearchPage = () => {
     <>
       <div className={classes.containerSearch}>
         <h2>{i18n.t("Search visualization items")}</h2>
-        <FilterSelections fetchData={refetch} />
+        {refetch && <FilterSelections fetchData={refetch} />}
+        {loading && (
+          <div className="statusContainer">
+            <CircularLoader />
+          </div>
+        )}
+        {error && (
+          <div className="statusContainer">
+            <h2>{i18n.t("Could not execute search")}</h2>
+          </div>
+        )}
         {data && <FavoritesTable data={data.sqlData.listGrid} />}
       </div>
+      <style jsx>
+        {`
+          .statusContainer {
+            margin: var(--spacers-dp16);
+          }
+        `}
+      </style>
     </>
   );
 };
@@ -375,6 +420,10 @@ const ViewPage = ({ match }) => {
       <ViewContent id={id} />
     </div>
   );
+};
+
+ViewPage.propTypes = {
+  match: PropTypes.object,
 };
 
 const App = () => {
@@ -394,6 +443,7 @@ const App = () => {
 
   return (
     <>
+      <CssVariables colors spacers />
       <D2Shim d2Config={d2Config} i18nRoot="./i18n">
         {({ d2 }) => {
           if (!d2) {

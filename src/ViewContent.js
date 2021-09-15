@@ -1,17 +1,29 @@
-import { useDataQuery, useDataEngine } from "@dhis2/app-runtime";
+import {
+  useAlert,
+  useDataMutation,
+  useDataQuery,
+  useDataEngine,
+} from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import {
   Button,
   ButtonStrip,
   Card,
-  Field,
+  CircularLoader,
+  InputFieldFF,
+  Modal,
+  ModalActions,
+  ModalContent,
+  ModalTitle,
   IconArrowLeft24,
   IconCalendar16,
   IconView16,
   IconVisualizationArea16,
-  Input,
   Tag,
+  hasValue,
+  ReactFinalForm,
 } from "@dhis2/ui";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { appConfig } from "./app.config.js";
 import ContentTable from "./ContentTable";
@@ -33,6 +45,8 @@ const visualizationQuery = {
         "organisationUnits[id,name]",
         "organisationUnitLevels",
         "userOrganisationUnit",
+        "userOrganisationUnitChildren",
+        "userOrganisationUnitGrandchildren",
         "organisationUnitGroupSetDimensions[organisationUnitGroupSet[id,name],organisationUnitGroups[id,name]]",
         "programIndicatorDimensions[id,name,program[id,name]]",
         "dataElementGroupSetDimensions[dataElementGroupSet[id,name],dataElementGroups[id,name]]",
@@ -49,19 +63,234 @@ const visualizationQuery = {
   },
 };
 
-const DetailField = ({ k, value, disabled }) => {
+const deleteMutation = {
+  resource: "visualizations",
+  id: ({ id }) => id,
+  type: "delete",
+};
+
+const saveMutation = {
+  resource: "visualizations",
+  id: ({ id }) => id,
+  type: "update",
+  partial: true,
+  data: ({ data }) => data,
+};
+
+const ItemDetails = ({ id, metadata, setVisName, visName }) => {
+  const { Field, Form } = ReactFinalForm;
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+
+  const { show: showError } = useAlert((errorMsg) => errorMsg, {
+    duration: 2000,
+    critical: true,
+  });
+
+  const { show: showSuccess } = useAlert((successMsg) => successMsg, {
+    duration: 2000,
+    success: true,
+  });
+
+  const onSuccessfulDelete = () => {
+    showSuccess(
+      i18n.t("{{favoriteName}} has been deleted", {
+        favoriteName: metadata.name,
+      })
+    );
+    setTimeout(() => {
+      window.location.href = "#";
+    }, 1000);
+  };
+  const onErrorDelete = (error) => {
+    showError(`${i18n.t("Could not delete")}: ${error.message}`);
+  };
+  const [deleteFavorite, { loading: deleteLoading }] = useDataMutation(
+    deleteMutation,
+    {
+      variables: { id },
+      onComplete: onSuccessfulDelete,
+      onError: onErrorDelete,
+    }
+  );
+
+  const [saveFavorite, { loading: saveLoading }] = useDataMutation(
+    saveMutation,
+    {
+      onComplete: () => {
+        showSuccess(i18n.t("Save successful"));
+      },
+      onError: (error) => {
+        showError(`${i18n.t("Could not save")}: ${error.message}`);
+      },
+    }
+  );
+
+  const onSave = async (values) => {
+    const saveFields = { name: "name" };
+
+    const saveData = {};
+    Object.keys(saveFields).forEach((k) => {
+      if (values[k] !== metadata[saveFields[k]]) {
+        saveData[k] = values[k];
+      }
+    });
+    await saveFavorite({ id, data: saveData });
+
+    // assumes we only get here if request succeeds
+    if (Object.keys(saveData).includes("name")) {
+      setVisName(saveData.name);
+    }
+  };
+
   return (
     <>
-      <div className="fieldContainer">
-        <Field label={k}>
-          <Input disabled={disabled ? true : false} value={value} />
-        </Field>
+      {deleteConfirmOpen && (
+        <Modal
+          onClose={() => {
+            setDeleteConfirmOpen(false);
+          }}
+          position="middle"
+        >
+          <ModalTitle>
+            {i18n.t("Confirm delete of {{name}}", { name: visName })}
+          </ModalTitle>
+          <ModalContent>
+            {i18n.t(
+              "You will not be able to undo this action. Click delete to confirm."
+            )}
+          </ModalContent>
+          <ModalActions>
+            <ButtonStrip>
+              <Button
+                onClick={() => {
+                  setDeleteConfirmOpen(false);
+                }}
+              >
+                {i18n.t("Cancel")}
+              </Button>
+              <Button
+                destructive
+                onClick={() => {
+                  setDeleteConfirmOpen(false);
+                  deleteFavorite();
+                }}
+              >
+                {i18n.t("Delete")}
+              </Button>
+            </ButtonStrip>
+          </ModalActions>
+        </Modal>
+      )}
+
+      <div className="cardContainer">
+        <Card>
+          {deleteLoading && (
+            <div className="flexContainer">
+              <CircularLoader />
+              <span className="deleteFeedbackSpan">
+                {i18n.t("Delete in progress")}
+              </span>
+            </div>
+          )}
+
+          <Form onSubmit={onSave}>
+            {({ handleSubmit, pristine }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="flexContainer">
+                  <div className="fieldsContainer">
+                    <div className="flexContainer">
+                      <div className="inputField">
+                        <Field
+                          name="name"
+                          label="Name"
+                          component={InputFieldFF}
+                          initialValue={visName}
+                          validate={hasValue}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flexContainer">
+                      <div className="inputField">
+                        <Field
+                          name="createdBy"
+                          label="Owner"
+                          component={InputFieldFF}
+                          className="inputField"
+                          initialValue={`${metadata.createdBy.name} (${metadata.createdBy.username})`}
+                          disabled
+                        />
+                      </div>
+                    </div>
+                    <div className="footerNavigation">
+                      <div className="footerButtons">
+                        <ButtonStrip>
+                          <Button
+                            type="submit"
+                            primary
+                            disabled={pristine || deleteLoading || saveLoading}
+                          >
+                            {i18n.t("Save")}
+                          </Button>
+                          <Button
+                            destructive
+                            onClick={() => {
+                              setDeleteConfirmOpen(true);
+                            }}
+                            disabled={deleteLoading || saveLoading}
+                          >
+                            {i18n.t("Delete")}
+                          </Button>
+                        </ButtonStrip>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="visualizationPluginContainer">
+                    <VisualizationItemPlugin id={id} />
+                  </div>
+                </div>
+                <ContentTable metadata={metadata} />
+              </form>
+            )}
+          </Form>
+        </Card>
       </div>
+
       <style jsx>
         {`
-          .fieldContainer {
-            margin: 8px;
+          .cardContainer {
+            padding: var(--spacers-dp16);
+          }
+          .flexContainer {
+            display: flex;
+          }
+          .fieldsContainer {
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+          }
+          .footerNavigation {
+            margin: var(--spacers-dp24) var(--spacers-dp16) 0
+              var(--spacers-dp16);
+            display: flex;
+            align-items: center;
+          }
+          .visualizationPluginContainer {
             width: 500px;
+            margin: 40px 20px 20px auto;
+            padding: 10px;
+            border: 1px solid grey;
+          }
+          .deleteFeedbackSpan {
+            font-size: 16px;
+            display: block;
+            height: 20px;
+            margin: 8px;
+          }
+          .inputField {
+            min-width: 500px;
+            margin: var(--spacers-dp16) var(--spacers-dp16) 0
+              var(--spacers-dp16);
           }
         `}
       </style>
@@ -69,73 +298,37 @@ const DetailField = ({ k, value, disabled }) => {
   );
 };
 
-const ItemDetails = ({ id, metadata }) => {
-  return (
-    <>
-      <div className="cardContainer">
-        <Card>
-          <div className="topInnerContainer">
-            <div>
-              <DetailField k="name" value={metadata.name} />
-              <DetailField
-                k="owner"
-                disabled
-                value={`${metadata.createdBy.name} (${metadata.createdBy.username})`}
-              />
-            </div>
-            <div className="visualizationPluginContainer">
-              <VisualizationItemPlugin id={id} />
-            </div>
-          </div>
-          <ContentTable metadata={metadata} />
-          <div className="footerNavigation">
-            <div className="footerButtons">
-              <ButtonStrip>
-                <Button destructive>{i18n.t("Delete")}</Button>
-                <Button>{i18n.t("Cancel")}</Button>
-                <Button primary>{i18n.t("Save")}</Button>
-              </ButtonStrip>
-            </div>
-          </div>
-        </Card>
-      </div>
-      <style jsx>
-        {`
-          .cardContainer {
-            width: 95%;
-            margin: auto;
-          }
-          .topInnerContainer {
-            display: flex;
-          }
-          .footerNavigation {
-            margin: 16px 16px 16px 0px;
-            display: flex;
-            align-items: center;
-          }
-          .footerButtons {
-            margin-left: auto;
-          }
-          .visualizationPluginContainer {
-            width: 500px;
-            margin: 40px 0px 20px 10px;
-            padding: 10px;
-            border: 1px solid grey;
-          }
-        `}
-      </style>
-    </>
-  );
+ItemDetails.propTypes = {
+  id: PropTypes.string.isRequired,
+  metadata: PropTypes.object,
+  setVisName: PropTypes.func,
+  visName: PropTypes.string,
 };
 
 const ViewContent = ({ id }) => {
   const engine = useDataEngine();
+  const [visName, setVisName] = useState("");
   const { data, loading, error } = useDataQuery(visualizationQuery, {
     variables: { id, sqlViewCountID: appConfig.sqlViewCountID },
+    onComplete: (data) => {
+      setVisName(data.visualizationDetail.name);
+    },
   });
 
   return (
     <>
+      {loading && <CircularLoader />}
+      {error && (
+        <div className="viewHeader">
+          <Button
+            icon={<IconArrowLeft24 />}
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          />
+          <h2>{i18n.t("Visualization not accessible")}</h2>
+        </div>
+      )}
       {data && (
         <>
           <div className="viewHeader">
@@ -145,7 +338,7 @@ const ViewContent = ({ id }) => {
                 window.location.href = "/";
               }}
             />
-            <h2>{data.visualizationDetail.name}</h2>
+            <h2>{visName}</h2>
             <div>
               <Button
                 icon={<IconVisualizationArea16 />}
@@ -161,41 +354,53 @@ const ViewContent = ({ id }) => {
             </div>
             <div>
               <Tag icon={<IconView16 />}>
-                {i18n.t("viewed {{view_count}} times", {
-                  view_count: data.visualizationViews.listGrid.rows[0][1] || 0,
+                {i18n.t("viewed {{viewCount}} times", {
+                  viewCount: data.visualizationViews.listGrid.rows[0][1] || 0,
                 })}
               </Tag>
             </div>
             <div>
               <Tag icon={<IconCalendar16 />}>
-                {i18n.t("last viewed: {{view_date}}", {
-                  view_date: data.visualizationViews.listGrid.rows[0][2]
+                {i18n.t("last viewed: {{viewDate}}", {
+                  viewDate: data.visualizationViews.listGrid.rows[0][2]
                     ? data.visualizationViews.listGrid.rows[0][2].substring(
                         0,
                         10
                       )
                     : i18n.t("never"),
+                  keySeparator: ">",
+                  nsSeparator: "|",
                 })}
               </Tag>
             </div>
           </div>
-          <ItemDetails id={id} metadata={data.visualizationDetail} />
+          <ItemDetails
+            id={id}
+            metadata={data.visualizationDetail}
+            setVisName={setVisName}
+            visName={visName}
+          />
         </>
       )}
       <style jsx>
         {`
           .viewHeader {
-            margin: 16px;
+            margin: var(--spacers-dp16) var(--spacers-dp16) 0
+              var(--spacers-dp16);
             display: flex;
             align-items: center;
           }
           .viewHeader * {
-            padding-left: 16px;
+            padding-left: var(--spacers-dp16);
           }
         `}
       </style>
     </>
   );
+};
+
+ViewContent.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default ViewContent;

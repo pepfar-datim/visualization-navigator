@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-08-19T20:32:02.807Z\n"
-"PO-Revision-Date: 2021-08-19T20:32:02.807Z\n"
+"POT-Creation-Date: 2021-09-10T10:02:11.455Z\n"
+"PO-Revision-Date: 2021-09-10T10:02:11.455Z\n"
 
 msgid "Filter"
 msgstr "Filter"
@@ -20,6 +20,22 @@ msgstr "Execute search"
 msgid "Search visualization items"
 msgstr "Search visualization items"
 
+msgid "Apply updated sharing to all selected items?"
+msgstr "Apply updated sharing to all selected items?"
+
+msgid ""
+"If you do not wish to apply these updated sharing settings to other "
+"selected items, click cancel."
+msgstr ""
+"If you do not wish to apply these updated sharing settings to other "
+"selected items, click cancel."
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Confirm"
+msgstr "Confirm"
+
 msgid "Data Element"
 msgstr "Data Element"
 
@@ -32,6 +48,12 @@ msgstr "Dimensions"
 msgid "Show details"
 msgstr "Show details"
 
+msgid "Update sharing (this item)"
+msgstr "Update sharing (this item)"
+
+msgid "Update sharing (all selected items)"
+msgstr "Update sharing (all selected items)"
+
 msgid "Update sharing"
 msgstr "Update sharing"
 
@@ -41,16 +63,16 @@ msgstr "Open in visualizer"
 msgid "Delete"
 msgstr "Delete"
 
-msgid "Cancel"
-msgstr "Cancel"
-
 msgid "Save"
 msgstr "Save"
+
+msgid "never"
+msgstr "never"
 
 msgctxt "count}} times"
 msgid "viewed {{view"
 msgstr "viewed {{view_count}} times"
 
 msgctxt "date}}"
-msgid "last viewed {{view"
-msgstr "last viewed {{view_date}}"
+msgid "last viewed: {{view"
+msgstr "last viewed: {{view_date}}"

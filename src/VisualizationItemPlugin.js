@@ -1,5 +1,6 @@
 import { useDataQuery } from "@dhis2/app-runtime";
-import React, { useState, useEffect, useCallback, Suspense } from "react";
+import PropTypes from "prop-types";
+import React, { useState, useCallback, Suspense } from "react";
 
 const VisualizationPlugin = React.lazy(() =>
   import("@dhis2/data-visualizer-plugin")
@@ -21,8 +22,8 @@ const VisualizationItemPlugin = ({ id }) => {
   const [visualizationLoaded, setVisualizationLoaded] = useState(true);
   //const [error, setError] = useState(false)
 
-  const { loading, error, data, refetch } = useDataQuery(visualizationQuery, {
-    variables: { id: id },
+  const { data } = useDataQuery(visualizationQuery, {
+    variables: { id },
   });
 
   const onLoadingComplete = useCallback(() => setVisualizationLoaded(true), []);
@@ -46,7 +47,6 @@ const VisualizationItemPlugin = ({ id }) => {
               visualization={data.visualization}
               forDashboard={true}
               userSettings={userSettings}
-              /*style={}*/
               onLoadingComplete={onLoadingComplete}
               onError={onError}
             />
@@ -55,6 +55,10 @@ const VisualizationItemPlugin = ({ id }) => {
       )}
     </>
   );
+};
+
+VisualizationItemPlugin.propTypes = {
+  id: PropTypes.string.isRequired,
 };
 
 export default VisualizationItemPlugin;
