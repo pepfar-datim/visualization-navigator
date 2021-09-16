@@ -61,6 +61,15 @@ const transformData = (metadata) => {
     type: "Organisation Unit Group Set",
   });
 
+  let dataElementGroupSets = [];
+  dataElementGroupSets = extractDataDimensions({
+    dimMetadata: metadata.dataElementGroupSetDimensions,
+    groupSet: "dataElementGroupSet",
+    dimGroups: "dataElementGroups",
+    type: "Data Element Group Set",
+  });
+
+  // move these
   const dataDimensionTypes = {
     DATA_ELEMENT: { display: i18n.t("Data Element"), key: "dataElement" },
     DATA_ELEMENT_OPERAND: {
@@ -68,16 +77,44 @@ const transformData = (metadata) => {
       key: "dataElementOperand",
     },
     INDICATOR: { display: i18n.t("Indicator"), key: "indicator" },
+    REPORTING_RATE: {
+      display: i18n.t("Reporting Rate"),
+      key: "reportingRate",
+      type: "Reporting Rate",
+    },
+    PROGRAM_DATA_ELEMENT: {
+      display: i18n.t("Data Element"),
+      key: "programDataElement",
+      type: "Event Data Item",
+    },
+  };
+  const reportingRateMap = {
+    REPORTING_RATE: "Reporting rates",
+    REPORTING_RATE_ON_TIME: "Reporting rates on time",
+    ACTUAL_REPORTS: "Actual reporting rates",
+    ACTUAL_REPORTS_ON_TIME: "Actual reporting rates on time",
+    EXPECTED_REPORTS: "Expected Reports",
+  };
+  const getUID = (ddi, ddiKey) => {
+    if (ddi.dataDimensionItemType === "REPORTING_RATE") {
+      return ddi[ddiKey].id + "_" + ddi[ddiKey].metric;
+    }
+    if (ddi.dataDimensionItemType === "PROGRAM_DATA_ELEMENT") {
+      return ddi[ddiKey].dataElement.id;
+    }
+    return ddi[ddiKey].id;
   };
   const datDimensions = [];
   metadata.dataDimensionItems.forEach((ddi) => {
     const ddiKey = dataDimensionTypes[ddi.dataDimensionItemType].key;
 
     datDimensions.push({
-      type: "Data",
-      name: dataDimensionTypes[ddi.dataDimensionItemType].display,
+      type: dataDimensionTypes[ddi.dataDimensionItemType]?.type || "Data",
+      name: ddi[ddiKey].metric
+        ? reportingRateMap[ddi[ddiKey].metric]
+        : dataDimensionTypes[ddi.dataDimensionItemType].display,
       item: ddi[ddiKey].name,
-      uid: ddi[ddiKey].id,
+      uid: getUID(ddi, ddiKey),
     });
   });
 
@@ -91,12 +128,28 @@ const transformData = (metadata) => {
     uid: "",
   }));
 
+  let periods = [];
+  periods = metadata.periods.map((pe) => ({
+    type: "Periods",
+    name: "Exact",
+    item: pe.name,
+    uid: "",
+  }));
+
   let organisationUnitLevels = [];
   organisationUnitLevels = metadata.organisationUnitLevels.map((oul) => ({
     type: "Organisation Units",
     name: "Level",
     item: oul,
     uid: "",
+  }));
+
+  let organisationUnitGroups = [];
+  organisationUnitGroups = metadata.itemOrganisationUnitGroups.map((oug) => ({
+    type: "Organisation Units",
+    name: "Group",
+    item: oug.name,
+    uid: oug.id,
   }));
 
   let organisationUnits = [];
@@ -137,16 +190,19 @@ const transformData = (metadata) => {
 
   return [
     ...relativePeriods,
+    ...periods,
     ...datDimensions,
     ...programIndicatorDimensions,
     ...catDimensions,
     ...catOptGroups,
     ...organisationUnits,
     ...organisationUnitLevels,
+    ...organisationUnitGroups,
     ...userOrganisationUnit,
     ...userOrganisationUnitChildren,
     ...userOrganisationUnitGrandchildren,
     ...organisationUnitGroupSetDimensions,
+    ...dataElementGroupSets,
   ];
 };
 
@@ -166,11 +222,15 @@ const ContentTable = ({ metadata }) => {
           </TableHead>
           <TableBody>
             {transformData(metadata).map((d) => (
-              <TableRow key={`row_${d.uid || d.item.replace(/\s/g, "_")}`}>
+              <TableRow
+                key={`row_${d.uid || d.item.toString().replace(/\s/g, "_")}`}
+              >
                 {headers
                   .filter((h) => h !== "used elsewhere")
                   .map((h) => (
-                    <TableCell key={`cell_${d.uid}_${h}`}>{d[h]}</TableCell>
+                    <TableCell key={`cell_${d.uid}_${h}`}>
+                      {h === "uid" ? d[h].substring(0, 11) : d[h]}
+                    </TableCell>
                   ))}
               </TableRow>
             ))}

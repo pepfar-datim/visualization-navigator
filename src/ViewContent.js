@@ -4,12 +4,15 @@ import {
   useDataQuery,
   useDataEngine,
 } from "@dhis2/app-runtime";
+import { useD2 } from "@dhis2/app-runtime-adapter-d2";
 import i18n from "@dhis2/d2-i18n";
+import SharingDialog from "@dhis2/d2-ui-sharing-dialog";
 import {
   Button,
   ButtonStrip,
   Card,
   CircularLoader,
+  IconShare16,
   InputFieldFF,
   Modal,
   ModalActions,
@@ -31,7 +34,7 @@ import VisualizationItemPlugin from "./VisualizationItemPlugin";
 
 const visualizationQuery = {
   visualizationDetail: {
-    resource: "charts",
+    resource: "visualizations",
     id: ({ id }) => id,
     params: {
       fields: [
@@ -40,8 +43,11 @@ const visualizationQuery = {
         "createdBy[name,username]",
         "categoryOptionGroupSetDimensions[categoryOptionGroupSet[id,name],categoryOptionGroups[id,name]]",
         "categoryDimensions[category[id,name],categoryOptions[id,name]]",
-        "dataDimensionItems[dataDimensionItemType,dataElement[id,name],indicator[id,name],dataElementOperand[id,name]]",
+        "dataElementGroupSetDimensions[dataElementGroupSet[id,name],dataElementGroups[id,name]]",
+        "dataDimensionItems[dataDimensionItemType,dataElement[id,name],indicator[id,name],dataElementOperand[id,name],reportingRate[dataSet[id,name],id,name,metric],programDataElement[dataElement[id],name]]",
+        "itemOrganisationUnitGroups[id,name]",
         "relativePeriods",
+        "periods[id,name]",
         "organisationUnits[id,name]",
         "organisationUnitLevels",
         "userOrganisationUnit",
@@ -61,6 +67,13 @@ const visualizationQuery = {
       paging: false,
     }),
   },
+  sharing: {
+    resource: "sharing",
+    params: ({ id }) => ({
+      type: "visualization",
+      id: id,
+    }),
+  },
 };
 
 const deleteMutation = {
@@ -77,8 +90,10 @@ const saveMutation = {
   data: ({ data }) => data,
 };
 
-const ItemDetails = ({ id, metadata, setVisName, visName }) => {
+const ItemDetails = ({ id, metadata, sharingInfo, setVisName, visName }) => {
   const { Field, Form } = ReactFinalForm;
+  const { d2 } = useD2();
+  const [sharingDialogOpen, setSharingDialogOpen] = useState(false);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
 
   const { show: showError } = useAlert((errorMsg) => errorMsg, {
@@ -144,6 +159,18 @@ const ItemDetails = ({ id, metadata, setVisName, visName }) => {
 
   return (
     <>
+      {sharingDialogOpen && (
+        <SharingDialog
+          d2={d2}
+          id={id}
+          type="visualization"
+          open={sharingDialogOpen}
+          onRequestClose={() => {
+            setSharingDialogOpen(false);
+          }}
+          insertTheme={true}
+        />
+      )}
       {deleteConfirmOpen && (
         <Modal
           onClose={() => {
@@ -220,6 +247,19 @@ const ItemDetails = ({ id, metadata, setVisName, visName }) => {
                           initialValue={`${metadata.createdBy.name} (${metadata.createdBy.username})`}
                           disabled
                         />
+                      </div>
+                    </div>
+                    <div className="flexContainer">
+                      <div className="inputField">
+                        <p>{`Shared with ${sharingInfo.object.userGroupAccesses.length} user groups and ${sharingInfo.object.userAccesses.length} users`}</p>
+                        <Button
+                          icon={<IconShare16 />}
+                          onClick={() => {
+                            setSharingDialogOpen(true);
+                          }}
+                        >
+                          {i18n.t("Update sharing")}
+                        </Button>
                       </div>
                     </div>
                     <div className="footerNavigation">
@@ -302,6 +342,7 @@ ItemDetails.propTypes = {
   id: PropTypes.string.isRequired,
   metadata: PropTypes.object,
   setVisName: PropTypes.func,
+  sharingInfo: PropTypes.object,
   visName: PropTypes.string,
 };
 
@@ -377,6 +418,7 @@ const ViewContent = ({ id }) => {
           <ItemDetails
             id={id}
             metadata={data.visualizationDetail}
+            sharingInfo={data.sharing}
             setVisName={setVisName}
             visName={visName}
           />

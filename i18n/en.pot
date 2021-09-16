@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-10T10:02:11.455Z\n"
-"PO-Revision-Date: 2021-09-10T10:02:11.455Z\n"
+"POT-Creation-Date: 2021-09-16T11:26:46.242Z\n"
+"PO-Revision-Date: 2021-09-16T11:26:46.242Z\n"
 
 msgid "Filter"
 msgstr "Filter"
@@ -19,6 +19,12 @@ msgstr "Execute search"
 
 msgid "Search visualization items"
 msgstr "Search visualization items"
+
+msgid "Could not execute search"
+msgstr "Could not execute search"
+
+msgid "Sharing updated"
+msgstr "Sharing updated"
 
 msgid "Apply updated sharing to all selected items?"
 msgstr "Apply updated sharing to all selected items?"
@@ -45,6 +51,9 @@ msgstr "Indicator"
 msgid "Dimensions"
 msgstr "Dimensions"
 
+msgid "Other favorites using this item"
+msgstr "Other favorites using this item"
+
 msgid "Show details"
 msgstr "Show details"
 
@@ -60,19 +69,41 @@ msgstr "Update sharing"
 msgid "Open in visualizer"
 msgstr "Open in visualizer"
 
+msgid "{{favoriteName}} has been deleted"
+msgstr "{{favoriteName}} has been deleted"
+
+msgid "Could not delete"
+msgstr "Could not delete"
+
+msgid "Save successful"
+msgstr "Save successful"
+
+msgid "Could not save"
+msgstr "Could not save"
+
+msgid "Confirm delete of {{name}}"
+msgstr "Confirm delete of {{name}}"
+
+msgid "You will not be able to undo this action. Click delete to confirm."
+msgstr "You will not be able to undo this action. Click delete to confirm."
+
 msgid "Delete"
 msgstr "Delete"
+
+msgid "Delete in progress"
+msgstr "Delete in progress"
 
 msgid "Save"
 msgstr "Save"
 
+msgid "Visualization not accessible"
+msgstr "Visualization not accessible"
+
+msgid "viewed {{viewCount}} times"
+msgstr "viewed {{viewCount}} times"
+
+msgid "last viewed: {{viewDate}}"
+msgstr "last viewed: {{viewDate}}"
+
 msgid "never"
 msgstr "never"
-
-msgctxt "count}} times"
-msgid "viewed {{view"
-msgstr "viewed {{view_count}} times"
-
-msgctxt "date}}"
-msgid "last viewed: {{view"
-msgstr "last viewed: {{view_date}}"
