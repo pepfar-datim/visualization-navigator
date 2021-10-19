@@ -11,27 +11,35 @@ import {
 import PropTypes from "prop-types";
 import React from "react";
 
+// move this to common
+const determineType = (type) => {
+  if (type === "chart" || type === "pivot") {
+    return "visualization";
+  }
+  return type;
+};
+
 const sharingQuery = {
   sharingInfo: {
     resource: "sharing",
-    params: ({ id }) => ({
-      type: "chart",
+    params: ({ id, type }) => ({
       id,
+      type,
     }),
   },
 };
 
 const mutation = {
   resource: "sharing",
-  params: ({ id }) => ({
-    type: "chart",
+  params: ({ id, type }) => ({
+    type: type,
     id: id,
   }),
   type: "update",
   data: ({ sharing }) => sharing,
 };
 
-const ConfirmAllSharing = ({ onClose, id, name, checkedItems }) => {
+const ConfirmAllSharing = ({ onClose, id, name, type, checkedItems }) => {
   const engine = useDataEngine();
 
   const { show: showError } = useAlert((errorMsg) => errorMsg, {
@@ -45,13 +53,17 @@ const ConfirmAllSharing = ({ onClose, id, name, checkedItems }) => {
   });
 
   const updateAllSharing = async ({ engine, id, checkedItems }) => {
-    const sharingResp = await engine.query(sharingQuery, { variables: { id } });
     try {
+      const sharingResp = await engine.query(sharingQuery, {
+        variables: { id, type: determineType(type) },
+      });
+      console.log(checkedItems);
       await Promise.all(
-        checkedItems.map((id) =>
+        checkedItems.map((checkedItem) =>
           engine.mutate(mutation, {
             variables: {
-              id,
+              id: checkedItem.uid,
+              type: determineType(checkedItem.type),
               sharing: { object: sharingResp.sharingInfo.object },
             },
           })
@@ -108,6 +120,7 @@ ConfirmAllSharing.propTypes = {
   checkedItems: PropTypes.array,
   id: PropTypes.string,
   name: PropTypes.string,
+  type: PropTypes.string,
   onClose: PropTypes.func,
 };
 

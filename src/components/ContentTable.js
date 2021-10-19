@@ -1,5 +1,7 @@
+import { useDataEngine } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import {
+  Button,
   Table,
   TableHead,
   TableRowHead,
@@ -9,7 +11,8 @@ import {
   TableCell,
 } from "@dhis2/ui";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
+import TextDetailModal from "./TextDetailModal";
 
 const transformFromCamelCase = (camelString) => {
   let normalStrings = camelString
@@ -36,7 +39,52 @@ const extractDataDimensions = ({ dimMetadata, groupSet, dimGroups, type }) => {
   return extractedDimensions;
 };
 
-const transformData = (metadata) => {
+const transformData = ({ metadata, type, baseUrl, setText }) => {
+  switch (type) {
+    case "map":
+      return transformDataStandard(metadata.mapViews[0]);
+    case "dashboard":
+      return transformDataDashboard(metadata, baseUrl, setText);
+    default:
+      return transformDataStandard(metadata);
+  }
+};
+
+const transformDataDashboard = (metadata, baseUrl, setText) => {
+  const dashboardItems = [];
+  metadata.dashboardItems.forEach((di) => {
+    const dItem = {};
+    dItem.type = di.type.toLowerCase();
+    dItem.name = di?.visualization?.name || di?.map?.name || "";
+    dItem.uid = di?.visualization?.id || di?.map?.id || di.id;
+    dItem.item = (
+      <Button
+        onClick={() => {
+          window.open(`#/view/${dItem.uid}`, "_blank");
+        }}
+      >
+        {i18n.t("Open details")}
+      </Button>
+    );
+    if (dItem.type.toLowerCase() === "text") {
+      dItem.name = "";
+      dItem.uid = di.id;
+      dItem.item = (
+        <Button
+          onClick={() => {
+            setText(di.text);
+          }}
+        >
+          {i18n.t("Display text")}
+        </Button>
+      );
+    }
+    dashboardItems.push(dItem);
+  });
+  return dashboardItems;
+};
+
+const transformDataStandard = (metadata) => {
   let catOptGroups = [];
   catOptGroups = extractDataDimensions({
     dimMetadata: metadata.categoryOptionGroupSetDimensions,
@@ -118,7 +166,7 @@ const transformData = (metadata) => {
     });
   });
 
-  let relativePeriods = Object.keys(metadata.relativePeriods).filter(
+  let relativePeriods = Object.keys(metadata?.relativePeriods || {}).filter(
     (p) => metadata.relativePeriods[p]
   );
   relativePeriods = relativePeriods.map((p) => ({
@@ -188,7 +236,7 @@ const transformData = (metadata) => {
     })
   );
 
-  return [
+  const returnData = [
     ...relativePeriods,
     ...periods,
     ...datDimensions,
@@ -204,14 +252,23 @@ const transformData = (metadata) => {
     ...organisationUnitGroupSetDimensions,
     ...dataElementGroupSets,
   ];
+
+  return returnData;
 };
 
-const ContentTable = ({ metadata }) => {
+const ContentTable = ({ metadata, type }) => {
+  const [text, setText] = useState(null);
+  const engine = useDataEngine();
   const headers = ["type", "name", "item", "uid"];
   return (
     <>
+      {text && <TextDetailModal setText={setText} text={text} />}
       <div className="contentTableContainer">
-        <h3>{i18n.t("Dimensions")}</h3>
+        <h3>
+          {type === "dashboard"
+            ? i18n.t("Dashboard items")
+            : i18n.t("Dimensions")}
+        </h3>
         <Table>
           <TableHead>
             <TableRowHead>
@@ -221,7 +278,12 @@ const ContentTable = ({ metadata }) => {
             </TableRowHead>
           </TableHead>
           <TableBody>
-            {transformData(metadata).map((d) => (
+            {transformData({
+              metadata,
+              type,
+              baseUrl: engine.link.baseUrl,
+              setText,
+            }).map((d) => (
               <TableRow
                 key={`row_${d.uid || d.item.toString().replace(/\s/g, "_")}`}
               >
@@ -246,16 +308,9 @@ const ContentTable = ({ metadata }) => {
   );
 };
 
-/*
-                <TableCell key={`cell_${d.uid}_otherButton`}>
-                  <Button icon={<IconSearch16 />}>
-                    {i18n.t("Other favorites using this item")}
-                  </Button>
-                </TableCell>
-*/
-
 ContentTable.propTypes = {
   metadata: PropTypes.object,
+  type: PropTypes.string,
 };
 
 export default ContentTable;

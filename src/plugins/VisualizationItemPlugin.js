@@ -12,7 +12,7 @@ const visualizationQuery = {
     id: ({ id }) => id,
     params: {
       fields:
-        "id,displayName~rename(name),displayDescription~rename(description),columns[dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType]],rows[dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType]],filters[dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType]],*,!attributeDimensions,!attributeValues,!category,!categoryDimensions,!categoryOptionGroupSetDimensions,!columnDimensions,!dataDimensionItems,!dataElementDimensions,!dataElementGroupSetDimensions,!filterDimensions,!itemOrganisationUnitGroups,!lastUpdatedBy,!organisationUnitGroupSetDimensions,!organisationUnitLevels,!organisationUnits,!programIndicatorDimensions,!relativePeriods,!reportParams,!rowDimensions,!translations,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren",
+        "displayName~rename(name),displayDescription~rename(description),columns[dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType]],rows[dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType]],filters[dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType]],*,!attributeDimensions,!attributeValues,!category,!categoryDimensions,!categoryOptionGroupSetDimensions,!columnDimensions,!dataDimensionItems,!dataElementDimensions,!dataElementGroupSetDimensions,!filterDimensions,!itemOrganisationUnitGroups,!lastUpdatedBy,!organisationUnitGroupSetDimensions,!organisationUnitLevels,!organisationUnits,!programIndicatorDimensions,!relativePeriods,!reportParams,!rowDimensions,!translations,!userOrganisationUnit,!userOrganisationUnitChildren,!userOrganisationUnitGrandChildren",
     },
   },
 };
@@ -27,7 +27,11 @@ const VisualizationItemPlugin = ({ id }) => {
   });
 
   const onLoadingComplete = useCallback(() => setVisualizationLoaded(true), []);
-  const userSettings = {};
+  const userSettings = {
+    keyUiLocale: "en",
+    keyAnalysisDisplayProperty: "shortName",
+    displayProperty: "shortName",
+  };
   const onError = (e) => {
     console.log(e);
   };
@@ -45,6 +49,7 @@ const VisualizationItemPlugin = ({ id }) => {
           <div /*className={classes.wrapper}*/>
             <VisualizationPlugin
               visualization={data.visualization}
+              style={{ height: 450, width: 450 }}
               forDashboard={true}
               userSettings={userSettings}
               onLoadingComplete={onLoadingComplete}

@@ -5,23 +5,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-09-16T11:26:46.242Z\n"
-"PO-Revision-Date: 2021-09-16T11:26:46.242Z\n"
+"POT-Creation-Date: 2021-10-19T18:43:01.984Z\n"
+"PO-Revision-Date: 2021-10-19T18:43:01.984Z\n"
 
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Add filter"
-msgstr "Add filter"
-
-msgid "Execute search"
-msgstr "Execute search"
-
-msgid "Search visualization items"
-msgstr "Search visualization items"
-
-msgid "Could not execute search"
-msgstr "Could not execute search"
+msgid "App encountered errors on d2 initialization"
+msgstr "App encountered errors on d2 initialization"
 
 msgid "Sharing updated"
 msgstr "Sharing updated"
@@ -42,17 +30,26 @@ msgstr "Cancel"
 msgid "Confirm"
 msgstr "Confirm"
 
+msgid "Open details"
+msgstr "Open details"
+
+msgid "Display text"
+msgstr "Display text"
+
 msgid "Data Element"
 msgstr "Data Element"
 
 msgid "Indicator"
 msgstr "Indicator"
 
+msgid "Reporting Rate"
+msgstr "Reporting Rate"
+
+msgid "Dashboard items"
+msgstr "Dashboard items"
+
 msgid "Dimensions"
 msgstr "Dimensions"
-
-msgid "Other favorites using this item"
-msgstr "Other favorites using this item"
 
 msgid "Show details"
 msgstr "Show details"
@@ -63,11 +60,29 @@ msgstr "Update sharing (this item)"
 msgid "Update sharing (all selected items)"
 msgstr "Update sharing (all selected items)"
 
-msgid "Update sharing"
-msgstr "Update sharing"
+msgid "Open in api"
+msgstr "Open in api"
 
-msgid "Open in visualizer"
-msgstr "Open in visualizer"
+msgid "Filter"
+msgstr "Filter"
+
+msgid "never"
+msgstr "never"
+
+msgid "Add filter"
+msgstr "Add filter"
+
+msgid "Execute search"
+msgstr "Execute search"
+
+msgid "Search visualization items"
+msgstr "Search visualization items"
+
+msgid "Could not execute search"
+msgstr "Could not execute search"
+
+msgid "Close"
+msgstr "Close"
 
 msgid "{{favoriteName}} has been deleted"
 msgstr "{{favoriteName}} has been deleted"
@@ -93,6 +108,9 @@ msgstr "Delete"
 msgid "Delete in progress"
 msgstr "Delete in progress"
 
+msgid "Update sharing"
+msgstr "Update sharing"
+
 msgid "Save"
 msgstr "Save"
 
@@ -105,5 +123,20 @@ msgstr "viewed {{viewCount}} times"
 msgid "last viewed: {{viewDate}}"
 msgstr "last viewed: {{viewDate}}"
 
-msgid "never"
-msgstr "never"
+msgid "Include all views in view count statistic"
+msgstr "Include all views in view count statistic"
+
+msgid "Limit view counts to a specified date range"
+msgstr "Limit view counts to a specified date range"
+
+msgid "View count range"
+msgstr "View count range"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
+
+msgid "Unable to load the plugin for this item"
+msgstr "Unable to load the plugin for this item"
