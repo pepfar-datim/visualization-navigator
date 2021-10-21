@@ -5,12 +5,9 @@ import SharingDialog from "@dhis2/d2-ui-sharing-dialog";
 import {
   Button,
   Checkbox,
-  IconDashboardWindow16,
   IconInfo16,
-  IconLocation16,
   IconShare16,
   IconMore16,
-  IconVisualizationArea16,
   Menu,
   MenuItem,
   Popover,
@@ -27,56 +24,28 @@ import React, { createRef, useState } from "react";
 import { Link } from "react-router-dom";
 import CodeIcon from "./CodeIcon";
 import ConfirmAllSharing from "./ConfirmAllSharing";
+import {
+  MAP,
+  DASHBOARD,
+  determineType,
+  getOpenIcon,
+  getOpenString,
+  getFavLink,
+} from "./visualizationTypes";
 
 // update this logic
 const determineSharing = (type) => {
-  if (type === "pivot" || type === "chart") {
-    return "visualization";
-  }
-  return type;
-};
-
-const getOpenString = (type) => {
-  switch (type) {
-    case "map":
-      return "Open in maps";
-    case "dashboard":
-      return "Open as dashboard";
-    default:
-      return "Open in visualizer";
-  }
-};
-
-const getOpenIcon = (type) => {
-  switch (type) {
-    case "map":
-      return <IconLocation16 />;
-    case "dashboard":
-      return <IconDashboardWindow16 />;
-    default:
-      return <IconVisualizationArea16 />;
-  }
-};
-
-const getFavLink = (type, baseUrl, id) => {
-  switch (type) {
-    case "map":
-      return `${baseUrl}/dhis-web-maps/index.html?id=${id}`;
-    case "dashboard":
-      return `${baseUrl}/dhis-web-dashboard/#/${id}`;
-    default:
-      return `${baseUrl}/dhis-web-data-visualizer/index.html#/${id}`;
-  }
+  return type.toLowerCase();
 };
 
 const getAPIDestination = (type) => {
   switch (type) {
-    case "map":
-      return `maps`;
-    case "dashboard":
-      return `dashboards`;
+    case MAP:
+      return "maps";
+    case DASHBOARD:
+      return "dashboards";
     default:
-      return `visualizations`;
+      return "visualizations";
   }
 };
 
@@ -109,7 +78,7 @@ const FavoritesMoreMenu = ({
                   label={i18n.t("Show details")}
                 />
               </Link>
-              {type !== "dashboard" && (
+              {type !== DASHBOARD && (
                 <>
                   <MenuItem
                     icon={<IconShare16 />}
@@ -220,7 +189,7 @@ const FavoritesRow = ({
     <TableRow>
       <>
         <TableCell key={`check_${id}`}>
-          {dataRow[4] !== "dashboard" && (
+          {dataRow[4] !== DASHBOARD && (
             <Checkbox
               checked={checked}
               onChange={() => updateIndividualChecked(id, dataRow[4])}
@@ -228,7 +197,9 @@ const FavoritesRow = ({
           )}
         </TableCell>
         {dataRow.slice(1).map((val, ind) => (
-          <TableCell key={`cell_${id}_${headers[ind].name}`}>{val}</TableCell>
+          <TableCell key={`cell_${id}_${headers[ind].name}`}>
+            {i18n.t(val)}
+          </TableCell>
         ))}
         <TableCell key={`more_buttons_${id}`}>
           <div ref={moreButtonRef}>
@@ -242,7 +213,7 @@ const FavoritesRow = ({
             <FavoritesMoreMenu
               id={id}
               name={dataRow[1]}
-              type={dataRow[4]}
+              type={determineType(dataRow[4])}
               allShareOption={checked && multipleCheckedItems}
               moreButtonRef={moreButtonRef}
               toggleMoreMenu={toggleMoreMenu}
@@ -264,6 +235,15 @@ FavoritesRow.propTypes = {
   sharingDialogOpen: PropTypes.object,
   toggleSharingDialog: PropTypes.func,
   updateIndividualChecked: PropTypes.func,
+};
+
+// defined here to load i18n translations
+const headerNames = {
+  name: i18n.t("name"),
+  "view count": i18n.t("view count"),
+  date: i18n.t("date"),
+  type: i18n.t("type"),
+  user: i18n.t("user"),
 };
 
 const FavoritesTable = ({ data }) => {
@@ -297,9 +277,9 @@ const FavoritesTable = ({ data }) => {
       setCheckedItems([]);
     } else {
       const allChecks = data.rows.map((d) => {
-        return { uid: d[0], type: d[4] };
+        return { uid: d[0], type: determineType(d[4]) };
       });
-      setCheckedItems(allChecks.filter((c) => c.type !== "dashboard"));
+      setCheckedItems(allChecks.filter((c) => c.type !== DASHBOARD));
     }
     setAllChecked(!allChecked);
   };
@@ -330,7 +310,7 @@ const FavoritesTable = ({ data }) => {
                 </TableCellHead>
                 {data.headers.slice(1).map((h) => (
                   <TableCellHead key={`header_${h.name}`}>
-                    {i18n.t(h.name.replace("_", " "))}
+                    {headerNames[h.name.replace("_", " ")] || h.name}
                   </TableCellHead>
                 ))}
                 <TableCellHead></TableCellHead>

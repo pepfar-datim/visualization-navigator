@@ -13,6 +13,7 @@ import {
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import TextDetailModal from "./TextDetailModal";
+import { MAP, DASHBOARD } from "./visualizationTypes";
 
 const transformFromCamelCase = (camelString) => {
   let normalStrings = camelString
@@ -41,9 +42,9 @@ const extractDataDimensions = ({ dimMetadata, groupSet, dimGroups, type }) => {
 
 const transformData = ({ metadata, type, baseUrl, setText }) => {
   switch (type) {
-    case "map":
+    case MAP:
       return transformDataStandard(metadata.mapViews[0]);
-    case "dashboard":
+    case DASHBOARD:
       return transformDataDashboard(metadata, baseUrl, setText);
     default:
       return transformDataStandard(metadata);
@@ -265,7 +266,7 @@ const ContentTable = ({ metadata, type }) => {
       {text && <TextDetailModal setText={setText} text={text} />}
       <div className="contentTableContainer">
         <h3>
-          {type === "dashboard"
+          {type === DASHBOARD
             ? i18n.t("Dashboard items")
             : i18n.t("Dimensions")}
         </h3>

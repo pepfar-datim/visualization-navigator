@@ -19,11 +19,8 @@ import {
   ModalTitle,
   IconArrowLeft24,
   IconCalendar16,
-  IconDashboardWindow16,
-  IconLocation16,
   IconShare16,
   IconView16,
-  IconVisualizationArea16,
   Tag,
   hasValue,
   ReactFinalForm,
@@ -48,6 +45,71 @@ import {
 import getFilteredVisualization from "../services/getFilteredVisualization";
 import CodeIcon from "./CodeIcon";
 import ContentTable from "./ContentTable";
+import {
+  MAP,
+  DASHBOARD,
+  VISUALIZATION,
+  determineType,
+  getOpenIcon,
+  getOpenString,
+  getFavLink,
+} from "./visualizationTypes";
+
+const getMutationByType = ({ type, saveOperation }) => {
+  switch (type) {
+    case MAP:
+      return saveOperation ? saveMapMutation : deleteMapMutation;
+    case DASHBOARD:
+      return saveOperation ? saveDashboardMutation : deleteDashboardMutation;
+    default:
+      return saveOperation ? saveMutation : deleteMutation;
+  }
+};
+
+const getQueryByType = ({ type }) => {
+  switch (type) {
+    case MAP:
+      return mapQuery;
+    case DASHBOARD:
+      return dashboardQuery;
+    default:
+      return visualizationQuery;
+  }
+};
+
+const PluginWrapper = ({ type, id, metadata }) => (
+  <>
+    <div className="visualizationPluginContainer">
+      {type === MAP && (
+        <MapPlugin
+          activeType="MAP"
+          applyFilters={getFilteredVisualization}
+          item={{ type: "MAP" }}
+          itemFilters={{}}
+          style={{ height: 480, width: 480 }}
+          visualization={metadata}
+        />
+      )}
+      {type === VISUALIZATION && <VisualizationItemPlugin id={id} />}
+    </div>
+    <style jsx>
+      {`
+        .visualizationPluginContainer {
+          width: 500px;
+          margin: 40px 20px 20px auto;
+          padding: 10px;
+          border: 1px solid grey;
+        }
+      `}
+    </style>
+  </>
+);
+
+PluginWrapper.propTypes = {
+  id: PropTypes.string,
+  metadata: PropTypes.obj,
+  type: PropTypes.string,
+};
 
 const ItemDetails = ({
   id,
@@ -87,11 +149,7 @@ const ItemDetails = ({
     showError(`${i18n.t("Could not delete")}: ${error.message}`);
   };
   const [deleteFavorite, { loading: deleteLoading }] = useDataMutation(
-    type === "map"
-      ? deleteMapMutation
-      : type === "visualization"
-      ? deleteMutation
-      : deleteDashboardMutation,
+    getMutationByType({ type, saveOperation: false }),
     {
       variables: { id },
       onComplete: onSuccessfulDelete,
@@ -100,11 +158,7 @@ const ItemDetails = ({
   );
 
   const [saveFavorite, { loading: saveLoading }] = useDataMutation(
-    type === "map"
-      ? saveMapMutation
-      : type === "visualization"
-      ? saveMutation
-      : saveDashboardMutation,
+    getMutationByType({ type, saveOperation: true }),
     {
       onComplete: () => {
         showSuccess(i18n.t("Save successful"));
@@ -138,7 +192,7 @@ const ItemDetails = ({
         <SharingDialog
           d2={d2}
           id={id}
-          type={type}
+          type={type.toLowerCase()}
           open={sharingDialogOpen}
           onRequestClose={(updatedSharing) => {
             setSharingInfo({ ...sharingInfo, object: updatedSharing });
@@ -202,7 +256,7 @@ const ItemDetails = ({
                 <div className="flexContainer">
                   <div
                     className={
-                      type === "dashboard"
+                      type === DASHBOARD
                         ? "fieldsContainerEmpty"
                         : "fieldsContainer"
                     }
@@ -211,7 +265,7 @@ const ItemDetails = ({
                       <div className="inputField">
                         <Field
                           name="name"
-                          label="Name"
+                          label={i18n.t("Name")}
                           component={InputFieldFF}
                           initialValue={visName}
                           validate={hasValue}
@@ -223,7 +277,7 @@ const ItemDetails = ({
                       <div className="inputField">
                         <Field
                           name="createdBy"
-                          label="Owner"
+                          label={i18n.t("Owner")}
                           component={InputFieldFF}
                           className="inputField"
                           initialValue={`${metadata.createdBy.name} (${metadata.createdBy.username})`}
@@ -234,7 +288,17 @@ const ItemDetails = ({
                     {sharingInfo && (
                       <div className="flexContainer">
                         <div className="inputField">
-                          <p>{`Shared with ${sharingInfo.object.userGroupAccesses.length} user groups and ${sharingInfo.object.userAccesses.length} users`}</p>
+                          <p>
+                            {i18n.t(
+                              "Shared with {{userGroupCounts}} user groups and {{userCount}} users",
+                              {
+                                userGroupCounts:
+                                  sharingInfo.object.userGroupAccesses.length,
+                                userCount:
+                                  sharingInfo.object.userAccesses.length,
+                              }
+                            )}
+                          </p>
                           <Button
                             icon={<IconShare16 />}
                             onClick={() => {
@@ -270,22 +334,8 @@ const ItemDetails = ({
                       </div>
                     </div>
                   </div>
-                  {["map", "visualization"].includes(type) && (
-                    <div className="visualizationPluginContainer">
-                      <>
-                        {type !== "map" && <VisualizationItemPlugin id={id} />}
-                        {type === "map" && (
-                          <MapPlugin
-                            activeType="MAP"
-                            applyFilters={getFilteredVisualization}
-                            item={{ type: "MAP" }}
-                            itemFilters={{}}
-                            style={{ height: 480, width: 480 }}
-                            visualization={metadata}
-                          />
-                        )}
-                      </>
-                    </div>
+                  {[MAP, VISUALIZATION].includes(type) && (
+                    <PluginWrapper type={type} id={id} metadata={metadata} />
                   )}
                 </div>
                 <ContentTable metadata={metadata} type={type} />
@@ -319,12 +369,6 @@ const ItemDetails = ({
             display: flex;
             align-items: center;
           }
-          .visualizationPluginContainer {
-            width: 500px;
-            margin: 40px 20px 20px auto;
-            padding: 10px;
-            border: 1px solid grey;
-          }
           .deleteFeedbackSpan {
             font-size: 16px;
             display: block;
@@ -354,19 +398,12 @@ ItemDetails.propTypes = {
 const ViewContentInner = ({ id, type }) => {
   const engine = useDataEngine();
   const [visName, setVisName] = useState("");
-  const { data, loading, error } = useDataQuery(
-    type === "visualization"
-      ? visualizationQuery
-      : type === "map"
-      ? mapQuery
-      : dashboardQuery,
-    {
-      variables: { id, sqlViewCountID: appConfig.sqlViewCountID },
-      onComplete: (data) => {
-        setVisName(data.visualizationDetail.name);
-      },
-    }
-  );
+  const { data, loading, error } = useDataQuery(getQueryByType({ type }), {
+    variables: { id, sqlViewCountID: appConfig.sqlViewCountID },
+    onComplete: (data) => {
+      setVisName(data.visualizationDetail.name);
+    },
+  });
 
   return (
     <>
@@ -398,46 +435,15 @@ const ViewContentInner = ({ id, type }) => {
             <h2>{visName}</h2>
             <div>
               <Button
-                icon={
-                  type === "map" ? (
-                    <IconLocation16 />
-                  ) : type === "dashboard" ? (
-                    <IconDashboardWindow16 />
-                  ) : (
-                    <IconVisualizationArea16 />
-                  )
-                }
+                icon={getOpenIcon(type)}
                 onClick={() => {
-                  switch (type) {
-                    case "map":
-                      window.open(
-                        `${engine.link.baseUrl}/dhis-web-maps/index.html?id=${id}`,
-                        "_blank"
-                      );
-                      break;
-                    case "dashboard":
-                      window.open(
-                        `${engine.link.baseUrl}/dhis-web-dashboard/#/${id}`,
-                        "_blank"
-                      );
-                      break;
-                    default:
-                      window.open(
-                        `${engine.link.baseUrl}/dhis-web-data-visualizer/index.html#/${id}`,
-                        "_blank"
-                      );
-                  }
+                  window.open(
+                    getFavLink(type, engine.link.baseUrl, id),
+                    "_blank"
+                  );
                 }}
               >
-                {i18n.t(
-                  `Open ${
-                    type === "map"
-                      ? "in maps"
-                      : type === "dashboard"
-                      ? "as dashboard"
-                      : "in visualizer"
-                  }`
-                )}
+                {getOpenString(type)}
               </Button>
             </div>
             <div>
@@ -522,27 +528,20 @@ ViewContentInner.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-const determineType = (href) => {
-  const types = ["visualization", "map", "dashboard"];
-  for (let i = 0; i < types.length; i++) {
-    if (href.includes(types[i])) {
-      return types[i];
-    }
-  }
-  return null;
-};
-
 const ViewContent = ({ id }) => {
   const { data, error } = useDataQuery(typeQuery, {
     variables: { id },
   });
+
+  // idenfitiableObjects will fail if user does not have access to dashboard
+  // assume dashboard if type check fails, and allow subsequent queries to deal with "actual" errors
 
   return (
     <>
       {(data || error) && (
         <>
           <ViewContentInner
-            type={determineType(data ? data?.type?.href : "dashboard")}
+            type={determineType(data ? data?.type?.href : DASHBOARD)}
             id={id}
           />
         </>

@@ -5,207 +5,203 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-20T15:42:50.975Z\n"
-"PO-Revision-Date: 2021-10-20T15:42:50.975Z\n"
+"POT-Creation-Date: 2021-10-19T18:43:01.984Z\n"
+"PO-Revision-Date: 2021-10-19T18:43:01.984Z\n"
 
 msgid "App encountered errors on d2 initialization"
-msgstr "App encountered errors on d2 initialization"
+msgstr "Det oppsto et problem med d2-initialisering"
 
 msgid "Sharing updated"
-msgstr "Sharing updated"
+msgstr "Delingsparametrene har blitt oppdatert"
 
 msgid "Apply updated sharing to all selected items?"
-msgstr "Apply updated sharing to all selected items?"
+msgstr "Vil du oppdatere delingsparametrene for alle valgte objekter?"
 
 msgid ""
 "If you do not wish to apply these updated sharing settings to other "
 "selected items, click cancel."
 msgstr ""
-"If you do not wish to apply these updated sharing settings to other "
-"selected items, click cancel."
+"Hvis du ikke vil tilordne disse oppdaterte delingsparametrene til de andre valgte objektene, klikk på avbryt"
 
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Avbryt"
 
 msgid "Confirm"
-msgstr "Confirm"
+msgstr "OK"
 
 msgid "Open details"
-msgstr "Open details"
+msgstr "Åpne detaljer"
 
 msgid "Display text"
-msgstr "Display text"
+msgstr "Vis tekst"
 
 msgid "Data Element"
-msgstr "Data Element"
+msgstr "Dataelement"
 
 msgid "Indicator"
-msgstr "Indicator"
+msgstr "Indikator"
 
 msgid "Reporting Rate"
-msgstr "Reporting Rate"
+msgstr "Raporteringshyppighet"
 
 msgid "Dashboard items"
-msgstr "Dashboard items"
+msgstr "Dashboard elementer"
 
 msgid "Dimensions"
-msgstr "Dimensions"
+msgstr "Dimensjoner"
 
 msgid "Open in maps"
-msgstr "Open in maps"
+msgstr "Åpne i kart-appen"
 
 msgid "Open as dashboard"
-msgstr "Open as dashboard"
+msgstr "Åpne dashboard"
 
 msgid "Open in visualizer"
-msgstr "Open in visualizer"
+msgstr "Åpne i visualizer-appen"
 
 msgid "Show details"
-msgstr "Show details"
+msgstr "Vis detaljer"
 
 msgid "Update sharing (this item)"
-msgstr "Update sharing (this item)"
+msgstr "Oppdater deling (dette objektet)"
 
 msgid "Update sharing (all selected items)"
-msgstr "Update sharing (all selected items)"
+msgstr "Oppdater deling (alle valgte objekter)"
 
 msgid "Open in api"
-msgstr "Open in api"
-
-msgid "name"
-msgstr "name"
-
-msgid "view count"
-msgstr "view count"
-
-msgid "date"
-msgstr "date"
-
-msgid "type"
-msgstr "type"
-
-msgid "user"
-msgstr "user"
+msgstr "Åpne i api"
 
 msgid "Filter"
 msgstr "Filter"
 
+msgid "name"
+msgstr "navn"
+
+msgid "view count"
+msgstr "visningsantall"
+
+msgid "date"
+msgstr "dato"
+
 msgid "last viewed"
-msgstr "last viewed"
+msgstr "sist vist"
+
+msgid "type"
+msgstr "type"
 
 msgid "chart"
-msgstr "chart"
+msgstr "graf"
 
 msgid "dashboard"
 msgstr "dashboard"
 
 msgid "map"
-msgstr "map"
+msgstr "kart"
 
 msgid "pivot"
 msgstr "pivot"
 
 msgid "owner"
-msgstr "owner"
+msgstr "eieren"
 
 msgid "contains"
-msgstr "contains"
+msgstr "inneholder"
 
 msgid "is"
-msgstr "is"
+msgstr "er"
 
 msgid "is not"
-msgstr "is not"
+msgstr "er ikke"
 
 msgid "after"
-msgstr "after"
+msgstr "etter"
 
 msgid "before"
-msgstr "before"
+msgstr "før"
 
 msgid "never"
-msgstr "never"
+msgstr "aldri"
 
 msgid "Add filter"
-msgstr "Add filter"
+msgstr "Legg til et filter"
 
 msgid "Execute search"
-msgstr "Execute search"
+msgstr "Gjennomfør spørringen"
 
 msgid "Download results"
-msgstr "Download results"
+msgstr "Last ned resultater"
 
 msgid "Search visualization items"
-msgstr "Search visualization items"
+msgstr "Søk i visualiseringsobjekter"
 
 msgid "Could not execute search"
-msgstr "Could not execute search"
+msgstr "Spørringen kunne ikke gjennomføres"
 
 msgid "Close"
-msgstr "Close"
+msgstr "Lukk"
 
 msgid "{{favoriteName}} has been deleted"
-msgstr "{{favoriteName}} has been deleted"
+msgstr "{{favoriteName}} har blitt slettet"
 
 msgid "Could not delete"
-msgstr "Could not delete"
+msgstr "Kunne ikke slettes"
 
 msgid "Save successful"
-msgstr "Save successful"
+msgstr "Lagring vellykket"
 
 msgid "Could not save"
-msgstr "Could not save"
+msgstr "Kunne ikke lagres"
 
 msgid "Confirm delete of {{name}}"
-msgstr "Confirm delete of {{name}}"
+msgstr "Bekreft sletting av {{name}}"
 
 msgid "You will not be able to undo this action. Click delete to confirm."
-msgstr "You will not be able to undo this action. Click delete to confirm."
+msgstr "Sletting kan ikke angres. Klikk på slett for å bekrefte at du vil slette objektet."
 
 msgid "Delete"
-msgstr "Delete"
+msgstr "Slett"
 
 msgid "Delete in progress"
-msgstr "Delete in progress"
+msgstr "Sletting in progress"
 
 msgid "Name"
-msgstr "Name"
+msgstr "Navn"
 
 msgid "Owner"
-msgstr "Owner"
+msgstr "Eieren"
 
 msgid "Shared with {{userGroupCounts}} user groups and {{userCount}} users"
-msgstr "Shared with {{userGroupCounts}} user groups and {{userCount}} users"
+msgstr "Delt med {{userGroupCounts}} brukergrupper og {{userCount}} brukere"
 
 msgid "Update sharing"
-msgstr "Update sharing"
+msgstr "Oppdater delingsparametre"
 
 msgid "Save"
-msgstr "Save"
+msgstr "Lagre"
 
 msgid "Visualization not accessible"
-msgstr "Visualization not accessible"
+msgstr "Visualiseringsobjekt er ikke tilgjengelig"
 
 msgid "viewed {{viewCount}} times"
-msgstr "viewed {{viewCount}} times"
+msgstr "vist {{viewCount}} ganger"
 
 msgid "last viewed: {{viewDate}}"
-msgstr "last viewed: {{viewDate}}"
+msgstr "sist vist: {{viewDate}}"
 
 msgid "Include all views in view count statistic"
-msgstr "Include all views in view count statistic"
+msgstr "Tell alle visninger i visningsantall statistikk"
 
 msgid "Limit view counts to a specified date range"
-msgstr "Limit view counts to a specified date range"
+msgstr "Begrens visningsantall til et bestemt datointervall"
 
 msgid "View count range"
 msgstr "View count range"
 
 msgid "Start date"
-msgstr "Start date"
+msgstr "Startdato"
 
 msgid "End date"
-msgstr "End date"
+msgstr "Sluttdato"
 
 msgid "Unable to load the plugin for this item"
-msgstr "Unable to load the plugin for this item"
+msgstr "Plugin for dette objektet kunne ikke lades"

@@ -268,19 +268,29 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
   const engine = useDataEngine();
   const [downloadURL, setDownloadURL] = useState(null);
   const allFilters = [
-    { prop: "name", displayName: "name", type: "text", count: 1 },
-    { prop: "view_count", displayName: "view count", type: "number", count: 2 },
-    { prop: "last_viewed", displayName: "last viewed", type: "date", count: 2 },
+    { prop: "name", displayName: i18n.t("name"), type: "text", count: 1 },
+    {
+      prop: "view_count",
+      displayName: i18n.t("view count"),
+      type: "number",
+      count: 2,
+    },
+    {
+      prop: "last_viewed",
+      displayName: i18n.t("last viewed"),
+      type: "date",
+      count: 2,
+    },
     {
       prop: "type",
-      displayName: "type",
+      displayName: i18n.t("type"),
       type: "enum",
       count: 1,
       allowedValues: [
-        { label: "chart", value: "chart" },
-        { label: "dashboard", value: "dashboard" },
-        { label: "map", value: "map" },
-        { label: "pivot", value: "pivot" },
+        { label: i18n.t("chart"), value: "chart" },
+        { label: i18n.t("dashboard"), value: "dashboard" },
+        { label: i18n.t("map"), value: "map" },
+        { label: i18n.t("pivot"), value: "pivot" },
       ],
     },
   ];
@@ -288,7 +298,7 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
   if (includeUser) {
     allFilters.push({
       prop: "owner",
-      displayName: "owner",
+      displayName: i18n.t("owner"),
       type: "textExpanded",
       count: 2,
     });
@@ -299,13 +309,13 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
   }, 0);
 
   const filterDefinitionOptions = {
-    text: [{ label: "contains", value: "contains" }],
+    text: [{ label: i18n.t("contains"), value: "contains" }],
     textExpanded: [
-      { label: "contains", value: "contains" },
-      { label: "is", value: "eq" },
-      { label: "is not", value: "neq" },
+      { label: i18n.t("contains"), value: "contains" },
+      { label: i18n.t("is"), value: "eq" },
+      { label: i18n.t("is not"), value: "neq" },
     ],
-    enum: [{ label: "is", value: "eq" }],
+    enum: [{ label: i18n.t("is"), value: "eq" }],
     number: [
       { label: ">", value: "gt" },
       { label: ">=", value: "gte" },
@@ -313,8 +323,8 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
       { label: "<=", value: "lte" },
     ],
     date: [
-      { label: "after", value: "gt" },
-      { label: "before", value: "lt" },
+      { label: i18n.t("after"), value: "gt" },
+      { label: i18n.t("before"), value: "lt" },
       { label: i18n.t("never"), value: "nev" },
     ],
   };
@@ -421,7 +431,7 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
               }}
               icon={<IconDownload16 />}
             >
-              Download results
+              {i18n.t("Download results")}
             </Button>
           </div>
         )}
