@@ -299,8 +299,8 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
     allFilters.push({
       prop: "owner",
       displayName: i18n.t("owner"),
-      type: "textExpanded",
-      count: 2,
+      type: "text",
+      count: 1,
     });
   }
 

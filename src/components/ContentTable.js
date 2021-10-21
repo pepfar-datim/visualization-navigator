@@ -80,6 +80,17 @@ const transformDataDashboard = (metadata, baseUrl, setText) => {
         </Button>
       );
     }
+    if (dItem.type.toLowerCase() === "app") {
+      dItem.item = (
+        <Button
+          onClick={() => {
+            window.open(`${baseUrl}/api/dashboardItems/${di.id}`, "_blank");
+          }}
+        >
+          {i18n.t("API details")}
+        </Button>
+      );
+    }
     dashboardItems.push(dItem);
   });
   return dashboardItems;

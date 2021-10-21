@@ -53,6 +53,7 @@ import {
   getOpenIcon,
   getOpenString,
   getFavLink,
+  getAPIDestination,
 } from "./visualizationTypes";
 
 const getMutationByType = ({ type, saveOperation }) => {
@@ -450,25 +451,12 @@ const ViewContentInner = ({ id, type }) => {
               <Button
                 icon={<CodeIcon />}
                 onClick={() => {
-                  switch (type) {
-                    case "map":
-                      window.open(
-                        `${engine.link.baseUrl}/api/maps/${id}`,
-                        "_blank"
-                      );
-                      break;
-                    case "dashboard":
-                      window.open(
-                        `${engine.link.baseUrl}/api/dashboards/${id}`,
-                        "_blank"
-                      );
-                      break;
-                    default:
-                      window.open(
-                        `${engine.link.baseUrl}/api/visualizations/${id}`,
-                        "_blank"
-                      );
-                  }
+                  window.open(
+                    `${engine.link.baseUrl}/api/${getAPIDestination(
+                      type
+                    )}/${id}`,
+                    "_blank"
+                  );
                 }}
               >
                 {i18n.t("Open in api")}

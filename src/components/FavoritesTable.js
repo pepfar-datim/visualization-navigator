@@ -22,31 +22,21 @@ import {
 import PropTypes from "prop-types";
 import React, { createRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { appConfig } from "../app.config.js";
 import CodeIcon from "./CodeIcon";
 import ConfirmAllSharing from "./ConfirmAllSharing";
 import {
-  MAP,
   DASHBOARD,
   determineType,
   getOpenIcon,
   getOpenString,
   getFavLink,
+  getAPIDestination,
 } from "./visualizationTypes";
 
 // update this logic
 const determineSharing = (type) => {
   return type.toLowerCase();
-};
-
-const getAPIDestination = (type) => {
-  switch (type) {
-    case MAP:
-      return "maps";
-    case DASHBOARD:
-      return "dashboards";
-    default:
-      return "visualizations";
-  }
 };
 
 const FavoritesMoreMenu = ({
@@ -176,6 +166,7 @@ const FavoritesRow = ({
   updateIndividualChecked,
   toggleSharingDialog,
   sharingDialogOpen,
+  type,
 }) => {
   const [moreMenuOpen, setMoreMenuOpen] = useState(false);
 
@@ -189,10 +180,10 @@ const FavoritesRow = ({
     <TableRow>
       <>
         <TableCell key={`check_${id}`}>
-          {dataRow[4] !== DASHBOARD && (
+          {type !== DASHBOARD && (
             <Checkbox
               checked={checked}
-              onChange={() => updateIndividualChecked(id, dataRow[4])}
+              onChange={() => updateIndividualChecked(id, type)}
             />
           )}
         </TableCell>
@@ -212,8 +203,8 @@ const FavoritesRow = ({
           {moreMenuOpen && !sharingDialogOpen.open && (
             <FavoritesMoreMenu
               id={id}
-              name={dataRow[1]}
-              type={determineType(dataRow[4])}
+              name={dataRow[appConfig.sqlQueryNameIndex]}
+              type={type}
               allShareOption={checked && multipleCheckedItems}
               moreButtonRef={moreButtonRef}
               toggleMoreMenu={toggleMoreMenu}
@@ -234,6 +225,7 @@ FavoritesRow.propTypes = {
   multipleCheckedItems: PropTypes.bool,
   sharingDialogOpen: PropTypes.object,
   toggleSharingDialog: PropTypes.func,
+  type: PropTypes.string,
   updateIndividualChecked: PropTypes.func,
 };
 
@@ -244,6 +236,7 @@ const headerNames = {
   date: i18n.t("date"),
   type: i18n.t("type"),
   user: i18n.t("user"),
+  username: i18n.t("username"),
 };
 
 const FavoritesTable = ({ data }) => {
@@ -320,15 +313,18 @@ const FavoritesTable = ({ data }) => {
           <TableBody>
             {data.rows.map((dRow) => (
               <FavoritesRow
-                key={`FavoritesRow_${dRow[0]}`}
+                key={`FavoritesRow_${dRow[appConfig.sqlQueryUIDIndex]}`}
                 headers={data.headers.slice(1)}
-                id={dRow[0]}
+                id={dRow[appConfig.sqlQueryUIDIndex]}
                 dataRow={dRow}
-                checked={checkedItems.map((el) => el.uid).includes(dRow[0])}
+                checked={checkedItems
+                  .map((el) => el.uid)
+                  .includes(dRow[appConfig.sqlQueryUIDIndex])}
                 multipleCheckedItems={checkedItems.length > 1}
                 updateIndividualChecked={updateIndividualChecked}
                 toggleSharingDialog={toggleSharingDialog}
                 sharingDialogOpen={sharingDialogOpen}
+                type={determineType(dRow[appConfig.sqlQueryTypeIndex])}
               />
             ))}
           </TableBody>

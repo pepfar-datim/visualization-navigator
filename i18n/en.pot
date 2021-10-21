@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-20T15:42:50.975Z\n"
-"PO-Revision-Date: 2021-10-20T15:42:50.975Z\n"
+"POT-Creation-Date: 2021-10-21T18:45:32.312Z\n"
+"PO-Revision-Date: 2021-10-21T18:45:32.312Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -36,6 +36,9 @@ msgstr "Open details"
 msgid "Display text"
 msgstr "Display text"
 
+msgid "API details"
+msgstr "API details"
+
 msgid "Data Element"
 msgstr "Data Element"
 
@@ -50,15 +53,6 @@ msgstr "Dashboard items"
 
 msgid "Dimensions"
 msgstr "Dimensions"
-
-msgid "Open in maps"
-msgstr "Open in maps"
-
-msgid "Open as dashboard"
-msgstr "Open as dashboard"
-
-msgid "Open in visualizer"
-msgstr "Open in visualizer"
 
 msgid "Show details"
 msgstr "Show details"
@@ -86,6 +80,9 @@ msgstr "type"
 
 msgid "user"
 msgstr "user"
+
+msgid "username"
+msgstr "username"
 
 msgid "Filter"
 msgstr "Filter"
@@ -206,6 +203,15 @@ msgstr "Start date"
 
 msgid "End date"
 msgstr "End date"
+
+msgid "Open in maps"
+msgstr "Open in maps"
+
+msgid "Open as dashboard"
+msgstr "Open as dashboard"
+
+msgid "Open in visualizer"
+msgstr "Open in visualizer"
 
 msgid "Unable to load the plugin for this item"
 msgstr "Unable to load the plugin for this item"

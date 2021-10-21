@@ -55,3 +55,14 @@ export const getFavLink = (type, baseUrl, id) => {
       return `${baseUrl}/dhis-web-data-visualizer/index.html#/${id}`;
   }
 };
+
+export const getAPIDestination = (type) => {
+  switch (type) {
+    case MAP:
+      return "maps";
+    case DASHBOARD:
+      return "dashboards";
+    default:
+      return "visualizations";
+  }
+};
