@@ -5,14 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-21T18:45:32.312Z\n"
-"PO-Revision-Date: 2021-10-21T18:45:32.312Z\n"
+"POT-Creation-Date: 2021-10-22T18:39:09.547Z\n"
+"PO-Revision-Date: 2021-10-22T18:39:09.547Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
 
 msgid "Sharing updated"
 msgstr "Sharing updated"
+
+msgid "Sharing could not be updated: {{errorMsg}}"
+msgstr "Sharing could not be updated: {{errorMsg}}"
 
 msgid "Apply updated sharing to all selected items?"
 msgstr "Apply updated sharing to all selected items?"
@@ -132,11 +135,42 @@ msgstr "Execute search"
 msgid "Download results"
 msgstr "Download results"
 
+msgid ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
+msgstr ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
+
 msgid "Search visualization items"
 msgstr "Search visualization items"
 
 msgid "Could not execute search"
 msgstr "Could not execute search"
+
+msgid "Include all views in view count statistic"
+msgstr "Include all views in view count statistic"
+
+msgid "Limit view counts to a specified date range"
+msgstr "Limit view counts to a specified date range"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Search result limit"
+msgstr "Search result limit"
+
+msgid "ALL"
+msgstr "ALL"
+
+msgid "View count range"
+msgstr "View count range"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
 
 msgid "Close"
 msgstr "Close"
@@ -188,21 +222,6 @@ msgstr "viewed {{viewCount}} times"
 
 msgid "last viewed: {{viewDate}}"
 msgstr "last viewed: {{viewDate}}"
-
-msgid "Include all views in view count statistic"
-msgstr "Include all views in view count statistic"
-
-msgid "Limit view counts to a specified date range"
-msgstr "Limit view counts to a specified date range"
-
-msgid "View count range"
-msgstr "View count range"
-
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
 
 msgid "Open in maps"
 msgstr "Open in maps"

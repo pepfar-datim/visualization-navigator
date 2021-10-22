@@ -11,14 +11,6 @@ import {
 import PropTypes from "prop-types";
 import React from "react";
 
-// move this to common
-const determineType = (type) => {
-  if (type === "chart" || type === "pivot") {
-    return "visualization";
-  }
-  return type;
-};
-
 const sharingQuery = {
   sharingInfo: {
     resource: "sharing",
@@ -55,7 +47,7 @@ const ConfirmAllSharing = ({ onClose, id, name, type, checkedItems }) => {
   const updateAllSharing = async ({ engine, id, checkedItems }) => {
     try {
       const sharingResp = await engine.query(sharingQuery, {
-        variables: { id, type: determineType(type) },
+        variables: { id, type: type.toLowerCase() },
       });
       console.log(checkedItems);
       await Promise.all(
@@ -63,7 +55,7 @@ const ConfirmAllSharing = ({ onClose, id, name, type, checkedItems }) => {
           engine.mutate(mutation, {
             variables: {
               id: checkedItem.uid,
-              type: determineType(checkedItem.type),
+              type: type.toLowerCase(),
               sharing: { object: sharingResp.sharingInfo.object },
             },
           })
@@ -74,6 +66,8 @@ const ConfirmAllSharing = ({ onClose, id, name, type, checkedItems }) => {
       showError(
         i18n.t("Sharing could not be updated: {{errorMsg}}", {
           errorMsg: e.message,
+          keySeparator: ">",
+          nsSeparator: "|",
         })
       );
     }

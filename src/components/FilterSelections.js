@@ -173,7 +173,7 @@ Filter.propTypes = {
   updateFilter: PropTypes.func,
 };
 
-const parameterizeVariables = ({ filters, viewCountRange }) => {
+const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
   // rethink approach this to make more generalizable
   const variables = {
     favName: "_",
@@ -186,6 +186,7 @@ const parameterizeVariables = ({ filters, viewCountRange }) => {
     visTypes: "_",
     dseLower: "1969-01-01",
     dseUpper: "2100-01-01",
+    limitCount: 100,
   };
 
   const variableNameMap = {
@@ -210,6 +211,11 @@ const parameterizeVariables = ({ filters, viewCountRange }) => {
       eq: "visTypes",
     },
   };
+
+  variables.limitCount = countLimit;
+  if (countLimit !== "ALL") {
+    variables.limitCount = parseInt(countLimit);
+  }
 
   const neverPresent =
     filters.filter((f) => {
@@ -264,7 +270,7 @@ const parameterizeVariables = ({ filters, viewCountRange }) => {
   }, []);
 };
 
-const FilterSelections = ({ fetchData, viewCountRange }) => {
+const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
   const engine = useDataEngine();
   const [downloadURL, setDownloadURL] = useState(null);
   const allFilters = [
@@ -408,6 +414,7 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
               const variableString = parameterizeVariables({
                 filters,
                 viewCountRange,
+                countLimit,
               });
               setDownloadURL(
                 `${engine.link.baseUrl}/${engine.link.apiPath}/sqlViews/${
@@ -452,6 +459,7 @@ const FilterSelections = ({ fetchData, viewCountRange }) => {
 };
 
 FilterSelections.propTypes = {
+  countLimit: PropTypes.string,
   fetchData: PropTypes.function,
   viewCountRange: PropTypes.obj,
 };

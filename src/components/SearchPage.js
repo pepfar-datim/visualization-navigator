@@ -1,11 +1,48 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import { Button, CircularLoader, IconSettings24 } from "@dhis2/ui";
+import {
+  Button,
+  CircularLoader,
+  IconSettings24,
+  IconWarning24,
+} from "@dhis2/ui";
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { sqlQuery } from "../queries/queries";
 import FavoritesTable from "./FavoritesTable";
 import FilterSelections from "./FilterSelections";
-import ViewCountRangeModal from "./ViewCountRangeModal";
+import SettingsModal from "./SettingsModal";
+
+const WarningMessage = ({ countLimitUsed }) => (
+  <>
+    <div className="warningMessage">
+      <IconWarning24 />
+      <span>
+        {i18n.t(
+          "Limited to {{limit}} results. Refine search or update settings to see all matching results.",
+          {
+            limit: countLimitUsed,
+          }
+        )}
+      </span>
+    </div>
+    <style jsx>{`
+      .warningMessage {
+        color: var(--colors-yellow700);
+        display: flex;
+        align-items: center;
+        margin: var(--spacers-dp16) 0 var(--spacers-dp8) 0;
+      }
+      .warningMessage span {
+        margin-left: var(--spacers-dp8);
+      }
+    `}</style>
+  </>
+);
+
+WarningMessage.propTypes = {
+  countLimitUsed: PropTypes.string,
+};
 
 const SearchPage = () => {
   const [viewCountRange, setViewCountRange] = useState({
@@ -13,9 +50,15 @@ const SearchPage = () => {
     startDate: null,
     endDate: null,
   });
-  const [viewCountRangeModalOpen, setViewCountRangeModalOpen] = useState(false);
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+  const [countLimit, setCountLimit] = useState("100");
+  const [countLimitUsed, setCountLimitUsed] = useState("100");
   const { data, loading, error, refetch } = useDataQuery(sqlQuery, {
     lazy: true,
+    onComplete: () => {
+      setCountLimitUsed(countLimit);
+      console.log("and hi again!");
+    },
   });
 
   const updateViewCountRange = (newObj) => {
@@ -24,11 +67,13 @@ const SearchPage = () => {
 
   return (
     <>
-      {viewCountRangeModalOpen && (
-        <ViewCountRangeModal
+      {settingsModalOpen && (
+        <SettingsModal
           viewCountRange={viewCountRange}
           updateViewCountRange={updateViewCountRange}
-          setViewCountRangeModalOpen={setViewCountRangeModalOpen}
+          setSettingsModalOpen={setSettingsModalOpen}
+          countLimit={countLimit}
+          setCountLimit={setCountLimit}
         />
       )}
       <div className="containerSearch">
@@ -36,21 +81,20 @@ const SearchPage = () => {
           <span className="titleText">
             {i18n.t("Search visualization items")}
           </span>
-          {true === false && (
-            <div className="rightButton">
-              <Button
-                onClick={() => {
-                  setViewCountRangeModalOpen(true);
-                }}
-                icon={<IconSettings24 />}
-              />
-            </div>
-          )}
+          <div className="rightButton">
+            <Button
+              onClick={() => {
+                setSettingsModalOpen(true);
+              }}
+              icon={<IconSettings24 />}
+            />
+          </div>
         </div>
         {refetch && (
           <FilterSelections
             viewCountRange={viewCountRange}
             fetchData={refetch}
+            countLimit={countLimit}
           />
         )}
         {loading && (
@@ -63,7 +107,15 @@ const SearchPage = () => {
             <h2>{i18n.t("Could not execute search")}</h2>
           </div>
         )}
-        {data && <FavoritesTable data={data.sqlData.listGrid} />}
+        {data && (
+          <>
+            {(data.sqlData.listGrid?.rows?.length || 0) ===
+              parseInt(countLimitUsed) && (
+              <WarningMessage countLimitUsed={countLimitUsed} />
+            )}
+            <FavoritesTable data={data.sqlData.listGrid} />
+          </>
+        )}
       </div>
       <style jsx>
         {`
