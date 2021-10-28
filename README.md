@@ -1,3 +1,11 @@
+=======
+
+# visualization-navigator
+
+**Repo Owner:** Ben Guaraldi [@benguaraldi](https://github.com/benguaraldi)
+
+=======
+
 This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
 
 ## Available Scripts
