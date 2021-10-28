@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-22T18:39:09.547Z\n"
-"PO-Revision-Date: 2021-10-22T18:39:09.547Z\n"
+"POT-Creation-Date: 2021-10-28T14:32:04.586Z\n"
+"PO-Revision-Date: 2021-10-28T14:32:04.586Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -135,18 +135,18 @@ msgstr "Execute search"
 msgid "Download results"
 msgstr "Download results"
 
+msgid "Search visualization items"
+msgstr "Search visualization items"
+
+msgid "Could not execute search"
+msgstr "Could not execute search"
+
 msgid ""
 "Limited to {{limit}} results. Refine search or update settings to see all "
 "matching results."
 msgstr ""
 "Limited to {{limit}} results. Refine search or update settings to see all "
 "matching results."
-
-msgid "Search visualization items"
-msgstr "Search visualization items"
-
-msgid "Could not execute search"
-msgstr "Could not execute search"
 
 msgid "Include all views in view count statistic"
 msgstr "Include all views in view count statistic"

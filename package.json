@@ -1,6 +1,7 @@
 {
   "name": "visualization-navigator",
   "version": "1.0.0",
+  "author": "PEPFAR",
   "description": "",
   "license": "BSD-3-Clause",
   "private": true,
