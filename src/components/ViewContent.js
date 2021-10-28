@@ -108,7 +108,7 @@ const PluginWrapper = ({ type, id, metadata }) => (
 
 PluginWrapper.propTypes = {
   id: PropTypes.string,
-  metadata: PropTypes.obj,
+  metadata: PropTypes.object,
   type: PropTypes.string,
 };
 
@@ -289,7 +289,7 @@ const ItemDetails = ({
                     {sharingInfo && (
                       <div className="flexContainer">
                         <div className="inputField">
-                          <p>
+                          <p className="sharingSpan">
                             {i18n.t(
                               "Shared with {{userGroupCounts}} user groups and {{userCount}} users",
                               {
@@ -374,12 +374,15 @@ const ItemDetails = ({
             font-size: 16px;
             display: block;
             height: 20px;
-            margin: 8px;
+            margin: var(--spacers-dp8);
           }
           .inputField {
             min-width: 500px;
             margin: var(--spacers-dp16) var(--spacers-dp16) 0
               var(--spacers-dp16);
+          }
+          .sharingSpan {
+            margin-bottom: var(--spacers-dp8);
           }
         `}
       </style>
@@ -433,7 +436,9 @@ const ViewContentInner = ({ id, type }) => {
                 window.location.href = "#";
               }}
             />
-            <h2>{visName}</h2>
+            <div className="visTitle">
+              <span>{visName}</span>
+            </div>
             <div>
               <Button
                 icon={getOpenIcon(type)}
@@ -504,6 +509,13 @@ const ViewContentInner = ({ id, type }) => {
           }
           .viewHeader * {
             padding-left: var(--spacers-dp16);
+          }
+          .visTitle {
+            max-width: 300px;
+          }
+          .visTitle span {
+            padding-left: 0;
+            font-size: 1.2em;
           }
         `}
       </style>

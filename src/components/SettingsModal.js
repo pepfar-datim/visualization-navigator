@@ -52,7 +52,7 @@ const RadioOptions = ({ viewCountRange, updateViewCountRange }) => (
 
 RadioOptions.propTypes = {
   updateViewCountRange: PropTypes.func,
-  viewCountRange: PropTypes.obj,
+  viewCountRange: PropTypes.object,
 };
 
 const SettingsModal = ({
@@ -164,10 +164,10 @@ const SettingsModal = ({
 
 SettingsModal.propTypes = {
   countLimit: PropTypes.string,
-  setCountLimit: PropTypes.string,
+  setCountLimit: PropTypes.func,
   setSettingsModalOpen: PropTypes.func,
   updateViewCountRange: PropTypes.func,
-  viewCountRange: PropTypes.obj,
+  viewCountRange: PropTypes.object,
 };
 
 export default SettingsModal;

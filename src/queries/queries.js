@@ -5,6 +5,7 @@ export const sqlQuery = {
     params: ({ queryVariables }) => ({
       var: queryVariables,
       paging: false,
+      fields: ["listGrid"],
     }),
   },
 };

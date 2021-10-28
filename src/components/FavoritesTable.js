@@ -21,7 +21,6 @@ import {
 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { createRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { appConfig } from "../app.config.js";
 import CodeIcon from "./CodeIcon";
 import ConfirmAllSharing from "./ConfirmAllSharing";
@@ -61,13 +60,16 @@ const FavoritesMoreMenu = ({
         >
           <div>
             <Menu>
-              <Link to={`/view/${id}`} target="_blank">
-                <MenuItem
-                  icon={<IconInfo16 />}
-                  dense
-                  label={i18n.t("Show details")}
-                />
-              </Link>
+              <MenuItem
+                icon={<IconInfo16 />}
+                dense
+                label={i18n.t("Show details")}
+                onClick={() => {
+                  toggleMoreMenu();
+
+                  window.open(`#/view/${id}`, "_blank");
+                }}
+              />
               {type !== DASHBOARD && (
                 <>
                   <MenuItem
@@ -135,14 +137,6 @@ const FavoritesMoreMenu = ({
           </div>
         </Popover>
       </div>
-      <style jsx>
-        {`
-          .menuContainer {
-            color: red;
-            background-color: green;
-          }
-        `}
-      </style>
     </>
   );
 };
@@ -150,7 +144,7 @@ const FavoritesMoreMenu = ({
 FavoritesMoreMenu.propTypes = {
   allShareOption: PropTypes.bool,
   id: PropTypes.string,
-  moreButtonRef: PropTypes.obj,
+  moreButtonRef: PropTypes.object,
   name: PropTypes.string,
   toggleMoreMenu: PropTypes.func,
   toggleSharingDialog: PropTypes.func,

@@ -86,34 +86,36 @@ const Filter = ({
   return (
     <>
       <div className="filterButtons">
-        <SingleSelectField
-          label={i18n.t("Filter")}
-          className="select"
-          selected={filterInfo.prop}
-          onChange={(e) => {
-            updateFilter({
-              uid: filterInfo.id,
-              object: {
-                ...filterInfo,
-                text: "",
-                prop: e.selected,
-                filterDefinitionOption: filterMap[e.selected].options[0].value,
-              },
-            });
-          }}
-        >
-          {availableFilters.map((f) => (
-            <SingleSelectOption
-              key={`filtProp_${filterInfo.id}_${f.prop}`}
-              label={f.displayName}
-              value={f.prop}
-            />
-          ))}
-        </SingleSelectField>
+        <div className="selectWrapper">
+          <SingleSelectField
+            label={i18n.t("Filter")}
+            selected={filterInfo.prop || ""}
+            onChange={(e) => {
+              updateFilter({
+                uid: filterInfo.id,
+                object: {
+                  ...filterInfo,
+                  text: "",
+                  prop: e.selected,
+                  filterDefinitionOption:
+                    filterMap[e.selected].options[0].value,
+                },
+              });
+            }}
+          >
+            {availableFilters.map((f) => (
+              <SingleSelectOption
+                key={`filtProp_${filterInfo.id}_${f.prop}`}
+                label={f.displayName}
+                value={f.prop}
+              />
+            ))}
+          </SingleSelectField>
+        </div>
         {filterInfo.prop && (
           <>
             <SingleSelectField
-              selected={filterInfo.filterDefinitionOption}
+              selected={filterInfo.filterDefinitionOption || ""}
               disabled={filterMap[filterInfo.prop].options.length === 1}
               onChange={({ selected }) => {
                 updateFilter({
@@ -138,7 +140,7 @@ const Filter = ({
           </>
         )}
 
-        <div className="deleteContainer">
+        <div>
           <Button
             icon={<IconDelete16 />}
             onClick={() => deleteFilter(filterInfo.id)}
@@ -150,14 +152,10 @@ const Filter = ({
           .filterButtons {
             display: flex;
             align-items: flex-end;
-            margin-top: 8px;
+            margin-top: var(--spacers-dp8);
           }
-          .viewCountRange {
-            display: flex;
-            align-items: flex-end;
-            margin: 8px 0px 0px 16px;
-          }
-          .deleteContainer {
+          .selectWrapper {
+            min-width: 160px;
           }
         `}
       </style>
@@ -447,7 +445,7 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
         {`
           .filterControls {
             display: flex;
-            margin-top: 16px;
+            margin-top: var(--spacers-dp16);
           }
           .rightButton {
             margin-left: auto;
@@ -460,8 +458,8 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
 
 FilterSelections.propTypes = {
   countLimit: PropTypes.string,
-  fetchData: PropTypes.function,
-  viewCountRange: PropTypes.obj,
+  fetchData: PropTypes.func,
+  viewCountRange: PropTypes.object,
 };
 
 export default FilterSelections;

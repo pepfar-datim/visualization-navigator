@@ -1,11 +1,6 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import {
-  Button,
-  CircularLoader,
-  IconSettings24,
-  IconWarning24,
-} from "@dhis2/ui";
+import { Button, CircularLoader, IconSettings24, IconInfo24 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { sqlQuery } from "../queries/queries";
@@ -16,7 +11,7 @@ import SettingsModal from "./SettingsModal";
 const WarningMessage = ({ countLimitUsed }) => (
   <>
     <div className="warningMessage">
-      <IconWarning24 />
+      <IconInfo24 />
       <span>
         {i18n.t(
           "Limited to {{limit}} results. Refine search or update settings to see all matching results.",
@@ -28,7 +23,7 @@ const WarningMessage = ({ countLimitUsed }) => (
     </div>
     <style jsx>{`
       .warningMessage {
-        color: var(--colors-yellow700);
+        color: var(--colors-blue700);
         display: flex;
         align-items: center;
         margin: var(--spacers-dp16) 0 var(--spacers-dp8) 0;
@@ -57,7 +52,6 @@ const SearchPage = () => {
     lazy: true,
     onComplete: () => {
       setCountLimitUsed(countLimit);
-      console.log("and hi again!");
     },
   });
 
@@ -90,7 +84,7 @@ const SearchPage = () => {
             />
           </div>
         </div>
-        {refetch && (
+        {refetch && viewCountRange && (
           <FilterSelections
             viewCountRange={viewCountRange}
             fetchData={refetch}

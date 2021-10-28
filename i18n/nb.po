@@ -102,7 +102,7 @@ msgid "pivot"
 msgstr "pivot"
 
 msgid "owner"
-msgstr "eieren"
+msgstr "eier"
 
 msgid "contains"
 msgstr "inneholder"
@@ -130,6 +130,12 @@ msgstr "Gjennomfør spørringen"
 
 msgid "Download results"
 msgstr "Last ned resultater"
+
+msgid ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
+msgstr ""
+"Begrenset til {{limit}} resultater. Avgrens søknaden eller oppdater instillinger for å se alle relevante resultater."
 
 msgid "Search visualization items"
 msgstr "Søk i visualiseringsobjekter"
@@ -168,7 +174,7 @@ msgid "Name"
 msgstr "Navn"
 
 msgid "Owner"
-msgstr "Eieren"
+msgstr "Eier"
 
 msgid "Shared with {{userGroupCounts}} user groups and {{userCount}} users"
 msgstr "Delt med {{userGroupCounts}} brukergrupper og {{userCount}} brukere"
@@ -194,8 +200,14 @@ msgstr "Tell alle visninger i visningsantall statistikk"
 msgid "Limit view counts to a specified date range"
 msgstr "Begrens visningsantall til et bestemt datointervall"
 
+msgid "Settings"
+msgstr "Instillinger"
+
+msgid "Search result limit"
+msgstr "Antall søknadsresultater"
+
 msgid "View count range"
-msgstr "View count range"
+msgstr "Datointervall for visningsantall"
 
 msgid "Start date"
 msgstr "Startdato"

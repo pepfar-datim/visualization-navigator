@@ -12,7 +12,7 @@ lastviewdate as (
 ),
 consolidated as (
 
-select d.uid,d.name,d.count as view_count,  to_char(vd.date,'YYYY-MM-DD') as date,
+select d.uid,d.name,d.count as view_count, to_char(vd.date,'YYYY-MM-DD') as date,
  	'dashboard' as type
 	from (select ch.*, case when viewc.count is null then 0 else viewc.count end as count from dashboard ch left join viewcount viewc on ch.uid=viewc.uid) d
 	
@@ -26,7 +26,7 @@ select d.uid,d.name,d.count as view_count,  to_char(vd.date,'YYYY-MM-DD') as dat
 
 UNION
 
-select m.uid,m.name,m.count as view_count,  to_char(vd.date,'YYYY-MM-DD') as date,
+select m.uid,m.name,m.count as view_count, to_char(vd.date,'YYYY-MM-DD') as date,
  	'map' as type
 	from (select ch.*, case when viewc.count is null then 0 else viewc.count end as count from map ch left join viewcount viewc on ch.uid=viewc.uid) m
 	
@@ -40,7 +40,7 @@ select m.uid,m.name,m.count as view_count,  to_char(vd.date,'YYYY-MM-DD') as dat
 
 UNION
 
-select c.uid,c.name,c.count as view_count,  to_char(vd.date,'YYYY-MM-DD') as date,
+select c.uid,c.name,c.count as view_count, to_char(vd.date,'YYYY-MM-DD') as date,
  	case when c.type = 'PIVOT_TABLE' then 'pivot' else 'chart' end as type
 	from (select ch.*, case when viewc.count is null then 0 else viewc.count end as count from visualization ch left join viewcount viewc on ch.uid=viewc.uid) c
 	
@@ -53,4 +53,5 @@ select c.uid,c.name,c.count as view_count,  to_char(vd.date,'YYYY-MM-DD') as dat
 	and (vd.date > '${minDate}' and vd.date < '${maxDate}' or (1=${retrieveNevers} and vd.date is null))
 )
 
-select * from consolidated where type like '%${visTypes}%' order by name;
+select * from consolidated where type like '%${visTypes}%' order by name
+limit ${limitCount};
