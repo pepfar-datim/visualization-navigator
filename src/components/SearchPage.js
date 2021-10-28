@@ -1,6 +1,12 @@
 import { useDataQuery } from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
-import { Button, CircularLoader, IconSettings24, IconInfo24 } from "@dhis2/ui";
+import {
+  Button,
+  CircularLoader,
+  IconSettings24,
+  IconInfo24,
+  IconWarning24,
+} from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { sqlQuery } from "../queries/queries";
@@ -8,35 +14,37 @@ import FavoritesTable from "./FavoritesTable";
 import FilterSelections from "./FilterSelections";
 import SettingsModal from "./SettingsModal";
 
-const WarningMessage = ({ countLimitUsed }) => (
+const WarningMessage = ({ messageText, infoMessage }) => (
   <>
-    <div className="warningMessage">
-      <IconInfo24 />
-      <span>
-        {i18n.t(
-          "Limited to {{limit}} results. Refine search or update settings to see all matching results.",
-          {
-            limit: countLimitUsed,
-          }
-        )}
-      </span>
+    <div className={infoMessage ? "infoMessage" : "warningMessage"}>
+      {infoMessage && <IconInfo24 />}
+      {!infoMessage && <IconWarning24 />}
+      <span>{messageText}</span>
     </div>
     <style jsx>{`
-      .warningMessage {
-        color: var(--colors-blue700);
+      .warningMessage,
+      .infoMessage {
         display: flex;
         align-items: center;
         margin: var(--spacers-dp16) 0 var(--spacers-dp8) 0;
       }
-      .warningMessage span {
+      .warningMessage span,
+      .infoMessage span {
         margin-left: var(--spacers-dp8);
+      }
+      .infoMessage {
+        color: var(--colors-blue700);
+      }
+      .warningMessage {
+        color: var(--colors-yellow700);
       }
     `}</style>
   </>
 );
 
 WarningMessage.propTypes = {
-  countLimitUsed: PropTypes.string,
+  infoMessage: PropTypes.bool,
+  messageText: PropTypes.string,
 };
 
 const SearchPage = () => {
@@ -98,14 +106,25 @@ const SearchPage = () => {
         )}
         {error && (
           <div className="statusContainer">
-            <h2>{i18n.t("Could not execute search")}</h2>
+            <WarningMessage
+              messageText={i18n.t("Could not execute search")}
+              infoMessage={false}
+            />
           </div>
         )}
         {data && (
           <>
             {(data.sqlData.listGrid?.rows?.length || 0) ===
               parseInt(countLimitUsed) && (
-              <WarningMessage countLimitUsed={countLimitUsed} />
+              <WarningMessage
+                messageText={i18n.t(
+                  "Limited to {{limit}} results. Refine search or update settings to see all matching results.",
+                  {
+                    limit: countLimitUsed,
+                  }
+                )}
+                infoMessage={true}
+              />
             )}
             <FavoritesTable data={data.sqlData.listGrid} />
           </>
