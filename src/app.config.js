@@ -1,4 +1,4 @@
-export const includeUser = true;
+export const includeUser = false;
 
 export const appConfig = {
   sqlQuery: includeUser ? "f7PbltszOTn" : "HVy4XTeblkj",
