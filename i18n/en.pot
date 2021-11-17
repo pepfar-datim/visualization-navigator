@@ -1,0 +1,236 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2021-10-28T14:32:04.586Z\n"
+"PO-Revision-Date: 2021-10-28T14:32:04.586Z\n"
+
+msgid "App encountered errors on d2 initialization"
+msgstr "App encountered errors on d2 initialization"
+
+msgid "Sharing updated"
+msgstr "Sharing updated"
+
+msgid "Sharing could not be updated: {{errorMsg}}"
+msgstr "Sharing could not be updated: {{errorMsg}}"
+
+msgid "Apply updated sharing to all selected items?"
+msgstr "Apply updated sharing to all selected items?"
+
+msgid ""
+"If you do not wish to apply these updated sharing settings to other "
+"selected items, click cancel."
+msgstr ""
+"If you do not wish to apply these updated sharing settings to other "
+"selected items, click cancel."
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Open details"
+msgstr "Open details"
+
+msgid "Display text"
+msgstr "Display text"
+
+msgid "API details"
+msgstr "API details"
+
+msgid "Data Element"
+msgstr "Data Element"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Reporting Rate"
+msgstr "Reporting Rate"
+
+msgid "Dashboard items"
+msgstr "Dashboard items"
+
+msgid "Dimensions"
+msgstr "Dimensions"
+
+msgid "Show details"
+msgstr "Show details"
+
+msgid "Update sharing (this item)"
+msgstr "Update sharing (this item)"
+
+msgid "Update sharing (all selected items)"
+msgstr "Update sharing (all selected items)"
+
+msgid "Open in api"
+msgstr "Open in api"
+
+msgid "name"
+msgstr "name"
+
+msgid "view count"
+msgstr "view count"
+
+msgid "date"
+msgstr "date"
+
+msgid "type"
+msgstr "type"
+
+msgid "user"
+msgstr "user"
+
+msgid "username"
+msgstr "username"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "last viewed"
+msgstr "last viewed"
+
+msgid "chart"
+msgstr "chart"
+
+msgid "dashboard"
+msgstr "dashboard"
+
+msgid "map"
+msgstr "map"
+
+msgid "pivot"
+msgstr "pivot"
+
+msgid "owner"
+msgstr "owner"
+
+msgid "contains"
+msgstr "contains"
+
+msgid "is"
+msgstr "is"
+
+msgid "is not"
+msgstr "is not"
+
+msgid "after"
+msgstr "after"
+
+msgid "before"
+msgstr "before"
+
+msgid "never"
+msgstr "never"
+
+msgid "Add filter"
+msgstr "Add filter"
+
+msgid "Execute search"
+msgstr "Execute search"
+
+msgid "Download results"
+msgstr "Download results"
+
+msgid "Search visualization items"
+msgstr "Search visualization items"
+
+msgid "Could not execute search"
+msgstr "Could not execute search"
+
+msgid ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
+msgstr ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
+
+msgid "Include all views in view count statistic"
+msgstr "Include all views in view count statistic"
+
+msgid "Limit view counts to a specified date range"
+msgstr "Limit view counts to a specified date range"
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Search result limit"
+msgstr "Search result limit"
+
+msgid "ALL"
+msgstr "ALL"
+
+msgid "View count range"
+msgstr "View count range"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "{{favoriteName}} has been deleted"
+msgstr "{{favoriteName}} has been deleted"
+
+msgid "Could not delete"
+msgstr "Could not delete"
+
+msgid "Save successful"
+msgstr "Save successful"
+
+msgid "Could not save"
+msgstr "Could not save"
+
+msgid "Confirm delete of {{name}}"
+msgstr "Confirm delete of {{name}}"
+
+msgid "You will not be able to undo this action. Click delete to confirm."
+msgstr "You will not be able to undo this action. Click delete to confirm."
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Delete in progress"
+msgstr "Delete in progress"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Owner"
+msgstr "Owner"
+
+msgid "Shared with {{userGroupCounts}} user groups and {{userCount}} users"
+msgstr "Shared with {{userGroupCounts}} user groups and {{userCount}} users"
+
+msgid "Update sharing"
+msgstr "Update sharing"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Visualization not accessible"
+msgstr "Visualization not accessible"
+
+msgid "viewed {{viewCount}} times"
+msgstr "viewed {{viewCount}} times"
+
+msgid "last viewed: {{viewDate}}"
+msgstr "last viewed: {{viewDate}}"
+
+msgid "Open in maps"
+msgstr "Open in maps"
+
+msgid "Open as dashboard"
+msgstr "Open as dashboard"
+
+msgid "Open in visualizer"
+msgstr "Open in visualizer"
+
+msgid "Unable to load the plugin for this item"
+msgstr "Unable to load the plugin for this item"
