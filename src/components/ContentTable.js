@@ -25,19 +25,31 @@ const transformFromCamelCase = (camelString) => {
   return normalStrings.join(" ");
 };
 
-const extractDataDimensions = ({ dimMetadata, groupSet, dimGroups, type }) => {
-  const extractedDimensions = [];
-  dimMetadata.forEach((dimSet) => {
-    dimSet[dimGroups].forEach((dimGroup) => {
-      extractedDimensions.push({
-        type,
-        name: dimSet[groupSet].name,
-        item: dimGroup.name,
-        uid: dimGroup.id,
+const extractDataDimensionsGenerator = (getPosition) => {
+  const extractDataDimensions = ({
+    dimMetadata,
+    groupSet,
+    dimGroups,
+    type,
+  }) => {
+    const extractedDimensions = [];
+    dimMetadata.forEach((dimSet) => {
+      dimSet[dimGroups].forEach((dimGroup) => {
+        extractedDimensions.push({
+          type,
+          name: dimSet[groupSet].name,
+          item: dimGroup.name,
+          uid: dimGroup.id,
+          position: getPosition({
+            id: dimSet[groupSet].id,
+            dimensionType: "dx",
+          }),
+        });
       });
     });
-  });
-  return extractedDimensions;
+    return extractedDimensions;
+  };
+  return extractDataDimensions;
 };
 
 const transformData = ({ metadata, type, baseUrl, setText }) => {
@@ -96,7 +108,44 @@ const transformDataDashboard = (metadata, baseUrl, setText) => {
   return dashboardItems;
 };
 
+const getPositionGenerator = ({ rows, columns, filterDims, isPivot }) => {
+  const getPosition = ({ id, dimensionType }) => {
+    if (rows.includes(id)) {
+      return isPivot ? "row" : "category";
+    }
+    if (columns.includes(id)) {
+      return isPivot ? "column" : "series";
+    }
+    if (filterDims.includes(id)) {
+      return "filter";
+    }
+    if (rows.includes(dimensionType)) {
+      return isPivot ? "row" : "category";
+    }
+    if (columns.includes(dimensionType)) {
+      return isPivot ? "column" : "series";
+    }
+    if (filterDims.includes(dimensionType)) {
+      return "filter";
+    }
+    return "";
+  };
+  return getPosition;
+};
+
 const transformDataStandard = (metadata) => {
+  const rows = metadata.rows.map((r) => r.id);
+  const columns = metadata.columns.map((c) => c.id);
+  const filterDims = metadata.filters.map((f) => f.id);
+  const isPivot = metadata?.type === "PIVOT_TABLE";
+  const getPosition = getPositionGenerator({
+    rows,
+    columns,
+    filterDims,
+    isPivot,
+  });
+  const extractDataDimensions = extractDataDimensionsGenerator(getPosition);
+
   let catOptGroups = [];
   catOptGroups = extractDataDimensions({
     dimMetadata: metadata.categoryOptionGroupSetDimensions,
@@ -175,6 +224,7 @@ const transformDataStandard = (metadata) => {
         : dataDimensionTypes[ddi.dataDimensionItemType].display,
       item: ddi[ddiKey].name,
       uid: getUID(ddi, ddiKey),
+      position: getPosition({ id: null, dimensionType: "dx" }),
     });
   });
 
@@ -186,6 +236,7 @@ const transformDataStandard = (metadata) => {
     name: "Relative",
     item: transformFromCamelCase(p),
     uid: "",
+    position: getPosition({ id: p?.id, dimensionType: "pe" }),
   }));
 
   let periods = [];
@@ -194,6 +245,7 @@ const transformDataStandard = (metadata) => {
     name: "Exact",
     item: pe.name,
     uid: "",
+    position: getPosition({ id: pe?.id, dimensionType: "pe" }),
   }));
 
   let organisationUnitLevels = [];
@@ -202,6 +254,7 @@ const transformDataStandard = (metadata) => {
     name: "Level",
     item: oul,
     uid: "",
+    position: getPosition({ id: oul?.id, dimensionType: "ou" }),
   }));
 
   let organisationUnitGroups = [];
@@ -210,6 +263,7 @@ const transformDataStandard = (metadata) => {
     name: "Group",
     item: oug.name,
     uid: oug.id,
+    position: getPosition({ id: oug?.id, dimensionType: "ou" }),
   }));
 
   let organisationUnits = [];
@@ -218,6 +272,7 @@ const transformDataStandard = (metadata) => {
     name: "Org Unit",
     item: ou.name,
     uid: ou.id,
+    position: getPosition({ id: ou?.id, dimensionType: "ou" }),
   }));
 
   const relativeOrgUnitTemplate = {
@@ -228,16 +283,34 @@ const transformDataStandard = (metadata) => {
   };
 
   const userOrganisationUnit = metadata.userOrganisationUnit
-    ? [{ ...relativeOrgUnitTemplate, item: "User Org Unit" }]
+    ? [
+        {
+          ...relativeOrgUnitTemplate,
+          item: "User Org Unit",
+          position: getPosition({ id: null, dimensionType: "ou" }),
+        },
+      ]
     : [];
 
   const userOrganisationUnitChildren = metadata.userOrganisationUnitChildren
-    ? [{ ...relativeOrgUnitTemplate, item: "User Org Unit Children" }]
+    ? [
+        {
+          ...relativeOrgUnitTemplate,
+          item: "User Org Unit Children",
+          position: getPosition({ id: null, dimensionType: "ou" }),
+        },
+      ]
     : [];
 
   const userOrganisationUnitGrandchildren =
     metadata.userOrganisationUnitGrandchildren
-      ? [{ ...relativeOrgUnitTemplate, item: "User Org Unit Grandchildren" }]
+      ? [
+          {
+            ...relativeOrgUnitTemplate,
+            item: "User Org Unit Grandchildren",
+            position: getPosition({ id: null, dimensionType: "ou" }),
+          },
+        ]
       : [];
 
   const programIndicatorDimensions = metadata.programIndicatorDimensions.map(
@@ -245,6 +318,7 @@ const transformDataStandard = (metadata) => {
       type: "Data",
       name: "Program Indicator",
       item: `${pi.program.name}: ${pi.name}`,
+      position: getPosition({ id: pi?.id, dimensionType: "dx" }),
     })
   );
 
@@ -271,7 +345,8 @@ const transformDataStandard = (metadata) => {
 const ContentTable = ({ metadata, type }) => {
   const [text, setText] = useState(null);
   const engine = useDataEngine();
-  const headers = ["type", "name", "item", "uid"];
+  const headers = ["type", "name", "item", "uid", "position"];
+  const headersDashboard = ["type", "name", "item", "uid"];
   return (
     <>
       {text && <TextDetailModal setText={setText} text={text} />}
@@ -284,9 +359,17 @@ const ContentTable = ({ metadata, type }) => {
         <Table>
           <TableHead>
             <TableRowHead>
-              {headers.map((h) => (
-                <TableCellHead key={`header_${h}`}>{i18n.t(h)}</TableCellHead>
-              ))}
+              {type === DASHBOARD
+                ? headersDashboard.map((h) => (
+                    <TableCellHead key={`header_${h}`}>
+                      {i18n.t(h)}
+                    </TableCellHead>
+                  ))
+                : headers.map((h) => (
+                    <TableCellHead key={`header_${h}`}>
+                      {i18n.t(h)}
+                    </TableCellHead>
+                  ))}
             </TableRowHead>
           </TableHead>
           <TableBody>

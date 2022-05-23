@@ -408,6 +408,7 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
           <Button
             icon={<IconSearch16 />}
             primary
+            dataTest={`executeSearch`}
             onClick={() => {
               const variableString = parameterizeVariables({
                 filters,

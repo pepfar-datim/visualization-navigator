@@ -1,6 +1,6 @@
 {
   "name": "visualization-navigator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "PEPFAR",
   "description": "",
   "license": "BSD-3-Clause",
@@ -8,14 +8,17 @@
   "scripts": {
     "build": "d2-app-scripts build",
     "start": "d2-app-scripts start",
-    "test": "d2-app-scripts test",
+    "test": "cypress open",
     "deploy": "d2-app-scripts deploy",
     "lint": "yarn d2-style check",
     "format": "yarn d2-style apply"
   },
   "devDependencies": {
     "@dhis2/cli-app-scripts": "^7.1.2",
-    "@dhis2/cli-style": "^9.2.0"
+    "@dhis2/cli-style": "^9.2.0",
+    "@pepfar-react-lib/dhis2-loader": "^0.0.10",
+    "cypress": "^9.6.1",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^2.8.0",
