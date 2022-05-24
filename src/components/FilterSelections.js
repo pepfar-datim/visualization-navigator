@@ -85,9 +85,10 @@ const Filter = ({
 }) => {
   return (
     <>
-      <div className="filterButtons">
+      <div className="filterButtons" data-test={`searchFilterItem`}>
         <div className="selectWrapper">
           <SingleSelectField
+
             label={i18n.t("Filter")}
             selected={filterInfo.prop || ""}
             onChange={(e) => {
@@ -397,6 +398,7 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
       <div className="filterControls">
         <ButtonStrip>
           <Button
+            dataTest={`addFilter`}
             disabled={filters.length >= maxFilters}
             icon={<IconAddCircle16 />}
             onClick={() => {
