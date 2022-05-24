@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "Node",
-  },
-  "include": ["node_modules"],
+    "module": "ESNext",
+    "moduleResolution": "Node"
+  }
 }
