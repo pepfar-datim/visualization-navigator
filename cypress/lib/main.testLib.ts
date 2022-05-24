@@ -1,9 +1,15 @@
 export function login(){
+    cy.request({
+        url: 'https://jakub.datim.org/dhis-web-commons-security/login.action',
+        method: 'POST',
+        form: true,
+        body:'j_username=superAdmin&j_password=Cypress1!'
+    })
     localStorage.setItem('DHIS2_BASE_URL', 'https://jakub.datim.org');
     cy.visit(`http://localhost:3000`)
-    cy.get(`#j_username`).type(Cypress.env('username'))
-    cy.get(`#j_password`).type(Cypress.env('password'))
-    cy.get(sel('dhis2-adapter-loginsubmit')).click();
+    // cy.get(`#j_username`).type(Cypress.env('username'))
+    // cy.get(`#j_password`).type(Cypress.env('password'))
+    // cy.get(sel('dhis2-adapter-loginsubmit')).click();
 }
 
 export function sel(testId){
