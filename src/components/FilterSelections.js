@@ -175,10 +175,11 @@ Filter.propTypes = {
 const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
   // rethink approach this to make more generalizable
   const variables = {
+    uid: "_",
     favName: "_",
     minCount: -1,
     maxCount: 9223372036854775807,
-    userName: "_",
+    user: "_",
     minDate: "1969-01-01",
     maxDate: "2100-01-01",
     retrieveNevers: 1,

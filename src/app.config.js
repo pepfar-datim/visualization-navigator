@@ -1,10 +1,10 @@
 export const includeUser = true;
 
 export const appConfig = {
-  sqlQuery: includeUser ? "f7PbltszOTn" : "HVy4XTeblkj",
+  sqlQuery: "VisNavgSrch",
   includeUser,
   sqlViewCountID: "nwgL1LWGy58",
-  sqlQueryTypeIndex: includeUser ? 4 : 4,
-  sqlQueryUIDIndex: includeUser ? 0 : 0,
-  sqlQueryNameIndex: includeUser ? 1 : 1,
+  sqlQueryTypeIndex: 4,
+  sqlQueryUIDIndex: 0,
+  sqlQueryNameIndex: 1,
 };
