@@ -200,7 +200,7 @@ const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
       lte: "maxCount",
       nev: "isNever",
     },
-    owner: {
+    user: {
       contains: "user",
     },
     last_viewed: {
@@ -303,8 +303,8 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
 
   if (includeUser) {
     allFilters.push({
-      prop: "owner",
-      displayName: i18n.t("owner"),
+      prop: "user",
+      displayName: i18n.t("user"),
       type: "text",
       count: 1,
     });

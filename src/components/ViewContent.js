@@ -278,7 +278,7 @@ const ItemDetails = ({
                       <div className="inputField">
                         <Field
                           name="createdBy"
-                          label={i18n.t("Owner")}
+                          label={i18n.t("User")}
                           component={InputFieldFF}
                           className="inputField"
                           initialValue={`${metadata.createdBy.name} (${metadata.createdBy.username})`}

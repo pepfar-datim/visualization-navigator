@@ -17,13 +17,13 @@ describe(`1 > Search filters`,()=>{
             'view count',
             'last viewed',
             'type',
-            'owner'
+            'user'
         ])
     })
     it(`Should be able to filter by name & owner`,()=>{
         cy.get(`[data-value="name"]`).click();
         getFilter(1).find('input').type('MER');
-        addTextFilter(2,'owner','er')
+        addTextFilter(2,'user','er')
         executeSearch();
     })
     it(`Results should be filtered`, ()=>{
