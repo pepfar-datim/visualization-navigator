@@ -201,7 +201,7 @@ const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
       nev: "isNever",
     },
     owner: {
-      contains: "userName",
+      contains: "user",
     },
     last_viewed: {
       gt: "minDate",

@@ -233,6 +233,10 @@ const headerNames = {
   username: i18n.t("username"),
 };
 
+function removeMetaColumn(dataRow){
+    return dataRow.slice(0,6)
+}
+
 const FavoritesTable = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
@@ -295,7 +299,7 @@ const FavoritesTable = ({ data }) => {
                     onChange={() => updateAllChecked()}
                   />
                 </TableCellHead>
-                {data.headers.slice(1).map((h) => (
+                {data.headers.slice(1,6).map((h) => (
                   <TableCellHead key={`header_${h.name}`}>
                     {headerNames[h.name.replace("_", " ")] || h.name}
                   </TableCellHead>
@@ -305,22 +309,22 @@ const FavoritesTable = ({ data }) => {
             </TableRowHead>
           </TableHead>
           <TableBody>
-            {data.rows.map((dRow) => (
-              <FavoritesRow
-                key={`FavoritesRow_${dRow[appConfig.sqlQueryUIDIndex]}`}
-                headers={data.headers.slice(1)}
-                id={dRow[appConfig.sqlQueryUIDIndex]}
-                dataRow={dRow}
-                checked={checkedItems
-                  .map((el) => el.uid)
-                  .includes(dRow[appConfig.sqlQueryUIDIndex])}
-                multipleCheckedItems={checkedItems.length > 1}
-                updateIndividualChecked={updateIndividualChecked}
-                toggleSharingDialog={toggleSharingDialog}
-                sharingDialogOpen={sharingDialogOpen}
-                type={determineType(dRow[appConfig.sqlQueryTypeIndex])}
-              />
-            ))}
+            {data.rows.map((dRow) => {
+                return <FavoritesRow
+                    key={`FavoritesRow_${dRow[appConfig.sqlQueryUIDIndex]}`}
+                    headers={data.headers.slice(1)}
+                    id={dRow[appConfig.sqlQueryUIDIndex]}
+                    dataRow={removeMetaColumn(dRow)}
+                    checked={checkedItems
+                        .map((el) => el.uid)
+                        .includes(dRow[appConfig.sqlQueryUIDIndex])}
+                    multipleCheckedItems={checkedItems.length > 1}
+                    updateIndividualChecked={updateIndividualChecked}
+                    toggleSharingDialog={toggleSharingDialog}
+                    sharingDialogOpen={sharingDialogOpen}
+                    type={determineType(dRow[appConfig.sqlQueryTypeIndex])}
+                />
+            })}
           </TableBody>
         </Table>
         {sharingDialogOpen.open && (
