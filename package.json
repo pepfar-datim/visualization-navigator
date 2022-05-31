@@ -11,6 +11,7 @@
     "start": "d2-app-scripts start",
     "test": "cypress open",
     "test:ci": "cypress run",
+    "test:jest": "d2-app-scripts test --watch",
     "deploy": "d2-app-scripts deploy",
     "lint": "yarn d2-style check",
     "format": "yarn d2-style apply",

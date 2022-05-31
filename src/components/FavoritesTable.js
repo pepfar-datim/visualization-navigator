@@ -32,6 +32,7 @@ import {
   getFavLink,
   getAPIDestination,
 } from "./visualizationTypes";
+import {removeUserColumn} from "../services/removeUserColumn.service";
 
 // update this logic
 const determineSharing = (type) => {
@@ -233,9 +234,9 @@ const headerNames = {
   username: i18n.t("username"),
 };
 
-function removeMetaColumn(dataRow){
-    return dataRow.slice(0,6)
-}
+// function removeUserColumn(dataRow){
+//     return dataRow.slice(0,6)
+// }
 
 const FavoritesTable = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState([]);
@@ -254,6 +255,8 @@ const FavoritesTable = ({ data }) => {
     name: "",
     allItems: false,
   });
+
+  data = removeUserColumn(data);
 
   const updateIndividualChecked = (uid, type) => {
     if (!checkedItems.map((el) => el.uid).includes(uid)) {
@@ -299,7 +302,7 @@ const FavoritesTable = ({ data }) => {
                     onChange={() => updateAllChecked()}
                   />
                 </TableCellHead>
-                {data.headers.slice(1,6).map((h) => (
+                {data.headers.slice(1).map((h) => (
                   <TableCellHead key={`header_${h.name}`}>
                     {headerNames[h.name.replace("_", " ")] || h.name}
                   </TableCellHead>
@@ -314,7 +317,7 @@ const FavoritesTable = ({ data }) => {
                     key={`FavoritesRow_${dRow[appConfig.sqlQueryUIDIndex]}`}
                     headers={data.headers.slice(1)}
                     id={dRow[appConfig.sqlQueryUIDIndex]}
-                    dataRow={removeMetaColumn(dRow)}
+                    dataRow={dRow}
                     checked={checkedItems
                         .map((el) => el.uid)
                         .includes(dRow[appConfig.sqlQueryUIDIndex])}

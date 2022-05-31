@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2021-10-28T14:32:04.586Z\n"
-"PO-Revision-Date: 2021-10-28T14:32:04.586Z\n"
+"POT-Creation-Date: 2022-05-25T19:03:26.358Z\n"
+"PO-Revision-Date: 2022-05-25T19:03:26.358Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -105,9 +105,6 @@ msgstr "map"
 msgid "pivot"
 msgstr "pivot"
 
-msgid "owner"
-msgstr "owner"
-
 msgid "contains"
 msgstr "contains"
 
@@ -202,8 +199,8 @@ msgstr "Delete in progress"
 msgid "Name"
 msgstr "Name"
 
-msgid "Owner"
-msgstr "Owner"
+msgid "User"
+msgstr "User"
 
 msgid "Shared with {{userGroupCounts}} user groups and {{userCount}} users"
 msgstr "Shared with {{userGroupCounts}} user groups and {{userCount}} users"

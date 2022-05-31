@@ -13,7 +13,7 @@ import {
 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { appConfig, includeUser } from "../app.config.js";
+import { appConfig } from "../app.config.js";
 import { generateUID } from "../services/helpers";
 
 const FilterInputFields = ({ filterInfo, updateFilter, filterMap }) => {
@@ -301,6 +301,7 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
     },
   ];
 
+  //TODO: Get this info by querying API
   if (includeUser) {
     allFilters.push({
       prop: "user",
