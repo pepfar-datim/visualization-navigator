@@ -17,7 +17,7 @@ describe(`1 > Search filters`,()=>{
             'view count',
             'last viewed',
             'type',
-            'user'
+            'owner'
         ])
     })
     it(`Should be able to filter by name & owner`,()=>{

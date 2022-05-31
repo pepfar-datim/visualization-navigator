@@ -305,7 +305,7 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
   if (usersTablePresent) {
     allFilters.push({
       prop: "user",
-      displayName: i18n.t("user"),
+      displayName: i18n.t("owner"),
       type: "text",
       count: 1,
     });

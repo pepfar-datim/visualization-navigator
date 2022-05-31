@@ -230,13 +230,9 @@ const headerNames = {
   "view count": i18n.t("view count"),
   date: i18n.t("date"),
   type: i18n.t("type"),
-  user: i18n.t("user"),
+  user: i18n.t("owner"),
   username: i18n.t("username"),
 };
-
-// function removeUserColumn(dataRow){
-//     return dataRow.slice(0,6)
-// }
 
 const FavoritesTable = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState([]);

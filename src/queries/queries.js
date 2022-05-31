@@ -1,5 +1,9 @@
 import {appConfig} from "../app.config";
 
+function getCountParams(uid){
+    return appConfig.sqlViewCountParams.replace('[uid]',uid);
+}
+
 export const sqlQuery = {
   sqlData: {
     resource: "sqlViews",
@@ -57,7 +61,7 @@ export const visualizationQuery = {
     resource: "sqlViews",
     id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
-      var: appConfig.sqlViewAllParams.replace(`uid:_`,`uid:${id}`),
+      var: getCountParams(id),
       paging: false,
       fields: ["listGrid"],
     }),
@@ -137,7 +141,7 @@ export const mapQuery = {
     resource: "sqlViews",
     id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
-      var:  appConfig.sqlViewAllParams.replace(`uid:_`,`uid:${id}`),
+      var:   getCountParams(id),
       paging: false,
       fields: ["listGrid"],
     }),
@@ -169,7 +173,7 @@ export const dashboardQuery = {
     resource: "sqlViews",
     id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
-      var:  appConfig.sqlViewAllParams.replace(`uid:_`,`uid:${id}`),
+      var: getCountParams(id),
       paging: false,
       fields: ["listGrid"],
     }),
