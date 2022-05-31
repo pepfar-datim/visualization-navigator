@@ -137,7 +137,7 @@ export const mapQuery = {
     resource: "sqlViews",
     id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
-      var: `uid:${id}`,
+      var:  appConfig.sqlViewAllParams.replace(`uid:_`,`uid:${id}`),
       paging: false,
       fields: ["listGrid"],
     }),
@@ -169,7 +169,7 @@ export const dashboardQuery = {
     resource: "sqlViews",
     id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
-      var: `uid:${id}`,
+      var:  appConfig.sqlViewAllParams.replace(`uid:_`,`uid:${id}`),
       paging: false,
       fields: ["listGrid"],
     }),
