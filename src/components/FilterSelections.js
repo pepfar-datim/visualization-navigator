@@ -270,7 +270,7 @@ const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
   }, []);
 };
 
-const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
+const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePresent}) => {
   const engine = useDataEngine();
   const [downloadURL, setDownloadURL] = useState(null);
   const allFilters = [
@@ -302,7 +302,7 @@ const FilterSelections = ({ fetchData, viewCountRange, countLimit }) => {
   ];
 
   //TODO: Get this info by querying API
-  if (includeUser) {
+  if (usersTablePresent) {
     allFilters.push({
       prop: "user",
       displayName: i18n.t("user"),

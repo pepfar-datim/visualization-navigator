@@ -47,7 +47,7 @@ WarningMessage.propTypes = {
   messageText: PropTypes.string,
 };
 
-const SearchPage = () => {
+const SearchPage = ({usersTablePresent}) => {
   const [viewCountRange, setViewCountRange] = useState({
     restrictRange: false,
     startDate: null,
@@ -62,6 +62,7 @@ const SearchPage = () => {
       setCountLimitUsed(countLimit);
     },
   });
+
 
   const updateViewCountRange = (newObj) => {
     setViewCountRange({ ...viewCountRange, ...newObj });
@@ -97,6 +98,7 @@ const SearchPage = () => {
             viewCountRange={viewCountRange}
             fetchData={refetch}
             countLimit={countLimit}
+            usersTablePresent={usersTablePresent}
           />
         )}
         {loading && (

@@ -36,12 +36,14 @@ const App = () => {
           if (!d2 && !delayed) {
             <p>{i18n.t("App encountered errors on d2 initialization")}</p>;
           }
+
+          const usersTablePresent = d2?.system?.systemInfo?.instanceBaseUrl?.includes(`datim`);
           return (
             <Router>
               <Switch>
                 <Route path="/view/:id" component={ViewPage} />
                 <Route>
-                  <SearchPage />
+                  <SearchPage usersTablePresent={usersTablePresent}/>
                 </Route>
               </Switch>
             </Router>
