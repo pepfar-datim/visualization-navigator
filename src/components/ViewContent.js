@@ -403,7 +403,7 @@ const ViewContentInner = ({ id, type }) => {
   const engine = useDataEngine();
   const [visName, setVisName] = useState("");
   const { data, loading, error } = useDataQuery(getQueryByType({ type }), {
-    variables: { id, sqlViewCountID: appConfig.sqlViewCountID },
+    variables: { id, sqlViewId: appConfig.sqlViewId },
     onComplete: (data) => {
       setVisName(data.visualizationDetail.name);
     },
@@ -470,15 +470,15 @@ const ViewContentInner = ({ id, type }) => {
             <div>
               <Tag icon={<IconView16 />}>
                 {i18n.t("viewed {{viewCount}} times", {
-                  viewCount: data.visualizationViews.listGrid.rows[0][1] || 0,
+                  viewCount: data.visualizationViews.listGrid.rows[0][2] || 0,
                 })}
               </Tag>
             </div>
             <div>
               <Tag icon={<IconCalendar16 />}>
                 {i18n.t("last viewed: {{viewDate}}", {
-                  viewDate: data.visualizationViews.listGrid.rows[0][2]
-                    ? data.visualizationViews.listGrid.rows[0][2].substring(
+                  viewDate: data.visualizationViews.listGrid.rows[0][3]
+                    ? data.visualizationViews.listGrid.rows[0][3].substring(
                         0,
                         10
                       )

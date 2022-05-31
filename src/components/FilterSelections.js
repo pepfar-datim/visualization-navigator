@@ -421,11 +421,11 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
               });
               setDownloadURL(
                 `${engine.link.baseUrl}/${engine.link.apiPath}/sqlViews/${
-                  appConfig.sqlQuery
+                  appConfig.sqlViewId
                 }/data.xls?paging=false&var=${variableString.join(",")}`
               );
               fetchData({
-                id: appConfig.sqlQuery,
+                id: appConfig.sqlViewId,
                 queryVariables: variableString,
               });
             }}

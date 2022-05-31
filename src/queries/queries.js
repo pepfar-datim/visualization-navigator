@@ -1,3 +1,5 @@
+import {appConfig} from "../app.config";
+
 export const sqlQuery = {
   sqlData: {
     resource: "sqlViews",
@@ -53,9 +55,9 @@ export const visualizationQuery = {
   },
   visualizationViews: {
     resource: "sqlViews",
-    id: ({ sqlViewCountID }) => `${sqlViewCountID}/data`,
+    id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
-      var: `uid:${id}`,
+      var: appConfig.sqlViewAllParams.replace(`uid:_`,`uid:${id}`),
       paging: false,
       fields: ["listGrid"],
     }),
@@ -133,7 +135,7 @@ export const mapQuery = {
   },
   visualizationViews: {
     resource: "sqlViews",
-    id: ({ sqlViewCountID }) => `${sqlViewCountID}/data`,
+    id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
       var: `uid:${id}`,
       paging: false,
@@ -165,7 +167,7 @@ export const dashboardQuery = {
   },
   visualizationViews: {
     resource: "sqlViews",
-    id: ({ sqlViewCountID }) => `${sqlViewCountID}/data`,
+    id: ({ sqlViewId }) => `${sqlViewId}/data`,
     params: ({ id }) => ({
       var: `uid:${id}`,
       paging: false,
