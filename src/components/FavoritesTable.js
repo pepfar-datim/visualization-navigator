@@ -33,6 +33,7 @@ import {
   getAPIDestination,
 } from "./visualizationTypes";
 import {removeUserColumn} from "../services/removeUserColumn.service";
+import "./css/FavoritesTable.css"
 
 // update this logic
 const determineSharing = (type) => {

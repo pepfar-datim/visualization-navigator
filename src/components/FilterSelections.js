@@ -176,45 +176,45 @@ const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
   // rethink approach this to make more generalizable
   const variables = {
     uid: "_",
-    favName: "_",
-    minCount: -1,
-    maxCount: 9223372036854775807,
+    favoriteName: "_",
+    minViewCount: -1,
+    maxViewCount: 9223372036854775807,
     user: "_",
-    minDate: "1969-01-01",
-    maxDate: "2100-01-01",
-    retrieveNevers: 1,
-    visTypes: "_",
-    dseLower: "1969-01-01",
-    dseUpper: "2100-01-01",
-    limitCount: 100,
+    lastViewedMinDate: "1969-01-01",
+    lastViewedMaxDate: "2100-01-01",
+    includeNeverViewed: 1,
+    visualizationType: "_",
+    limitViewsMinDate: "1969-01-01",
+    limitViewsMaxDate: "2100-01-01",
+    limit: 100,
   };
 
   const variableNameMap = {
     name: {
-      contains: "favName",
+      contains: "favoriteName",
     },
     view_count: {
-      gt: "minCount",
-      gte: "minCount",
-      lt: "maxCount",
-      lte: "maxCount",
+      gt: "minViewCount",
+      gte: "minViewCount",
+      lt: "maxViewCount",
+      lte: "maxViewCount",
       nev: "isNever",
     },
     user: {
       contains: "user",
     },
     last_viewed: {
-      gt: "minDate",
-      lt: "maxDate",
+      gt: "lastViewedMinDate",
+      lt: "lastViewedMaxDate",
     },
     type: {
-      eq: "visTypes",
+      eq: "visualizationType",
     },
   };
 
-  variables.limitCount = countLimit;
+  variables.limit = countLimit;
   if (countLimit !== "ALL") {
-    variables.limitCount = parseInt(countLimit);
+    variables.limit = parseInt(countLimit);
   }
 
   const neverPresent =
@@ -249,19 +249,19 @@ const parameterizeVariables = ({ filters, viewCountRange, countLimit }) => {
 
   // handle never logic
   if (datePresent) {
-    variables.retrieveNevers = 0;
+    variables.includeNeverViewed = 0;
   }
   if (neverPresent && !datePresent) {
-    variables.maxDate = "1969-01-01";
+    variables.lastViewedMaxDate = "1969-01-01";
   }
 
   // handle view count range restrictions
   if (viewCountRange.restrictRange) {
     if (viewCountRange.startDate) {
-      variables.dseLower = viewCountRange.startDate;
+      variables.limitViewsMinDate = viewCountRange.startDate;
     }
     if (viewCountRange.endDate) {
-      variables.dseUpper = viewCountRange.endDate;
+      variables.limitViewsMaxDate = viewCountRange.endDate;
     }
   }
 
