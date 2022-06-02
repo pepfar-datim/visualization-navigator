@@ -6,7 +6,7 @@ import {
     Button,
     SingleSelectField,
     SingleSelectOption,
-    IconDelete16
+    IconCross16
 } from "@dhis2/ui";
 import "../styles/filter.style.css"
 
@@ -22,7 +22,8 @@ export const Filter = ({
             <div className="filterButtons" data-test={`searchFilterItem`}>
                 <div className="selectWrapper">
                     <SingleSelectField
-                        label={i18n.t("Filter")}
+                        // defaultValue={"name"}
+                        // label={i18n.t("Filter")}
                         selected={filterInfo.prop || ""}
                         onChange={(e) => {
                             updateFilter({
@@ -76,7 +77,7 @@ export const Filter = ({
 
                 <div>
                     <Button
-                        icon={<IconDelete16 />}
+                        icon={<IconCross16 />}
                         onClick={() => deleteFilter(filterInfo.id)}
                     />
                 </div>

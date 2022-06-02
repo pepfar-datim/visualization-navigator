@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-02T19:48:15.681Z\n"
-"PO-Revision-Date: 2022-06-02T19:48:15.681Z\n"
+"POT-Creation-Date: 2022-06-02T20:27:07.829Z\n"
+"PO-Revision-Date: 2022-06-02T20:27:07.829Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -86,19 +86,6 @@ msgstr "owner"
 
 msgid "username"
 msgstr "username"
-
-msgid "Search visualization items"
-msgstr "Search visualization items"
-
-msgid "Could not execute search"
-msgstr "Could not execute search"
-
-msgid ""
-"Limited to {{limit}} results. Refine search or update settings to see all "
-"matching results."
-msgstr ""
-"Limited to {{limit}} results. Refine search or update settings to see all "
-"matching results."
 
 msgid "Settings"
 msgstr "Settings"
@@ -184,11 +171,21 @@ msgstr "Open in visualizer"
 msgid "Add filter"
 msgstr "Add filter"
 
-msgid "Execute search"
-msgstr "Execute search"
+msgid "Search"
+msgstr "Search"
 
 msgid "Download results"
 msgstr "Download results"
+
+msgid "Could not execute search"
+msgstr "Could not execute search"
+
+msgid ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
+msgstr ""
+"Limited to {{limit}} results. Refine search or update settings to see all "
+"matching results."
 
 msgid "Filter"
 msgstr "Filter"

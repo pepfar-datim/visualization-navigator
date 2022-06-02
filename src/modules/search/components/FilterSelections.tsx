@@ -12,25 +12,17 @@ import React, { useState } from "react";
 import { appConfig } from "../../../app.config.js";
 import { generateUID } from "../../../services/helpers";
 import {parameterizeVariables} from "../services/parametrizeVariables.service";
-import {getAllFilters, searchFilterList} from "../const/searchFilterList.const";
+import {getAllFilters} from "../const/searchFilterList.const";
 import {Filter} from "./filter.component";
 import {filterDefinitionOptions} from "../const/filterDefinitionOptions.const";
+import "../styles/filterSelections.style.css"
 
 
 const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePresent}) => {
   const engine = useDataEngine();
   const [downloadURL, setDownloadURL] = useState(null);
 
-const searchFilterList = getAllFilters(usersTablePresent);
-
-  // if (usersTablePresent) {
-  //   searchFilterList.push({
-  //     prop: "user",
-  //     displayName: i18n.t("owner"),
-  //     type: "text",
-  //     count: 1,
-  //   });
-  // }
+  const searchFilterList = getAllFilters(usersTablePresent);
 
   const maxFilters = searchFilterList.reduce((maxFilters, filt) => {
     return maxFilters + filt.count;
@@ -84,7 +76,7 @@ const searchFilterList = getAllFilters(usersTablePresent);
   };
 
   return (
-    <>
+    <div className="filterSelections">
       <div>
         {filters.map((f) => (
           <Filter
@@ -101,6 +93,7 @@ const searchFilterList = getAllFilters(usersTablePresent);
         <ButtonStrip>
           <Button
             dataTest={`addFilter`}
+            className={'addFilter'}
             disabled={filters.length >= maxFilters}
             icon={<IconAddCircle16 />}
             onClick={() => {
@@ -131,7 +124,7 @@ const searchFilterList = getAllFilters(usersTablePresent);
               });
             }}
           >
-            {i18n.t("Execute search")}
+            {i18n.t("Search")}
           </Button>
         </ButtonStrip>
         {downloadURL && (
@@ -147,18 +140,7 @@ const searchFilterList = getAllFilters(usersTablePresent);
           </div>
         )}
       </div>
-      <style>
-        {`
-          .filterControls {
-            display: flex;
-            margin-top: var(--spacers-dp16);
-          }
-          .rightButton {
-            margin-left: auto;
-          }
-        `}
-      </style>
-    </>
+    </div>
   );
 };
 

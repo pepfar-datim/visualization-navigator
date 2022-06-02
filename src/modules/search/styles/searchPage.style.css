@@ -1,16 +1,15 @@
 .containerSearch {
-    width: 95%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
+    margin: 0px 8px;
 }
 .titleContainer {
     display: flex;
     margin: var(--spacers-dp16) 0 var(--spacers-dp4) 0;
 }
-.rightButton {
-    margin-left: auto;
+.settingsButton {
+    float: right;
+    margin-top: 8px;
 }
+
 .statusContainer {
     margin: var(--spacers-dp16);
 }

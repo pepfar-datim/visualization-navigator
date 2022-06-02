@@ -6,12 +6,12 @@ import {
   IconSettings24,
 } from "@dhis2/ui";
 import React, { useState } from "react";
-import { sqlQuery } from "../queries/queries";
-import FavoritesTable from "./FavoritesTable";
-import FilterSelections from "../modules/search/components/FilterSelections";
-import SettingsModal from "./SettingsModal";
-import {WarningMessage} from "../modules/search/components/warningMessage.component";
-import "../modules/search/styles/searchPage.style.css"
+import { sqlQuery } from "../../../queries/queries";
+import FavoritesTable from "../../../components/FavoritesTable";
+import FilterSelections from "./FilterSelections";
+import SettingsModal from "../../../components/SettingsModal";
+import {WarningMessage} from "./warningMessage.component";
+import "../styles/searchPage.style.css"
 
 
 const SearchPage = ({usersTablePresent}) => {
@@ -35,7 +35,8 @@ const SearchPage = ({usersTablePresent}) => {
     setViewCountRange({ ...viewCountRange, ...newObj });
   };
 
-  return (
+  // @ts-ignore
+    return (
     <>
       {settingsModalOpen && (
         <SettingsModal
@@ -47,19 +48,13 @@ const SearchPage = ({usersTablePresent}) => {
         />
       )}
       <div className="containerSearch">
-        <div className="titleContainer">
-          <span className="titleText">
-            {i18n.t("Search visualization items")}
-          </span>
-          <div className="rightButton">
             <Button
+                className={'settingsButton'}
               onClick={() => {
                 setSettingsModalOpen(true);
               }}
               icon={<IconSettings24 />}
             />
-          </div>
-        </div>
         {refetch && viewCountRange && (
           <FilterSelections
             viewCountRange={viewCountRange}

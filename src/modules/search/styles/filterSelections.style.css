@@ -1,0 +1,22 @@
+.filterSelections{
+    float: left;
+}
+
+.filterControls {
+    display: flex;
+    margin-top: var(--spacers-dp16);
+}
+.rightButton {
+    margin-left: auto;
+    margin-top: var(--spacers-dp16);
+}
+
+button{
+    border: 1px solid #e1e1e1!important;
+    color: rgb(50 51 53);
+}
+
+[data-test="dhis2-uicore-button"]{
+    height: 38px!important;
+    color: rgb(50 51 53)!important;
+}

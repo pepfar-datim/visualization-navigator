@@ -6,3 +6,16 @@
 .selectWrapper {
     min-width: 160px;
 }
+
+[data-test="dhis2-uicore-select-input"],[data-test="dhis2-uicore-input"] input{
+    border: 1px solid #e1e1e1!important;
+    min-height: 35px!important;
+}
+[data-test="dhis2-uicore-input"] input{
+    height: 38px!important;
+}
+
+/*[data-test="dhis2-uiwidgets-singleselectfield-label"]{*/
+/*    position: absolute!important;*/
+/*    margin:8px 10px;*/
+/*}*/
