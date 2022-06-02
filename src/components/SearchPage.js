@@ -4,48 +4,15 @@ import {
   Button,
   CircularLoader,
   IconSettings24,
-  IconInfo24,
-  IconWarning24,
 } from "@dhis2/ui";
-import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { sqlQuery } from "../queries/queries";
 import FavoritesTable from "./FavoritesTable";
-import FilterSelections from "./FilterSelections";
+import FilterSelections from "../modules/search/components/FilterSelections";
 import SettingsModal from "./SettingsModal";
+import {WarningMessage} from "../modules/search/components/warningMessage.component";
+import "../modules/search/styles/searchPage.style.css"
 
-const WarningMessage = ({ messageText, infoMessage }) => (
-  <>
-    <div className={infoMessage ? "infoMessage" : "warningMessage"}>
-      {infoMessage && <IconInfo24 />}
-      {!infoMessage && <IconWarning24 />}
-      <span>{messageText}</span>
-    </div>
-    <style jsx>{`
-      .warningMessage,
-      .infoMessage {
-        display: flex;
-        align-items: center;
-        margin: var(--spacers-dp16) 0 var(--spacers-dp8) 0;
-      }
-      .warningMessage span,
-      .infoMessage span {
-        margin-left: var(--spacers-dp8);
-      }
-      .infoMessage {
-        color: var(--colors-blue700);
-      }
-      .warningMessage {
-        color: var(--colors-yellow700);
-      }
-    `}</style>
-  </>
-);
-
-WarningMessage.propTypes = {
-  infoMessage: PropTypes.bool,
-  messageText: PropTypes.string,
-};
 
 const SearchPage = ({usersTablePresent}) => {
   const [viewCountRange, setViewCountRange] = useState({
@@ -102,8 +69,8 @@ const SearchPage = ({usersTablePresent}) => {
           />
         )}
         {loading && (
-          <div className="statusContainer">
-            <CircularLoader />
+          <div className="loading">
+            <CircularLoader/>
           </div>
         )}
         {error && (
@@ -132,30 +99,6 @@ const SearchPage = ({usersTablePresent}) => {
           </>
         )}
       </div>
-      <style jsx>
-        {`
-          .containerSearch {
-            width: 95%;
-            margin: auto;
-            display: flex;
-            flex-direction: column;
-          }
-          .titleContainer {
-            display: flex;
-            margin: var(--spacers-dp16) 0 var(--spacers-dp4) 0;
-          }
-          .rightButton {
-            margin-left: auto;
-          }
-          .statusContainer {
-            margin: var(--spacers-dp16);
-          }
-          .titleText {
-            font-size: 1.8em;
-            font-weight: 300;
-          }
-        `}
-      </style>
     </>
   );
 };

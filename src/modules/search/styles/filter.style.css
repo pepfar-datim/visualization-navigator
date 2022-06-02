@@ -1,0 +1,8 @@
+.filterButtons {
+    display: flex;
+    align-items: flex-end;
+    margin-top: var(--spacers-dp8);
+}
+.selectWrapper {
+    min-width: 160px;
+}

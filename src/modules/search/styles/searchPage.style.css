@@ -1,0 +1,24 @@
+.containerSearch {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.titleContainer {
+    display: flex;
+    margin: var(--spacers-dp16) 0 var(--spacers-dp4) 0;
+}
+.rightButton {
+    margin-left: auto;
+}
+.statusContainer {
+    margin: var(--spacers-dp16);
+}
+.titleText {
+    font-size: 1.8em;
+    font-weight: 300;
+}
+
+.loading{
+    margin: 100px auto;
+}

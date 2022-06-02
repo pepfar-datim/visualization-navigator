@@ -1,0 +1,16 @@
+.warningMessage,
+.infoMessage {
+    display: flex;
+    align-items: center;
+    margin: var(--spacers-dp16) 0 var(--spacers-dp8) 0;
+}
+.warningMessage span,
+.infoMessage span {
+    margin-left: var(--spacers-dp8);
+}
+.infoMessage {
+    color: var(--colors-blue700);
+}
+.warningMessage {
+    color: var(--colors-yellow700);
+}
