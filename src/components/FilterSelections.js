@@ -301,7 +301,6 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
     },
   ];
 
-  //TODO: Get this info by querying API
   if (usersTablePresent) {
     allFilters.push({
       prop: "user",
