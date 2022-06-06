@@ -1,11 +1,14 @@
 .warningMessage,
 .infoMessage {
-    display: flex;
     align-items: center;
-    /*margin: 25px 0 var(--spacers-dp8) 0;*/
+    margin: 25px 10px 0px 10px;
+    display:inline-block;
 }
-.warningMessage span,
-.infoMessage span {
+
+.infoMessage svg {
+    vertical-align: top;
+}
+.warningMessage span, .infoMessage span {
     margin-left: var(--spacers-dp8);
 }
 .infoMessage {

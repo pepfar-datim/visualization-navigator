@@ -89,7 +89,7 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
           />
         ))}
       </div>
-      <div className="filterControls">
+      <div><div className="filterControls">
         <ButtonStrip>
           <Button
             dataTest={`addFilter`}
@@ -137,6 +137,7 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
                     </Button>
             }
         </ButtonStrip>
+      </div>
       </div>
     </div>
   );
