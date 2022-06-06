@@ -104,7 +104,7 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
           </Button>
           <Button
             icon={<IconSearch16 />}
-            primary
+            className={"searchButton"}
             dataTest={`executeSearch`}
             onClick={() => {
               const variableString = parameterizeVariables({

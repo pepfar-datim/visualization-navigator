@@ -7,7 +7,7 @@ import {
 } from "@dhis2/ui";
 import React, { useState } from "react";
 import { sqlQuery } from "../../../queries/queries";
-import FavoritesTable from "../../../components/FavoritesTable";
+import FavoritesTable from "../../searchResults/components/FavoritesTable";
 import FilterSelections from "./FilterSelections";
 import SettingsModal from "../../../components/SettingsModal";
 import {WarningMessage} from "./warningMessage.component";

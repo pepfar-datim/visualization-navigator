@@ -4,7 +4,7 @@ import "./locales";
 import { CssVariables } from "@dhis2/ui";
 import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import SearchPage from "./modules/search/components/SearchPage";
+import SearchPage from "./modules/searchPage/components/SearchPage";
 import ViewPage from "./components/ViewPage";
 
 const App = () => {

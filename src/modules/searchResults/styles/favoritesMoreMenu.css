@@ -1,0 +1,8 @@
+.tableContainer {
+    margin: var(--spacers-dp24) 0 var(--spacers-dp24) 0;
+}
+
+thead {
+    background-color: rgb(44, 102, 147);
+    color: white;
+}

@@ -12,7 +12,7 @@ import {
 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React from "react";
-import {RadioOptions} from "../modules/search/components/radioOptions.component";
+import {RadioOptions} from "../modules/searchPage/components/radioOptions.component";
 
 
 

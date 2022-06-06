@@ -1,6 +1,10 @@
 .filterSelections{
     float: left;
-    margin-top: 6px;
+}
+
+.searchButton{
+    background-color: rgb(44, 102, 147)!important;
+    color: white!important;
 }
 
 .filterControls {

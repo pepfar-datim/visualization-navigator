@@ -21,9 +21,9 @@ import {
 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React, { createRef, useState } from "react";
-import { appConfig } from "../app.config.js";
-import CodeIcon from "./CodeIcon";
-import ConfirmAllSharing from "./ConfirmAllSharing";
+import { appConfig } from "../../../app.config.js";
+
+import ConfirmAllSharing from "../../../components/ConfirmAllSharing";
 import {
   DASHBOARD,
   determineType,
@@ -31,127 +31,11 @@ import {
   getOpenString,
   getFavLink,
   getAPIDestination,
-} from "./visualizationTypes";
-import {removeUserColumn} from "../services/removeUserColumn.service";
-import "./css/FavoritesTable.css"
+} from "../../../components/visualizationTypes";
+import {removeUserColumn} from "../../../services/removeUserColumn.service";
+import "../../../components/css/FavoritesTable.css"
+import {FavoritesMoreMenu} from "./favoritesMoreMenu.component";
 
-// update this logic
-const determineSharing = (type) => {
-  return type.toLowerCase();
-};
-
-const FavoritesMoreMenu = ({
-  id,
-  name,
-  type,
-  allShareOption,
-  moreButtonRef,
-  toggleMoreMenu,
-  toggleSharingDialog,
-}) => {
-  const engine = useDataEngine();
-  return (
-    <>
-      <div>
-        <Popover
-          reference={moreButtonRef}
-          placement="bottom-start"
-          arrow={false}
-          onClickOutside={toggleMoreMenu}
-          style={{ backgroundColor: "#f3ffff" }}
-        >
-          <div>
-            <Menu>
-              <MenuItem
-                icon={<IconInfo16 />}
-                dense
-                label={i18n.t("Show details")}
-                onClick={() => {
-                  toggleMoreMenu();
-
-                  window.open(`#/view/${id}`, "_blank");
-                }}
-              />
-              {type !== DASHBOARD && (
-                <>
-                  <MenuItem
-                    icon={<IconShare16 />}
-                    dense
-                    label={i18n.t("Update sharing (this item)")}
-                    onClick={() => {
-                      toggleMoreMenu();
-                      toggleSharingDialog({
-                        open: true,
-                        id,
-                        type: determineSharing(type),
-                        name,
-                        allItems: false,
-                      });
-                    }}
-                  />
-                  {allShareOption && (
-                    <MenuItem
-                      icon={<IconShare16 />}
-                      dense
-                      label={i18n.t("Update sharing (all selected items)")}
-                      onClick={() => {
-                        toggleMoreMenu();
-                        toggleSharingDialog({
-                          open: true,
-                          id,
-                          type: determineSharing(type),
-                          name,
-                          allItems: true,
-                        });
-                      }}
-                    />
-                  )}
-                </>
-              )}
-
-              <MenuItem
-                icon={getOpenIcon(type)}
-                dense
-                label={i18n.t(getOpenString(type))}
-                onClick={() => {
-                  toggleMoreMenu();
-                  window.open(
-                    getFavLink(type, engine.link.baseUrl, id),
-                    "_blank"
-                  );
-                }}
-              />
-              <MenuItem
-                icon={<CodeIcon />}
-                dense
-                label={i18n.t("Open in api")}
-                onClick={() => {
-                  toggleMoreMenu();
-                  window.open(
-                    `${engine.link.baseUrl}/api/${getAPIDestination(
-                      type
-                    )}/${id}`,
-                    "_blank"
-                  );
-                }}
-              />
-            </Menu>
-          </div>
-        </Popover>
-      </div>
-    </>
-  );
-};
-
-FavoritesMoreMenu.propTypes = {
-  allShareOption: PropTypes.bool,
-  id: PropTypes.string,
-  moreButtonRef: PropTypes.object,
-  name: PropTypes.string,
-  toggleMoreMenu: PropTypes.func,
-  toggleSharingDialog: PropTypes.func,
-  type: PropTypes.string,
-};
 
 const FavoritesRow = ({
   id,
@@ -239,6 +123,7 @@ const FavoritesTable = ({ data }) => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [allChecked, setAllChecked] = useState(false);
   const [sharingAllModalOpen, setSharingAllModalOpen] = useState({
+      id: "",
     open: false,
     name: "",
     type: "",
@@ -284,7 +169,7 @@ const FavoritesTable = ({ data }) => {
           type={sharingAllModalOpen.type}
           checkedItems={checkedItems}
           onClose={() =>
-            setSharingAllModalOpen({ open: false, name: "", type: "" })
+            setSharingAllModalOpen({ open: false, name: "", type: "",id:"" })
           }
         />
       )}
@@ -354,13 +239,6 @@ const FavoritesTable = ({ data }) => {
           />
         )}
       </div>
-      <style jsx>
-        {`
-          .tableContainer {
-            margin: var(--spacers-dp24) 0 var(--spacers-dp24) 0;
-          }
-        `}
-      </style>
     </>
   );
 };

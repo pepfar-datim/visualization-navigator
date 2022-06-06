@@ -12,7 +12,8 @@
     margin-left: var(--spacers-dp8);
 }
 .infoMessage {
-    color: var(--colors-blue700);
+    /*color: var(--colors-blue700);*/
+    color: rgb(44, 102, 147)!important;
 }
 .warningMessage {
     color: var(--colors-yellow700);
