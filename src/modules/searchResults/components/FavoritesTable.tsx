@@ -34,89 +34,19 @@ import {
 } from "../../../components/visualizationTypes";
 import {removeUserColumn} from "../../../services/removeUserColumn.service";
 import "../../../components/css/FavoritesTable.css"
-import {FavoritesMoreMenu} from "./favoritesMoreMenu.component";
+import {FavoritesRow} from "./favoritesRow.component";
 
+import "../styles/favoritesTable.css"
 
-const FavoritesRow = ({
-  id,
-  dataRow,
-  headers,
-  checked,
-  multipleCheckedItems,
-  updateIndividualChecked,
-  toggleSharingDialog,
-  sharingDialogOpen,
-  type,
-}) => {
-  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
-
-  const toggleMoreMenu = () => {
-    setMoreMenuOpen(!moreMenuOpen);
-  };
-
-  const moreButtonRef = createRef();
-
-  return (
-    <TableRow>
-      <>
-        <TableCell key={`check_${id}`}>
-          {type !== DASHBOARD && (
-            <Checkbox
-              checked={checked}
-              onChange={() => updateIndividualChecked(id, type)}
-            />
-          )}
-        </TableCell>
-        {dataRow.slice(1).map((val, ind) => (
-          <TableCell key={`cell_${id}_${headers[ind].name}`}>
-            {i18n.t(val)}
-          </TableCell>
-        ))}
-        <TableCell key={`more_buttons_${id}`}>
-          <div ref={moreButtonRef}>
-            <Button
-              icon={<IconMore16 />}
-              small
-              onClick={() => toggleMoreMenu()}
-            />
-          </div>
-          {moreMenuOpen && !sharingDialogOpen.open && (
-            <FavoritesMoreMenu
-              id={id}
-              name={dataRow[appConfig.sqlQueryNameIndex]}
-              type={type}
-              allShareOption={checked && multipleCheckedItems}
-              moreButtonRef={moreButtonRef}
-              toggleMoreMenu={toggleMoreMenu}
-              toggleSharingDialog={toggleSharingDialog}
-            />
-          )}
-        </TableCell>
-      </>
-    </TableRow>
-  );
-};
-
-FavoritesRow.propTypes = {
-  checked: PropTypes.bool,
-  dataRow: PropTypes.array,
-  headers: PropTypes.array,
-  id: PropTypes.string,
-  multipleCheckedItems: PropTypes.bool,
-  sharingDialogOpen: PropTypes.object,
-  toggleSharingDialog: PropTypes.func,
-  type: PropTypes.string,
-  updateIndividualChecked: PropTypes.func,
-};
 
 // defined here to load i18n translations
 const headerNames = {
-  name: i18n.t("name"),
-  "view count": i18n.t("view count"),
-  date: i18n.t("date"),
-  type: i18n.t("type"),
-  user: i18n.t("owner"),
-  username: i18n.t("username"),
+  name: i18n.t("Name"),
+  "view count": i18n.t("Views"),
+  date: i18n.t("Date"),
+  type: i18n.t("Type"),
+  user: i18n.t("Owner"),
+  username: i18n.t("Username"),
 };
 
 const FavoritesTable = ({ data }) => {

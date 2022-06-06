@@ -20,4 +20,10 @@
 
 .loading{
     margin: 100px auto;
+    width: 60px;
+}
+
+.loading [role="progressbar"] {
+    width: 59px;
+    height: 59px;
 }

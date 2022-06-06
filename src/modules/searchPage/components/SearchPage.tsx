@@ -63,11 +63,6 @@ const SearchPage = ({usersTablePresent}) => {
             usersTablePresent={usersTablePresent}
           />
         )}
-        {loading && (
-          <div className="loading">
-            <CircularLoader/>
-          </div>
-        )}
         {error && (
           <div className="statusContainer">
             <WarningMessage
@@ -76,6 +71,14 @@ const SearchPage = ({usersTablePresent}) => {
             />
           </div>
         )}
+          <br/>
+          {loading && (
+              <div className="loading">
+                  <CircularLoader/>
+                  <br/>
+                  Loading...
+              </div>
+          )}
         {data && (
           <>
             {(data.sqlData.listGrid?.rows?.length || 0) ===
