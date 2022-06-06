@@ -124,21 +124,19 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
               });
             }}
           >
-            {i18n.t("Search")}
+            {filters.length===0?i18n.t("Show all"):i18n.t("Search")}
           </Button>
+            {downloadURL &&
+                    <Button
+                        onClick={() => {
+                            handleDownload();
+                        }}
+                        icon={<IconDownload16 />}
+                    >
+                        {i18n.t("Download results")}
+                    </Button>
+            }
         </ButtonStrip>
-        {downloadURL && (
-          <div className="rightButton">
-            <Button
-              onClick={() => {
-                handleDownload();
-              }}
-              icon={<IconDownload16 />}
-            >
-              {i18n.t("Download results")}
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );

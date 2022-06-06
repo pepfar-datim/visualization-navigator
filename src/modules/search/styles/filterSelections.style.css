@@ -17,6 +17,6 @@ button{
 }
 
 [data-test="dhis2-uicore-button"]{
-    height: 38px!important;
+    height: 36px!important;
     color: rgb(50 51 53)!important;
 }
