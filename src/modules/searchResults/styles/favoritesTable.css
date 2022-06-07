@@ -6,7 +6,7 @@ table {
 }
 
 .zebraStriping:nth-child(2n){
-    background: #ededed!important;
+    background: #ededed78!important;
 }
 
 thead {

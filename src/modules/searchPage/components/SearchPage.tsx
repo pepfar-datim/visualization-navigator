@@ -71,7 +71,7 @@ const SearchPage = ({usersTablePresent}) => {
             />
           </div>
         )}
-          <br/>
+         <div className='clear'/>
           {loading && (
               <div className="loading">
                   <CircularLoader/>

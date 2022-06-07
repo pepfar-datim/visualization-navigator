@@ -127,14 +127,14 @@ const FilterSelections = ({fetchData, viewCountRange, countLimit, usersTablePres
             {filters.length===0?i18n.t("Show all"):i18n.t("Search")}
           </Button>
             {downloadURL &&
-                    <Button
-                        onClick={() => {
-                            handleDownload();
-                        }}
-                        icon={<IconDownload16 />}
-                    >
-                        {i18n.t("Download results")}
-                    </Button>
+                <Button
+                    onClick={() => {
+                        handleDownload();
+                    }}
+                    icon={<IconDownload16 />}
+                >
+                    {i18n.t("Download results")}
+                </Button>
             }
         </ButtonStrip>
       </div>

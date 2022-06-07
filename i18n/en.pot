@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-06T17:41:52.399Z\n"
-"PO-Revision-Date: 2022-06-06T17:41:52.399Z\n"
+"POT-Creation-Date: 2022-06-06T20:16:10.794Z\n"
+"PO-Revision-Date: 2022-06-06T20:16:10.794Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -141,33 +141,6 @@ msgstr "Open as dashboard"
 msgid "Open in visualizer"
 msgstr "Open in visualizer"
 
-msgid "Show details"
-msgstr "Show details"
-
-msgid "Update sharing (this item)"
-msgstr "Update sharing (this item)"
-
-msgid "Update sharing (all selected items)"
-msgstr "Update sharing (all selected items)"
-
-msgid "name"
-msgstr "name"
-
-msgid "view count"
-msgstr "view count"
-
-msgid "date"
-msgstr "date"
-
-msgid "type"
-msgstr "type"
-
-msgid "owner"
-msgstr "owner"
-
-msgid "username"
-msgstr "username"
-
 msgid "Add filter"
 msgstr "Add filter"
 
@@ -214,8 +187,17 @@ msgstr "after"
 msgid "before"
 msgstr "before"
 
+msgid "name"
+msgstr "name"
+
+msgid "view count"
+msgstr "view count"
+
 msgid "last viewed"
 msgstr "last viewed"
+
+msgid "type"
+msgstr "type"
 
 msgid "chart"
 msgstr "chart"
@@ -228,6 +210,33 @@ msgstr "map"
 
 msgid "pivot"
 msgstr "pivot"
+
+msgid "owner"
+msgstr "owner"
+
+msgid "Views"
+msgstr "Views"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Owner"
+msgstr "Owner"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Show details"
+msgstr "Show details"
+
+msgid "Update sharing (this item)"
+msgstr "Update sharing (this item)"
+
+msgid "Update sharing (all selected items)"
+msgstr "Update sharing (all selected items)"
 
 msgid "Unable to load the plugin for this item"
 msgstr "Unable to load the plugin for this item"
