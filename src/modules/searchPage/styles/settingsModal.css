@@ -1,0 +1,18 @@
+.limitSelect {
+    width: 250px;
+}
+.settingItem {
+    margin-bottom: var(--spacers-dp32);
+}
+.subtitle {
+    height: 30px;
+    margin-bottom: var(--spacers-dp4);
+}
+.subtitle span {
+    font-size: 1.1em;
+}
+
+.saveSettings{
+    background-color: rgb(44, 102, 147)!important;
+    color: white!important;
+}

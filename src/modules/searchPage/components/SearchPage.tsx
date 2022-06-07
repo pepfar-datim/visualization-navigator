@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { sqlQuery } from "../../../queries/queries";
 import FavoritesTable from "../../searchResults/components/FavoritesTable";
 import FilterSelections from "./FilterSelections";
-import SettingsModal from "../../../components/SettingsModal";
+import SettingsModal from "./SettingsModal";
 import {WarningMessage} from "./warningMessage.component";
 import "../styles/searchPage.style.css"
 import {getAllFilters} from "../const/searchFilterList.const";
@@ -68,13 +68,11 @@ const SearchPage = ({usersTablePresent}) => {
     });
 
     const triggerSearch = ()=>{
-
         refetch({
             id: appConfig.sqlViewId,
             queryVariables: variableString,
         });
     }
-
 
   const updateViewCountRange = (newObj) => {
     setViewCountRange({ ...viewCountRange, ...newObj });

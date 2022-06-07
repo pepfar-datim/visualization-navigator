@@ -12,9 +12,8 @@ import {
 } from "@dhis2/ui";
 import PropTypes from "prop-types";
 import React from "react";
-import {RadioOptions} from "../modules/searchPage/components/radioOptions.component";
-
-
+import {RadioOptions} from "./radioOptions.component";
+import "../styles/settingsModal.css"
 
 const SettingsModal = ({
   viewCountRange,
@@ -97,28 +96,13 @@ const SettingsModal = ({
               onClick={() => {
                 onClose();
               }}
-              primary
+              className={'saveSettings'}
             >
               {i18n.t("Confirm")}
             </Button>
           </ButtonStrip>
         </ModalActions>
       </Modal>
-      <style jsx>{`
-        .limitSelect {
-          width: 250px;
-        }
-        .settingItem {
-          margin-bottom: var(--spacers-dp32);
-        }
-        .subtitle {
-          height: 30px;
-          margin-bottom: var(--spacers-dp4);
-        }
-        .subtitle span {
-          font-size: 1.1em;
-        }
-      `}</style>
     </>
   );
 };

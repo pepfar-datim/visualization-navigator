@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-06T20:16:10.794Z\n"
-"PO-Revision-Date: 2022-06-06T20:16:10.794Z\n"
+"POT-Creation-Date: 2022-06-07T20:26:49.038Z\n"
+"PO-Revision-Date: 2022-06-07T20:26:49.038Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -56,24 +56,6 @@ msgstr "Dashboard items"
 
 msgid "Dimensions"
 msgstr "Dimensions"
-
-msgid "Settings"
-msgstr "Settings"
-
-msgid "Search result limit"
-msgstr "Search result limit"
-
-msgid "ALL"
-msgstr "ALL"
-
-msgid "View count range"
-msgstr "View count range"
-
-msgid "Start date"
-msgstr "Start date"
-
-msgid "End date"
-msgstr "End date"
 
 msgid "Close"
 msgstr "Close"
@@ -162,6 +144,24 @@ msgid ""
 msgstr ""
 "Limited to {{limit}} results. Refine search or update settings to see all "
 "matching results."
+
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Search result limit"
+msgstr "Search result limit"
+
+msgid "ALL"
+msgstr "ALL"
+
+msgid "View count range"
+msgstr "View count range"
+
+msgid "Start date"
+msgstr "Start date"
+
+msgid "End date"
+msgstr "End date"
 
 msgid "Filter"
 msgstr "Filter"
