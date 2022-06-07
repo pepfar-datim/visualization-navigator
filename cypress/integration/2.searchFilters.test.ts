@@ -3,12 +3,10 @@ import {addTextFilter, executeSearch, getFilter, login, sel, seln, texts, textsI
 describe(`1 > Search filters`,()=>{
     it(`Should render`, ()=>{
         login();
-        texts(['Search visualization items','Add filter','Execute search'])
+        texts(['Add filter','Show all'])
     })
     it(`Should have filters`, ()=>{
         cy.get(sel('addFilter')).click();
-        getFilter(1).contains('Filter')
-
     });
     it(`Filter should have options`, ()=>{
         getFilter(1).find(`[data-test="dhis2-uicore-select"]`).click();

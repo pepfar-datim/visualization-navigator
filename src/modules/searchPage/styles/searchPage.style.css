@@ -5,9 +5,10 @@
     display: flex;
     margin: var(--spacers-dp16) 0 var(--spacers-dp4) 0;
 }
-.settingsButton {
+.settingsButton, .downloadResults{
     float: right;
     margin-top: 16px;
+    margin-left: 10px;
 }
 
 .statusContainer {

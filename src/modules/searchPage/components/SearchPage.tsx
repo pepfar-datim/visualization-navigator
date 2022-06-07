@@ -12,6 +12,12 @@ import FilterSelections from "./FilterSelections";
 import SettingsModal from "../../../components/SettingsModal";
 import {WarningMessage} from "./warningMessage.component";
 import "../styles/searchPage.style.css"
+import {getAllFilters} from "../const/searchFilterList.const";
+import {filterDefinitionOptions} from "../const/filterDefinitionOptions.const";
+import {parameterizeVariables} from "../services/parametrizeVariables.service";
+import {appConfig} from "../../../app.config";
+// import { appConfig } from "../../../app.config.js";
+import { generateUID } from "../../../services/helpers";
 
 
 const SearchPage = ({usersTablePresent}) => {
@@ -29,6 +35,42 @@ const SearchPage = ({usersTablePresent}) => {
       setCountLimitUsed(countLimit);
     },
   });
+
+
+
+    const [filters, setFilters] = useState([]);
+    const searchFilterList = getAllFilters(usersTablePresent);
+    const maxFilters = searchFilterList.reduce((maxFilters, filt) => {
+        return maxFilters + filt.count;
+    }, 0);
+    const addFilter = () => {
+        if (filters.length < maxFilters) {
+            setFilters([...filters, { id: generateUID(6), prop: null, text: null }]);
+        }
+    };
+    const updateFilter = ({ uid, object }) => {
+        const copyFilters = [...filters];
+        const index = copyFilters.map((i) => i.id).indexOf(uid);
+        if (index > -1) {
+            copyFilters[index] = object;
+            setFilters(copyFilters);
+        }
+    };
+    const deleteFilter = (uid) => {
+        setFilters(filters.filter((f) => f.id !== uid));
+    };
+
+    const triggerSearch = ()=>{
+        const variableString = parameterizeVariables({
+            filters,
+            viewCountRange,
+            countLimit,
+        });
+        refetch({
+            id: appConfig.sqlViewId,
+            queryVariables: variableString,
+        });
+    }
 
 
   const updateViewCountRange = (newObj) => {
@@ -55,12 +97,15 @@ const SearchPage = ({usersTablePresent}) => {
               }}
               icon={<IconSettings24 />}
             />
+          {data && <a href={``}><Button className='downloadResults'>Download results</Button></a>}
         {refetch && viewCountRange && (
           <FilterSelections
-            viewCountRange={viewCountRange}
-            fetchData={refetch}
-            countLimit={countLimit}
+            filters={filters}
+            triggerSearch={triggerSearch}
             usersTablePresent={usersTablePresent}
+            deleteFilter={deleteFilter}
+            updateFilter={updateFilter}
+            addFilter={addFilter}
           />
         )}
         {error && (

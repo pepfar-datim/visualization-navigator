@@ -3,7 +3,7 @@ import {executeSearch, login, sel, seln, texts, textsIn} from "../lib/main.testL
 describe(`1 > Search all`,()=>{
     it(`Should render`, ()=>{
         login();
-        texts(['Search visualization items','Add filter','Execute search'])
+        texts(['Add filter','Show all'])
     })
     it(`Should search`, ()=>{
         executeSearch();
