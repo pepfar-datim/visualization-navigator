@@ -1,4 +1,4 @@
-import { useDataQuery } from "@dhis2/app-runtime";
+import {useDataEngine, useDataQuery} from "@dhis2/app-runtime";
 import i18n from "@dhis2/d2-i18n";
 import {
   Button,
@@ -21,6 +21,7 @@ import { generateUID } from "../../../services/helpers";
 
 
 const SearchPage = ({usersTablePresent}) => {
+    const engine = useDataEngine();
   const [viewCountRange, setViewCountRange] = useState({
     restrictRange: false,
     startDate: null,
@@ -60,12 +61,14 @@ const SearchPage = ({usersTablePresent}) => {
         setFilters(filters.filter((f) => f.id !== uid));
     };
 
+    const variableString = parameterizeVariables({
+        filters,
+        viewCountRange,
+        countLimit,
+    });
+
     const triggerSearch = ()=>{
-        const variableString = parameterizeVariables({
-            filters,
-            viewCountRange,
-            countLimit,
-        });
+
         refetch({
             id: appConfig.sqlViewId,
             queryVariables: variableString,
@@ -97,7 +100,7 @@ const SearchPage = ({usersTablePresent}) => {
               }}
               icon={<IconSettings24 />}
             />
-          {data && <a href={``}><Button className='downloadResults'>Download results</Button></a>}
+          {data && <a href={`${engine.link.baseUrl}/${engine.link.apiPath}/sqlViews/${appConfig.sqlViewId}/data.xls?paging=false&var=${variableString.join(",")}`}><Button className='downloadResults'>Download results</Button></a>}
         {refetch && viewCountRange && (
           <FilterSelections
             filters={filters}
