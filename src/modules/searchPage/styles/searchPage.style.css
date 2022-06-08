@@ -22,13 +22,20 @@
 .loading{
     margin: 100px auto;
     width: 60px;
+    color: rgb(44, 102, 147)!important;
 }
 
 .loading [role="progressbar"] {
     width: 59px;
     height: 59px;
+    border-color: rgba(110, 122, 138, 0.15) rgba(110, 122, 138, 0.15) rgb(44, 102, 147)!important;
+    animation-duration: 1.5s!important;
 }
 
 .clear {
     clear: both;
+}
+
+[role="progressbar"]{
+
 }

@@ -13,3 +13,16 @@ thead {
     /*background-color: rgb(44, 102, 147);*/
     /*color: white;*/
 }
+
+
+svg.checked .background{
+    fill:rgb(44, 102, 147)!important;
+}
+
+[type="checkbox"] {
+    cursor: pointer;
+}
+
+input:focus + .icon {
+    border-color: rgb(44, 102, 147)!important;
+}

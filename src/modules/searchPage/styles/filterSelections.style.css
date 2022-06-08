@@ -22,6 +22,10 @@ button{
     color: rgb(50 51 53);
 }
 
+button:focus::after{
+    border-color: rgb(44, 102, 147)!important;
+}
+
 [data-test="dhis2-uicore-button"]{
     height: 36px!important;
     color: rgb(50 51 53)!important;
