@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import SearchPage from "./modules/searchPage/components/SearchPage";
 import ViewPage from "./components/ViewPage";
+import {checkSqlView} from "./services/checkSqlView.service";
 
 const App = () => {
   const d2Config = {
@@ -36,7 +37,7 @@ const App = () => {
           if (!d2 && !delayed) {
             <p>{i18n.t("App encountered errors on d2 initialization")}</p>;
           }
-
+          checkSqlView(d2);
           const usersTablePresent = d2?.system?.systemInfo?.instanceBaseUrl?.includes(`datim`);
           return (
             <Router>
