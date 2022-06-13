@@ -19,8 +19,6 @@ import "../styles/filterSelections.style.css"
 
 
 const FilterSelections = ({usersTablePresent, triggerSearch,filters, deleteFilter, updateFilter, addFilter}) => {
-  // const engine = useDataEngine();
-  // const [downloadURL, setDownloadURL] = useState(null);
     const searchFilterList = getAllFilters(usersTablePresent);
     const filterMap = searchFilterList.reduce((fMap, filt) => {
         fMap[filt.prop] = {
@@ -46,9 +44,6 @@ const FilterSelections = ({usersTablePresent, triggerSearch,filters, deleteFilte
         return maxFilters + filt.count;
     }, 0);
 
-  // const handleDownload = () => {
-  //   window.open(downloadURL);
-  // };
 
   return (
     <div className="filterSelections">
@@ -83,27 +78,10 @@ const FilterSelections = ({usersTablePresent, triggerSearch,filters, deleteFilte
             dataTest={`executeSearch`}
             onClick={() => {
                 triggerSearch();
-              //   setDownloadURL(
-              //       // @ts-ignore
-              //   `${engine.link.baseUrl}/${engine.link.apiPath}/sqlViews/${
-              //     appConfig.sqlViewId
-              //   }/data.xls?paging=false&var=${variableString.join(",")}`
-              // );
-
             }}
           >
             {filters.length===0?i18n.t("Show all"):i18n.t("Search")}
           </Button>
-            {/*{downloadURL &&*/}
-            {/*    <Button*/}
-            {/*        onClick={() => {*/}
-            {/*            handleDownload();*/}
-            {/*        }}*/}
-            {/*        icon={<IconDownload16 />}*/}
-            {/*    >*/}
-            {/*        {i18n.t("Download results")}*/}
-            {/*    </Button>*/}
-            {/*}*/}
         </ButtonStrip>
       </div>
       </div>
