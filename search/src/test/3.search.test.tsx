@@ -29,6 +29,12 @@ const testCases:TestCase[] = [{
         {filterProperty:FilterProperty.views,operator: FilterOperator.lessThan,value:'110'}
     ],
     toFind:['2020 All MER Results_ BYSubCity','Chiredzi PVLS_D&N']
+},{
+    name:'chart',
+    filters:[
+        {filterProperty:FilterProperty.type,operator: FilterOperator.is,value:'Chart'},
+    ],
+    toFind:['<15 HTS 15+ YIELD','18237: HTS_TST (By Modalities)-Chart']
 }];
 
 testCases.forEach(({name,filters,toFind}:TestCase)=>{

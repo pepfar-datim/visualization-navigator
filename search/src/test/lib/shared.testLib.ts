@@ -12,15 +12,11 @@ export function setFilter(i:number,property:FilterProperty,operator:string,value
         case FilterProperty.views:
             type(`filterValue_${i}`,value)
             break;
+        case FilterProperty.type:
+            select(`visualizationTypeSelect_${i}`,value);
+            break;
         case FilterProperty.lastViewed:
             break;
-        case FilterProperty.type:
-            break;
-        case FilterProperty.viewsMinDate:
-            break;
-        case FilterProperty.viewsMaxDate:
-            break;
-
     }
 }
 

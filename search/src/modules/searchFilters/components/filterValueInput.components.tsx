@@ -28,7 +28,7 @@ export function FilterValueInput({filterProperty,filterValue, changeFilterValue,
         case FilterProperty.lastViewed:
             return fc(false,<DateSelect value={filterValue} onChange={changeFilterValue}/>)
         case FilterProperty.type:
-            return fc(!filterValue,<VisualizationTypeFilterSelect visualizationType={filterValue as VisualizationType} changeVisualizationType={onChange(changeFilterValue)}/>)
+            return fc(!filterValue,<VisualizationTypeFilterSelect visualizationType={filterValue as VisualizationType} changeVisualizationType={onChange(changeFilterValue)} i={i}/>)
     }
     return null;
 }
