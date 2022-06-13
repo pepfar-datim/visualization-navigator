@@ -1,1 +1,0 @@
-npx ts-node --cwd node_modules/@pepfar-react-lib/dep-copy/ --skip-project bin/dep-copy.ts $1
