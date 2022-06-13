@@ -1,0 +1,32 @@
+.filterSelections{
+    float: left;
+}
+
+.searchButton{
+    background-color: rgb(44, 102, 147)!important;
+    color: white!important;
+}
+
+.filterControls {
+    display: flex;
+    margin-top: var(--spacers-dp16);
+    margin-bottom: 20px;
+}
+.rightButton {
+    margin-left: auto;
+    margin-top: var(--spacers-dp16);
+}
+
+button{
+    border: 1px solid #e1e1e1!important;
+    color: rgb(50 51 53);
+}
+
+button:focus::after{
+    border-color: rgb(44, 102, 147)!important;
+}
+
+[data-test="dhis2-uicore-button"]{
+    height: 36px!important;
+    color: rgb(50 51 53)!important;
+}

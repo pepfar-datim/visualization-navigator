@@ -1,0 +1,22 @@
+{
+  "launch_path": "index.html",
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": "../../.."
+    }
+  },
+  "appType": "APP",
+  "name": "Visualization Navigator (1.0.2)",
+  "version": "1.0.2",
+  "description": "Visualization Navigator",
+  "icons": {
+    "48": "app-icon.png"
+  },
+  "developer": {
+    "name": "PEPFAR"
+  },
+  "dhis2": {
+    "apiVersion": "36"
+  }
+}

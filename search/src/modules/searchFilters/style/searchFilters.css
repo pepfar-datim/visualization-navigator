@@ -1,0 +1,52 @@
+.searchFiltersRoot{
+    margin: 10px;
+}
+
+.MuiInput-root{
+    margin-top: 0px!important;
+}
+
+label {
+    transform: none!important;
+    -webkit-transform: none!important;
+    margin-top:5px;
+}
+
+.blur{
+    filter: blur(2px);
+    pointer-events: none;
+    cursor: inherit;
+}
+
+.floatclear{
+    clear: both;
+}
+
+.appear {
+    animation-duration: 0.5s;
+    animation-name: animate-fade;
+    animation-delay: 0s;
+    animation-fill-mode: backwards;
+}
+
+@keyframes animate-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+button+button{
+    margin-left:10px!important;
+}
+
+button {
+    text-transform: none!important;
+}
+
+#addFilter{
+    border-color: #80808085!important;
+    color: #4b4b4b!important;
+}
+
+.filterPropertySelect{
+    margin-left:0px!important;
+}

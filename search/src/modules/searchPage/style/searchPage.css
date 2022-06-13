@@ -1,0 +1,14 @@
+.loadingRoot{
+    text-align: center;
+    margin-top: 150px;
+}
+
+.loadingRoot span{
+    height:60px!important;
+    width:60px!important;
+}
+
+#searchSettingsButton{
+    float: right;
+    margin: 10px
+}
