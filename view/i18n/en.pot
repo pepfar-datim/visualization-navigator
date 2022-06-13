@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-07T20:26:49.038Z\n"
-"PO-Revision-Date: 2022-06-07T20:26:49.038Z\n"
+"POT-Creation-Date: 2022-06-13T17:00:22.490Z\n"
+"PO-Revision-Date: 2022-06-13T17:00:22.490Z\n"
 
 msgid "App encountered errors on d2 initialization"
 msgstr "App encountered errors on d2 initialization"
@@ -131,9 +131,6 @@ msgstr "Show all"
 
 msgid "Search"
 msgstr "Search"
-
-msgid "Download results"
-msgstr "Download results"
 
 msgid "Could not execute search"
 msgstr "Could not execute search"

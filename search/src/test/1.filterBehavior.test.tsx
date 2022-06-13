@@ -14,7 +14,7 @@ test(`1 > Search filter behavior`, async ()=>{
     addFilter();
     setFilter(0,'Name','contains')
     addFilter();
-    setFilter(1,'Views','greaterThan')
+    setFilter(1,'Views','greater than')
     setFilter(1,'Last Viewed','before')
     click(`deleteFilter_1`)
     notToExistList(['deleteFilter_1','filterProperty_1'])

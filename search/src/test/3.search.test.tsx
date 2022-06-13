@@ -5,7 +5,7 @@ import {render} from "@testing-library/react";
 import {SearchPage} from "../modules/searchPage/components/searchPage.component";
 import {addFilter, search, setFilter} from "./lib/shared.testLib";
 import React from "react";
-import {camelCaseToHuman} from "../modules/searchPage/services/textFormat.service";
+import {camelCaseToCapitalized, camelCaseToWords} from "../modules/searchPage/services/textFormat.service";
 import {select} from "@pepfar-react-lib/testwrap";
 import {textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 
@@ -22,6 +22,13 @@ const testCases:TestCase[] = [{
         {filterProperty:FilterProperty.owner,operator: FilterOperator.contains,value:'er'}
     ],
     toFind:['0. FY19_EDARP_MER_Results','18237 TB PREV (Numerator and Denominator)']
+},{
+    name:'view count',
+    filters:[
+        {filterProperty:FilterProperty.views,operator: FilterOperator.greaterThan,value:'100'},
+        {filterProperty:FilterProperty.views,operator: FilterOperator.lessThan,value:'110'}
+    ],
+    toFind:['2020 All MER Results_ BYSubCity','Chiredzi PVLS_D&N']
 }];
 
 testCases.forEach(({name,filters,toFind}:TestCase)=>{
@@ -30,7 +37,7 @@ testCases.forEach(({name,filters,toFind}:TestCase)=>{
         filters.forEach(({filterProperty,operator,value}:SearchFilter,i:number)=>{
             if (!filterProperty||!operator||!value) return;
             addFilter();
-            setFilter(i,filterProperty,operator,value);
+            setFilter(i,filterProperty,camelCaseToWords(operator),value);
         })
         search();
         await textsWait(toFind)

@@ -1,5 +1,5 @@
 import React from "react";
-import {allFilters, FilterProperty, getFilterOperators, SearchFilter} from "../types/searchFilters.type";
+import {visibleFilters, FilterProperty, getFilterOperators, SearchFilter} from "../types/searchFilters.type";
 import {UpdateFilters} from "../../searchPage/types/methods.type";
 import {SearchFilterComponent} from "./searchFilter.component";
 import {Button} from "@mui/material";
@@ -8,7 +8,7 @@ import {Add, Search} from "@mui/icons-material";
 
 const changeFilter = (i:number, searchFilter:SearchFilter, searchFilters:SearchFilter[], updateFilters:UpdateFilters)=>{
     let {filterProperty,operator,value}:SearchFilter = searchFilter;
-    if (!filterProperty||!allFilters.includes(filterProperty)) throw new Error(`Cannot change filter type`);
+    if (!filterProperty||!visibleFilters.includes(filterProperty)) throw new Error(`Cannot change filter type`);
     if (!operator) operator = getFilterOperators(filterProperty)[0];
     searchFilters[i] = {filterProperty:filterProperty as FilterProperty,value, operator}
     updateFilters(searchFilters);

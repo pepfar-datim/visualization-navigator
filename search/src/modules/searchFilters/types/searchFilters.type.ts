@@ -1,9 +1,10 @@
 export enum FilterProperty{
     name='name',
+    type='type',
+    owner='owner',
     views='views',
     lastViewed='lastViewed',
-    owner='owner',
-    type='type',
+
     viewsMinDate='viewsMinDate',
     viewsMaxDate='viewsMaxDate'
 }
@@ -41,7 +42,7 @@ export function getFilterOperators(filterType:FilterProperty|null):FilterOperato
     }
 }
 
-export const allFilters:string[] = Object.values(FilterProperty);
+export const visibleFilters:string[] = Object.values(FilterProperty).filter(f=>![FilterProperty.viewsMaxDate,FilterProperty.viewsMinDate].includes(f as any));
 
 export type SearchFilter = {
     filterProperty:FilterProperty|null,
