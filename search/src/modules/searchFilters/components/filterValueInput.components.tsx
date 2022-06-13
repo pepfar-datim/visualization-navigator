@@ -26,7 +26,7 @@ export function FilterValueInput({filterProperty,filterValue, changeFilterValue,
         case FilterProperty.views:
             return fc(!filterValue,<TextField variant="standard" value={filterValue} type='number' onChange={onChange(changeFilterValue)} inputProps={{'data-testid':`filterValue_${i}`}}/>)
         case FilterProperty.lastViewed:
-            return fc(false,<DateSelect value={filterValue} onChange={changeFilterValue}/>)
+            return fc(false,<DateSelect value={filterValue} onChange={changeFilterValue} i={i}/>)
         case FilterProperty.type:
             return fc(!filterValue,<VisualizationTypeFilterSelect visualizationType={filterValue as VisualizationType} changeVisualizationType={onChange(changeFilterValue)} i={i}/>)
     }

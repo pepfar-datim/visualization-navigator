@@ -14,8 +14,6 @@ export function filtersToUrl(searchFilters:SearchFilter[]):string{
         maxViewCount = getFilterValue(FilterProperty.views, FilterOperator.lessThan, searchFilters),
         lastViewedMinDate = getFilterValue(FilterProperty.lastViewed, FilterOperator.after, searchFilters),
         lastViewedMaxDate = getFilterValue(FilterProperty.lastViewed, FilterOperator.before, searchFilters),
-        limitViewsMinDate = getFilterValue(FilterProperty.viewsMinDate, FilterOperator.after, searchFilters),
-        limitViewsMaxDate = getFilterValue(FilterProperty.viewsMaxDate, FilterOperator.before, searchFilters),
         visualizationType = getFilterValue(FilterProperty.type, FilterOperator.is, searchFilters)
     ;
     if (lastViewedMinDate) lastViewedMinDate = new Date(lastViewedMinDate).toISOString().split('T')[0]
@@ -28,7 +26,5 @@ includeNeverViewed:1,\
 minViewCount:${minViewCount||d.minViewCount},\
 maxViewCount:${maxViewCount||d.maxViewCount},\
 lastViewedMinDate:${lastViewedMinDate||d.lastViewedMinDate},\
-lastViewedMaxDate:${lastViewedMaxDate||d.lastViewedMaxDate},\
-limitViewsMinDate:${limitViewsMinDate||d.limitViewsMinDate},\
-limitViewsMaxDate:${limitViewsMaxDate||d.limitViewsMaxDate}`
+lastViewedMaxDate:${lastViewedMaxDate||d.lastViewedMaxDate}`
 }

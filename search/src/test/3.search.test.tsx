@@ -6,8 +6,8 @@ import {SearchPage} from "../modules/searchPage/components/searchPage.component"
 import {addFilter, search, setFilter} from "./lib/shared.testLib";
 import React from "react";
 import {camelCaseToCapitalized, camelCaseToWords} from "../modules/searchPage/services/textFormat.service";
-import {select} from "@pepfar-react-lib/testwrap";
-import {textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
+import {debug, pause, select} from "@pepfar-react-lib/testwrap";
+import {get, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 
 type TestCase = {
     name:string,
@@ -35,6 +35,13 @@ const testCases:TestCase[] = [{
         {filterProperty:FilterProperty.type,operator: FilterOperator.is,value:'Chart'},
     ],
     toFind:['<15 HTS 15+ YIELD','18237: HTS_TST (By Modalities)-Chart']
+// },{
+//     name:'last viewed',
+//     filters:[
+//         {filterProperty:FilterProperty.lastViewed,operator: FilterOperator.after,value:'01/01/2022'},
+//         {filterProperty:FilterProperty.lastViewed,operator: FilterOperator.before,value:'01/05/2022'},
+//     ],
+//     toFind:['COP22 Spectrum input data - PMTCT_ART_Already _15-18','EGPAF_Index_TST_District_FY21']
 }];
 
 testCases.forEach(({name,filters,toFind}:TestCase)=>{
@@ -45,6 +52,8 @@ testCases.forEach(({name,filters,toFind}:TestCase)=>{
             addFilter();
             setFilter(i,filterProperty,camelCaseToWords(operator),value);
         })
+        // await pause(1);
+        // debug(get(`filterValue_0`));
         search();
         await textsWait(toFind)
     })

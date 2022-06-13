@@ -14,9 +14,6 @@ export function getAvailableFilters(searchFilters:SearchFilter[]):FilterProperty
             case FilterProperty.views:
             case FilterProperty.lastViewed:
                 return filterOccurences(searchFilters,filter)<=1;
-            case FilterProperty.viewsMinDate:
-            case FilterProperty.viewsMaxDate:
-                return false;
         }
     })
 }

@@ -8,31 +8,37 @@ import {SearchResults} from "../../searchResults/components/searchResults.compon
 import {CircularProgress} from "@mui/material";
 import "../style/searchPage.css"
 import {Loading} from "./loading.component";
-import { SearchSettings } from './searchSettings.component';
+import { SearchSettingsButton } from '../../searchSettings/components/searchSettingsButton.component';
+import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 
 export class SearchPage extends React.Component<any, {
     visualizations:Visualization[],
     appState: AppState,
-    searchFilters: SearchFilter[]
+    searchFilters: SearchFilter[],
+    searchSettings: SearchSettings,
 }>{
     constructor(props:any) {
         super(props);
         this.state = {
             visualizations:[],
             appState: AppState.ready,
-            searchFilters: []
+            searchFilters: [],
+            searchSettings: {
+                limit: 100
+            }
         };
     }
 
     updateFilters = (searchFilters:SearchFilter[])=>this.setState({searchFilters})
+    updateSettings = (searchSettings:SearchSettings)=>this.setState({searchSettings});
     triggerSearch = ()=>{
         this.setState({appState:AppState.searching})
-        searchVisualizations(this.state.searchFilters).then(visualizations=>this.setState({visualizations, appState: AppState.success}))
+        searchVisualizations(this.state.searchFilters,this.state.searchSettings).then(visualizations=>this.setState({visualizations, appState: AppState.success}))
     }
 
     render() {
         return <>
-            <SearchSettings/>
+            <SearchSettingsButton searchSettings={this.state.searchSettings} updateSettings={this.updateSettings}/>
             <SearchFilters
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}

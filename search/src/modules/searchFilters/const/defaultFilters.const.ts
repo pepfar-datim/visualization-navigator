@@ -10,4 +10,5 @@ export const defaultFilters = {
     visualizationType:"_",
     limitViewsMinDate:"1969-01-01",
     limitViewsMaxDate:"2100-01-01",
+    limit: 100
 }

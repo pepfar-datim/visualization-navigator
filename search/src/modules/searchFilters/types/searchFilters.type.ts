@@ -4,9 +4,6 @@ export enum FilterProperty{
     owner='owner',
     views='views',
     lastViewed='lastViewed',
-
-    viewsMinDate='viewsMinDate',
-    viewsMaxDate='viewsMaxDate'
 }
 
 export enum FilterOperatorType{
