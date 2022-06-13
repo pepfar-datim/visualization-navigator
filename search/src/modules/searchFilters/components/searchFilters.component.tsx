@@ -1,14 +1,15 @@
 import React from "react";
-import {visibleFilters, FilterProperty, getFilterOperators, SearchFilter} from "../types/searchFilters.type";
+import {allFilterProperties, FilterProperty, getFilterOperators, SearchFilter} from "../types/searchFilters.type";
 import {UpdateFilters} from "../../searchPage/types/methods.type";
 import {SearchFilterComponent} from "./searchFilter.component";
 import {Button} from "@mui/material";
 import {Trigger} from "../types/methods.type";
 import {Add, Search} from "@mui/icons-material";
+import {getAvailableFilters} from "../services/getAvailableFilters.service";
 
 const changeFilter = (i:number, searchFilter:SearchFilter, searchFilters:SearchFilter[], updateFilters:UpdateFilters)=>{
     let {filterProperty,operator,value}:SearchFilter = searchFilter;
-    if (!filterProperty||!visibleFilters.includes(filterProperty)) throw new Error(`Cannot change filter type`);
+    if (!filterProperty||!allFilterProperties.includes(filterProperty)) throw new Error(`Cannot change filter type`);
     if (!operator) operator = getFilterOperators(filterProperty)[0];
     searchFilters[i] = {filterProperty:filterProperty as FilterProperty,value, operator}
     updateFilters(searchFilters);
@@ -28,9 +29,8 @@ export function SearchFilters({searchFilters, updateFilters, triggerSearch}:{
     updateFilters:UpdateFilters,
     triggerSearch:Trigger
 }) {
-    const hasFilters:boolean = searchFilters.length>0;
-    const width = hasFilters?560:'inherit';
-    return <div style={{width}} className={'searchFiltersRoot'}>
+    let availableFilters:FilterProperty[] = getAvailableFilters(searchFilters);
+    return <div className={'searchFiltersRoot'}>
         {searchFilters.map((f:SearchFilter, i:number)=><SearchFilterComponent
             key={i}
             searchFilter={f}
@@ -38,6 +38,7 @@ export function SearchFilters({searchFilters, updateFilters, triggerSearch}:{
                 changeFilter(i,searchFilter,searchFilters,updateFilters)
             }}
             deleteFilter={()=>deleteFilter(i, searchFilters, updateFilters)}
+            availableFilters={availableFilters}
             i={i}
         />)}
         <div id={`searchButtonsWrapper`}>

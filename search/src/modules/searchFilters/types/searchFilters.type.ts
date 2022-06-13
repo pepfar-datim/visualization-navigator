@@ -42,7 +42,7 @@ export function getFilterOperators(filterType:FilterProperty|null):FilterOperato
     }
 }
 
-export const visibleFilters:string[] = Object.values(FilterProperty).filter(f=>![FilterProperty.viewsMaxDate,FilterProperty.viewsMinDate].includes(f as any));
+export const allFilterProperties:FilterProperty[] = Object.values(FilterProperty);
 
 export type SearchFilter = {
     filterProperty:FilterProperty|null,
