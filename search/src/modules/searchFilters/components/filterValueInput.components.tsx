@@ -1,6 +1,6 @@
 import {InputLabel, TextField} from "@mui/material";
 import React from "react";
-import {ChangeFilterValue} from "../types/methods.type";
+import {ChangeFilterValue, OnDateChange} from "../types/methods.type";
 import {FilterProperty} from "../types/searchFilters.type";
 import {FormControl} from "./formControl.component";
 import {DateSelect} from "./dateSelect.component";
@@ -26,7 +26,7 @@ export function FilterValueInput({filterProperty,filterValue, changeFilterValue,
         case FilterProperty.views:
             return fc(!filterValue,<TextField variant="standard" value={filterValue} type='number' onChange={onChange(changeFilterValue)} inputProps={{'data-testid':`filterValue_${i}`}}/>)
         case FilterProperty.lastViewed:
-            return fc(false,<DateSelect value={filterValue} onChange={changeFilterValue} i={i}/>)
+            return fc(false,<DateSelect value={filterValue} onChange={changeFilterValue as OnDateChange} i={i}/>)
         case FilterProperty.type:
             return fc(!filterValue,<VisualizationTypeFilterSelect visualizationType={filterValue as VisualizationType} changeVisualizationType={onChange(changeFilterValue)} i={i}/>)
     }

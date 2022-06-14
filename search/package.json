@@ -6,14 +6,15 @@
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@date-io/date-fns": "^2.14.0",
+    "@date-io/dayjs": "^2.14.0",
     "@dhis2-ui/header-bar": "^8.2.5",
     "@dhis2/app-runtime": "^3.4.3",
     "@dhis2/ui": "^8.2.5",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.3",
-    "@mui/material": "^5.7.0",
-    "@mui/x-date-pickers": "^5.0.0-alpha.5",
+    "@mui/material": "^5.8.4",
+    "@mui/x-date-pickers": "^5.0.0-alpha.6",
     "@pepfar-react-lib/datim-api": "^0.0.10",
     "@pepfar-react-lib/testwrap": "^0.0.9",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
@@ -112,7 +113,9 @@
     "setupFilesAfterEnv": [
       "<rootDir>/src/setupTests.ts"
     ],
-    "moduleNameMapper": { "\\.(css|less)$": "<rootDir>/config/jest/cssTransform.js" }
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/config/jest/cssTransform.js"
+    }
   },
   "babel": {
     "presets": [

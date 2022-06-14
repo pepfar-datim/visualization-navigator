@@ -2,11 +2,77 @@ import * as React from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import {SearchSettings, UpdateSearchSettings} from "../types/searchSettings.type";
-import {Button} from "@mui/material";
+import {
+    Button,
+    DialogContent,
+    Divider,
+    FormControlLabel,
+    Grid,
+    MenuItem, Radio,
+    RadioGroup,
+    Select,
+    Typography
+} from "@mui/material";
+import { FormControl } from '../../searchFilters/components/formControl.component';
+import {DateSelect} from "../../searchFilters/components/dateSelect.component";
+
+const onSettingsChange = (
+    newSettings:{limit?:string|number; limitedViewRange?:boolean; limitViewsMinDate?:string; limitViewsMaxDate?:string;},
+    currentSettings: SearchSettings,
+    updateSettings: UpdateSearchSettings
+)=>{
+    let {limit, limitedViewRange, limitViewsMinDate, limitViewsMaxDate} = newSettings;
+    updateSettings({
+        limit: limit || currentSettings.limit,
+        limitedViewRange: limitedViewRange===undefined?currentSettings.limitedViewRange:limitedViewRange,
+        limitViewsMinDate:limitViewsMinDate||currentSettings.limitViewsMinDate,
+        limitViewsMaxDate:limitViewsMaxDate||currentSettings.limitViewsMaxDate
+    })
+}
 
 export function SearchSettingsDialog({open, close, searchSettings, updateSettings}:{open: boolean, close:()=>void, searchSettings:SearchSettings,updateSettings:UpdateSearchSettings}) {
-    return <Dialog onClose={close} open={open}>
+    return <Dialog onClose={close} open={open} className={'searchSettingsDialog'} maxWidth={'md'}>
         <DialogTitle>Search settings</DialogTitle>
-        <Button onClick={()=>updateSettings({limit:200,limitViewsMinDate: '1978-01-01',limitViewsMaxDate: '2500-01-01'})}>test</Button>
+        <Divider/>
+        <DialogContent>
+            <Grid container spacing={2}>
+                <Grid item xs={4}>
+                    <Typography className={'searchSettingsLabel'}>Limit search results to</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <FormControl>
+                        <Select variant={'standard'} value={searchSettings.limit} onChange={(e)=>onSettingsChange({limit:e.target.value},searchSettings,updateSettings)}>
+                            <MenuItem value={100}>100</MenuItem>
+                            <MenuItem value={500}>500</MenuItem>
+                            <MenuItem value={1000}>1000</MenuItem>
+                            <MenuItem value={'ALL'}>All</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={4}>
+                    <Typography className={'searchSettingsLabel'}>Range of reported views</Typography>
+                </Grid>
+                <Grid item xs={8}>
+                    <RadioGroup value={searchSettings.limitedViewRange} onChange={(e)=>onSettingsChange({limitedViewRange:e.target.value==='true'},searchSettings,updateSettings)}>
+                        <FormControlLabel value={false} control={<Radio />} label="Include all views in view count statistic" className={'radio'}/>
+                        <FormControlLabel value={true} control={<Radio />} label="Limit view counts to a specified date range" className={'radio'}/>
+                    </RadioGroup>
+                </Grid>
+                {searchSettings.limitedViewRange&&<>
+                    <Grid item xs={4}>
+                        <Typography className={'searchSettingsLabel'}>Start date</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} i={0}/>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Typography className={'searchSettingsLabel'}>End date</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} i={1}/>
+                    </Grid>
+                </>}
+            </Grid>
+        </DialogContent>
     </Dialog>
 }

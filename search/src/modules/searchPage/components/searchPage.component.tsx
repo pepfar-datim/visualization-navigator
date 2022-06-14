@@ -8,7 +8,7 @@ import {SearchResults} from "../../searchResults/components/searchResults.compon
 import {CircularProgress} from "@mui/material";
 import "../style/searchPage.css"
 import {Loading} from "./loading.component";
-import { SearchSettingsButton } from '../../searchSettings/components/searchSettingsButton.component';
+import { SearchSettingsComponent } from '../../searchSettings/components/searchSettings.component';
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 
 export class SearchPage extends React.Component<any, {
@@ -24,7 +24,10 @@ export class SearchPage extends React.Component<any, {
             appState: AppState.ready,
             searchFilters: [],
             searchSettings: {
-                limit: 100
+                limit: 100,
+                limitedViewRange: false,
+                limitViewsMaxDate: null,
+                limitViewsMinDate: null
             }
         };
     }
@@ -38,7 +41,7 @@ export class SearchPage extends React.Component<any, {
 
     render() {
         return <>
-            <SearchSettingsButton searchSettings={this.state.searchSettings} updateSettings={this.updateSettings}/>
+            <SearchSettingsComponent searchSettings={this.state.searchSettings} updateSettings={this.updateSettings}/>
             <SearchFilters
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}

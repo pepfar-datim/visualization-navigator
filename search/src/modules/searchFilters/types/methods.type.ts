@@ -6,4 +6,5 @@ export type ChangeFilterValue = (filterType:string)=>void;
 export type ChangeFilterOperator = (filterOperator:FilterOperator)=>void;
 export type ChangeFilter = (searchFilter:SearchFilter)=>void;
 export type ChangeVisualizationType = (e:any)=>void;
+export type OnDateChange = (date:string|null)=>void;
 export type Trigger = ()=>void;

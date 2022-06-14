@@ -1,5 +1,6 @@
 import {FilterOperator, FilterProperty, SearchFilter} from "./searchFilters.type";
 import {defaultFilters as d} from "../const/defaultFilters.const";
+import {stringifyDate} from "../../shared/services/stringifyDate.service";
 
 function getFilterValue(filterProperty:FilterProperty, operator: FilterOperator, searchFilters:SearchFilter[]):string|null{
     const propertyMatcher = (f:SearchFilter)=>f.filterProperty===filterProperty&&f.operator===operator
@@ -16,8 +17,8 @@ export function filtersToUrl(searchFilters:SearchFilter[]):string{
         lastViewedMaxDate = getFilterValue(FilterProperty.lastViewed, FilterOperator.before, searchFilters),
         visualizationType = getFilterValue(FilterProperty.type, FilterOperator.is, searchFilters)
     ;
-    if (lastViewedMinDate) lastViewedMinDate = new Date(lastViewedMinDate).toISOString().split('T')[0]
-    if (lastViewedMaxDate) lastViewedMaxDate = new Date(lastViewedMaxDate).toISOString().split('T')[0]
+    if (lastViewedMinDate) lastViewedMinDate = stringifyDate(lastViewedMinDate)
+    if (lastViewedMaxDate) lastViewedMaxDate = stringifyDate(lastViewedMaxDate)
     return `uid:_,\
 favoriteName:${favoriteName||'_'},\
 user:${user||'_'},\

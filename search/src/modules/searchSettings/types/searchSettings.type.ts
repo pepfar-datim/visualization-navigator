@@ -1,7 +1,8 @@
 export type SearchSettings = {
-    limitViewsMinDate?:string,
-    limitViewsMaxDate?:string,
-    limit:number,
+    limitViewsMinDate:string|null,
+    limitViewsMaxDate:string|null,
+    limitedViewRange:boolean,
+    limit:number|string,
 }
 
 export type UpdateSearchSettings = (settings:SearchSettings)=>void;
