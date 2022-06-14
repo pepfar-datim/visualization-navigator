@@ -7,7 +7,7 @@ import {
     DialogContent,
     Divider,
     FormControlLabel,
-    Grid,
+    Grid, IconButton,
     MenuItem, Radio,
     RadioGroup,
     Select,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { FormControl } from '../../searchFilters/components/formControl.component';
 import {DateSelect} from "../../searchFilters/components/dateSelect.component";
+import {Close} from "@mui/icons-material";
 
 const onSettingsChange = (
     newSettings:{limit?:string|number; limitedViewRange?:boolean; limitViewsMinDate?:string; limitViewsMaxDate?:string;},
@@ -32,7 +33,12 @@ const onSettingsChange = (
 
 export function SearchSettingsDialog({open, close, searchSettings, updateSettings}:{open: boolean, close:()=>void, searchSettings:SearchSettings,updateSettings:UpdateSearchSettings}) {
     return <Dialog onClose={close} open={open} className={'searchSettingsDialog'} maxWidth={'md'}>
-        <DialogTitle>Search settings</DialogTitle>
+        <DialogTitle>
+            Search settings
+            <IconButton onClick={close} className={'closeSettingsDialog'} data-testid={'closeSettingsDialog'}>
+                <Close/>
+            </IconButton>
+        </DialogTitle>
         <Divider/>
         <DialogContent>
             <Grid container spacing={2}>
@@ -55,7 +61,7 @@ export function SearchSettingsDialog({open, close, searchSettings, updateSetting
                 <Grid item xs={8}>
                     <RadioGroup value={searchSettings.limitedViewRange} onChange={(e)=>onSettingsChange({limitedViewRange:e.target.value==='true'},searchSettings,updateSettings)}>
                         <FormControlLabel value={false} control={<Radio />} label="Include all views in view count statistic" className={'radio'}/>
-                        <FormControlLabel value={true} control={<Radio />} label="Limit view counts to a specified date range" className={'radio'}/>
+                        <FormControlLabel value={true} control={<Radio />} label="Limit view counts to a specified date range" className={'radio'} data-testid={'limitedViewRange'}/>
                     </RadioGroup>
                 </Grid>
                 {searchSettings.limitedViewRange&&<>
@@ -63,13 +69,13 @@ export function SearchSettingsDialog({open, close, searchSettings, updateSetting
                         <Typography className={'searchSettingsLabel'}>Start date</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} i={0}/>
+                        <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} i={`limitViewsMinDate`}/>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography className={'searchSettingsLabel'}>End date</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} i={1}/>
+                        <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} i={'limitViewsMaxDate'}/>
                     </Grid>
                 </>}
             </Grid>

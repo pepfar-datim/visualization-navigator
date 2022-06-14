@@ -10,7 +10,7 @@ export function SearchSettingsComponent({searchSettings, updateSettings}:{search
     return <div id='searchSettingsButton'>
         <FormControl>
             <Tooltip title='Settings'>
-                <IconButton component="span" onClick={()=>setOpen(true)}>
+                <IconButton component="span" onClick={()=>setOpen(true)} data-testid={`searchSettingsButton`}>
                     <Settings />
                 </IconButton>
             </Tooltip>

@@ -9,3 +9,9 @@
 .radio+.radio{
     margin-top: 0px;
 }
+
+.closeSettingsDialog{
+    position: absolute;
+    right: 9px;
+    top: 9px;
+}

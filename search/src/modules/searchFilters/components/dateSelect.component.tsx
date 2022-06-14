@@ -5,7 +5,11 @@ import {TextField} from "@mui/material";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {OnDateChange} from "../types/methods.type";
 
-export function DateSelect({value,onChange,i}:{value:string|null,onChange:OnDateChange,i:number}) {
+export const dateSelectHack:{[i:number|string]:OnDateChange} = {};
+
+export function DateSelect({value,onChange,i}:{value:string|null,onChange:OnDateChange,i:number|string}) {
+    dateSelectHack[i] = onChange;
+    console.log(`dateSelectHack[${i}]`)
     return <LocalizationProvider dateAdapter={AdapterDateFns}><DesktopDatePicker
         inputFormat="MM/dd/yyyy"
         value={value}

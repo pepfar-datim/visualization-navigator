@@ -3,6 +3,7 @@ import {camelCaseToCapitalized} from "../../modules/searchPage/services/textForm
 import {FilterProperty} from "../../modules/searchFilters/types/searchFilters.type";
 import {type} from "@pepfar-react-lib/testwrap";
 import {fireEvent, screen} from "@testing-library/react";
+import {dateSelectHack} from "../../modules/searchFilters/components/dateSelect.component";
 
 export function setFilter(i:number,property:FilterProperty,operator:string,value:string){
     select(`filterProperty_${i}`,camelCaseToCapitalized(property));
@@ -17,9 +18,7 @@ export function setFilter(i:number,property:FilterProperty,operator:string,value
             select(`visualizationTypeSelect_${i}`,value);
             break;
         case FilterProperty.lastViewed:
-            throw new Error(`not implemented`)
-            // type(`filterValue_${i}`,value)
-            // fireEvent.change(screen.getByTestId(`filterValue_${i}`),value);
+            dateSelectHack[i](value);
             break;
     }
 }
