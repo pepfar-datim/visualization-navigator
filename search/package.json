@@ -9,6 +9,7 @@
     "@date-io/dayjs": "^2.14.0",
     "@dhis2-ui/header-bar": "^8.2.5",
     "@dhis2/app-runtime": "^3.4.3",
+    "@dhis2/d2-ui-sharing-dialog": "^7.4.0",
     "@dhis2/ui": "^8.2.5",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
