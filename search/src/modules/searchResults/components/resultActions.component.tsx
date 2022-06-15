@@ -1,8 +1,8 @@
 import {BarChart, Code, Share } from "@mui/icons-material";
 import { IconButton, Link, Tooltip } from "@mui/material";
 import React, {useState} from "react";
-// @ts-ignore
-// import SharingDialog from "@dhis2/d2-ui-sharing-dialog";
+import {VisualizationType} from "../../searchPage/types/visualization.type";
+import {SharingDialog} from "./sharingDialog.component";
 
 function ActionLink({link,icon,tooltip}:{link:string,icon:any,tooltip:string}){
     return <div className={`actionButton`}>
@@ -14,8 +14,7 @@ function ActionLink({link,icon,tooltip}:{link:string,icon:any,tooltip:string}){
     </div>
 }
 
-export function ResultActions({visualizationId}:{visualizationId:string}) {
-    let [sharingOpen,setSharingOpen] = useState<boolean>(false)
+export function ResultActions({visualizationId,type}:{visualizationId:string,type:VisualizationType}) {
     return <>
         <ActionLink
             tooltip={`Open in visualizer`}
@@ -27,13 +26,6 @@ export function ResultActions({visualizationId}:{visualizationId:string}) {
             link={`/api/visualizations/${visualizationId}`}
             icon={<Code/>}
         />
-        <div className={`actionButton`}>
-            <Tooltip title={'Update sharing (this item)'}>
-                <IconButton onClick={()=>setSharingOpen(true)}>
-                    <Share/>
-                </IconButton>
-            </Tooltip>
-        </div>
-        {/*{sharingOpen&&<SharingDialog/>}*/}
+        <SharingDialog id={visualizationId} type={type}/>
     </>;
 }

@@ -36,7 +36,7 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
                 </TableHead>
                 <TableBody>
                     {visualizations.map(({id, name,views,lastViewed,type,owner}:Visualization) => (
-                        <StyledTableRow key={name}>
+                        <StyledTableRow key={id}>
                             <StyledTableCell component="th" scope="row">
                                 <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
                             </StyledTableCell>
@@ -44,7 +44,7 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
                             <StyledTableCell sx={{whiteSpace:'nowrap'}}>{lastViewed}</StyledTableCell>
                             <StyledTableCell>{type}</StyledTableCell>
                             {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
-                            <StyledTableCell sx={{whiteSpace:'nowrap'}}><ResultActions visualizationId={id}/></StyledTableCell>
+                            <StyledTableCell sx={{whiteSpace:'nowrap'}}><ResultActions visualizationId={id} type={type}/></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
