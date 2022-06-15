@@ -11,7 +11,7 @@
 }
 
 .closeSettingsDialog{
-    position: absolute;
-    right: 9px;
-    top: 9px;
+    position: absolute!important;
+    right: 9px!important;
+    top: 9px!important;
 }

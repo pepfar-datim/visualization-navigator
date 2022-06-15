@@ -69,13 +69,17 @@ export function SearchSettingsDialog({open, close, searchSettings, updateSetting
                         <Typography className={'searchSettingsLabel'}>Start date</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} i={`limitViewsMinDate`}/>
+                        <FormControl>
+                            <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} i={`limitViewsMinDate`}/>
+                        </FormControl>
                     </Grid>
                     <Grid item xs={4}>
                         <Typography className={'searchSettingsLabel'}>End date</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} i={'limitViewsMaxDate'}/>
+                        <FormControl>
+                            <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} i={'limitViewsMaxDate'}/>
+                        </FormControl>
                     </Grid>
                 </>}
             </Grid>
