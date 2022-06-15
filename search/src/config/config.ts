@@ -36,3 +36,15 @@ export const config = {
         "publicAccess": "--------",
     }
 }
+
+export const getViewUrl = (visualizationId:string)=>{
+    try {
+        if (process.env.NODE_ENV === 'development') {
+            return `http://localhost:3000/#/view/${visualizationId}`
+        } else {
+            return `view.html#/view/${visualizationId}`
+        }
+    } catch (e){
+        return `view.html#/view/${visualizationId}`
+    }
+}

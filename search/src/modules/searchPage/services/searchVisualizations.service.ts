@@ -8,6 +8,7 @@ import {SqlViewVersion} from "../types/appState.type";
 
 function responseToModel(response:ServerResponse):Visualization[]{
     return response.listGrid.rows.map(row=>({
+        id: row[0],
         type: row[4] as VisualizationType,
         name: row[1],
         views: parseInt(row[2]),

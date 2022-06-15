@@ -421,7 +421,7 @@ const ViewContentInner = ({ id, type }) => {
           <Button
             icon={<IconArrowLeft24 />}
             onClick={() => {
-              window.location.href = "#";
+              window.location.href = "/index.html";
             }}
           />
           <h2>{i18n.t("Visualization not accessible")}</h2>
@@ -433,7 +433,7 @@ const ViewContentInner = ({ id, type }) => {
             <Button
               icon={<IconArrowLeft24 />}
               onClick={() => {
-                window.location.href = "#";
+                  window.location.href = "/index.html";
               }}
             />
             <div className="visTitle">

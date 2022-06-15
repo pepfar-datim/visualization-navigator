@@ -9,8 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Visualization} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
-import {TableFooter} from "@mui/material";
+import {Link, TableFooter} from "@mui/material";
 import {SqlViewVersion} from "../../searchPage/types/appState.type";
+import { getViewUrl } from '../../../config/config';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -43,10 +44,10 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {visualizations.map(({name,views,lastViewed,type,owner}:Visualization) => (
+                    {visualizations.map(({id, name,views,lastViewed,type,owner}:Visualization) => (
                         <StyledTableRow key={name}>
                             <StyledTableCell component="th" scope="row">
-                                {name}
+                                <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'}>{name}</Link>
                             </StyledTableCell>
                             <StyledTableCell>{views}</StyledTableCell>
                             <StyledTableCell sx={{whiteSpace:'nowrap'}}>{lastViewed}</StyledTableCell>

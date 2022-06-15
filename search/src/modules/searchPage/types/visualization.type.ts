@@ -11,6 +11,7 @@ export const visualizationTypeList = Object.keys(VisualizationType);
 
 
 export type Visualization = {
+    id:string,
     type: VisualizationType,
     name: string,
     views: number,

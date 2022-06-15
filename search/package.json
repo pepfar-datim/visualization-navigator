@@ -77,7 +77,7 @@
   },
   "scripts": {
     "start": "REACT_APP_BASE_URL=https://jakub.datim.org/ node scripts/start.js",
-    "build": "node scripts/build.js && npm run build:zip",
+    "build": "node scripts/build.js",
     "build:zip": "(rm -f Visualization-Navigator.zip && cd build && zip ../Visualization-Navigator.zip -r .)",
     "test_old": "REACT_APP_BASE_URL=https://jakub.datim.org/ node scripts/test.js",
     "dep:copy": "sh node_modules/@pepfar-react-lib/dep-copy/bin/dep-copy.sh",
