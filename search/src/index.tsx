@@ -5,6 +5,7 @@ import datimApi from "@pepfar-react-lib/datim-api"
 import "./index.css";
 import {DatimWrapper} from "./modules/main/components/datimWrapper.component";
 import { ThemeWrapper } from './modules/searchPage/components/themeWrapper.component';
+import {SqlDetectWrapper} from "./modules/main/components/sqlDetectWrapper.component";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,7 +16,7 @@ datimApi.register(process.env.NODE_ENV,process.env.REACT_APP_BASE_URL);
 root.render(<React.StrictMode>
     <DatimWrapper>
         <ThemeWrapper>
-            <SearchPage/>
+            <SqlDetectWrapper SearchPage={SearchPage}/>
         </ThemeWrapper>
     </DatimWrapper>
 </React.StrictMode>);

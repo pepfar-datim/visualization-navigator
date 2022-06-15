@@ -6,6 +6,7 @@ import {Button} from "@mui/material";
 import {Trigger} from "../types/methods.type";
 import {Add, Search} from "@mui/icons-material";
 import {getAvailableFilters} from "../services/getAvailableFilters.service";
+import {SqlViewVersion} from "../../searchPage/types/appState.type";
 
 const changeFilter = (i:number, searchFilter:SearchFilter, searchFilters:SearchFilter[], updateFilters:UpdateFilters)=>{
     let {filterProperty,operator,value}:SearchFilter = searchFilter;
@@ -24,12 +25,13 @@ const deleteFilter = (index:number, searchFilters:SearchFilter[], updateFilters:
     updateFilters(searchFilters.filter((f,i)=>i!==index))
 }
 
-export function SearchFilters({searchFilters, updateFilters, triggerSearch}:{
+export function SearchFilters({searchFilters, updateFilters, triggerSearch,sqlViewVersion}:{
     searchFilters:SearchFilter[],
     updateFilters:UpdateFilters,
-    triggerSearch:Trigger
+    triggerSearch:Trigger,
+    sqlViewVersion:SqlViewVersion
 }) {
-    let availableFilters:FilterProperty[] = getAvailableFilters(searchFilters);
+    let availableFilters:FilterProperty[] = getAvailableFilters(searchFilters,sqlViewVersion);
     return <div className={'searchFiltersRoot'}>
         {searchFilters.map((f:SearchFilter, i:number)=><SearchFilterComponent
             key={i}

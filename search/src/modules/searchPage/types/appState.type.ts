@@ -4,3 +4,8 @@ export enum AppState {
     error='error',
     success='success'
 }
+
+export enum SqlViewVersion {
+    withUsers='enhanced',
+    withoutUsers='default'
+}

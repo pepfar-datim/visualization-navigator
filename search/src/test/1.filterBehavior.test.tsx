@@ -3,6 +3,7 @@ import {fireEvent, render, screen, within} from "@testing-library/react";
 import {SearchPage} from "../modules/searchPage/components/searchPage.component";
 import {checkSelectValue, click, notToExistList, select} from "@pepfar-react-lib/testwrap";
 import {addFilter} from "./lib/shared.testLib";
+import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 
 export function setFilter(i:number,property:string,expectedOperator:string){
     select(`filterProperty_${i}`,property);
@@ -17,7 +18,7 @@ function checkPropertyAvailable(selectId:string,property:string, available:boole
 }
 
 test(`1 > Search filter behavior`, async ()=>{
-    render(<SearchPage/>);
+    render(<SearchPage sqlViewVersion={SqlViewVersion.withUsers}/>);
     addFilter();
     setFilter(0,'Name','contains')
     addFilter();

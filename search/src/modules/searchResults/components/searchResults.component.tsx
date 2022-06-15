@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Visualization} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
-import {TableFooter, TablePagination, Typography} from "@mui/material";
+import {TableFooter} from "@mui/material";
+import {SqlViewVersion} from "../../searchPage/types/appState.type";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -27,7 +28,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-export function SearchResults({visualizations}:{visualizations:Visualization[]}) {
+export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Visualization[],sqlViewVersion:SqlViewVersion}) {
+    let withUsers:boolean = sqlViewVersion===SqlViewVersion.withUsers;
     return (
         <TableContainer component={Paper} className={`searchResultsRoot appear`}>
             <Table sx={{}} aria-label="customized table">
@@ -37,7 +39,7 @@ export function SearchResults({visualizations}:{visualizations:Visualization[]})
                         <StyledTableCell>Views</StyledTableCell>
                         <StyledTableCell sx={{whiteSpace:'nowrap'}}>Last Viewed</StyledTableCell>
                         <StyledTableCell>Type</StyledTableCell>
-                        <StyledTableCell>Owner</StyledTableCell>
+                        {withUsers&&<StyledTableCell>Owner</StyledTableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -49,7 +51,7 @@ export function SearchResults({visualizations}:{visualizations:Visualization[]})
                             <StyledTableCell>{views}</StyledTableCell>
                             <StyledTableCell sx={{whiteSpace:'nowrap'}}>{lastViewed}</StyledTableCell>
                             <StyledTableCell>{type}</StyledTableCell>
-                            <StyledTableCell>{owner}</StyledTableCell>
+                            {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
                         </StyledTableRow>
                     ))}
                 </TableBody>

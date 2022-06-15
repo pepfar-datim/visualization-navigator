@@ -1,3 +1,5 @@
+import {SqlViewVersion} from "./appState.type";
+
 export enum VisualizationType {
     pivot='pivot',
     dashboard='dashboard',
@@ -7,10 +9,6 @@ export enum VisualizationType {
 
 export const visualizationTypeList = Object.keys(VisualizationType);
 
-export enum SqlType {
-    enhanced='enhanced',
-    default='default'
-}
 
 export type Visualization = {
     type: VisualizationType,
@@ -18,7 +16,7 @@ export type Visualization = {
     views: number,
     lastViewed: string,
     owner: string,
-    sql: SqlType
+    sql: SqlViewVersion
 }
 
 export type ServerResponse = {

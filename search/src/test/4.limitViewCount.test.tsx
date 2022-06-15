@@ -9,14 +9,14 @@ import {camelCaseToCapitalized, camelCaseToWords} from "../modules/searchPage/se
 import {click, debug, pause, select} from "@pepfar-react-lib/testwrap";
 import {get, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 import {dateSelectHack} from "../modules/searchFilters/components/dateSelect.component";
+import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 
 
 
-test(`3 > Search > ${name}`,async ()=>{
-    render(<SearchPage/>);
+test(`4 > Limit view count by date `,async ()=>{
+    render(<SearchPage sqlViewVersion={SqlViewVersion.withUsers}/>);
     click(`searchSettingsButton`);
     click('limitedViewRange');
-    // debug();
     dateSelectHack['limitViewsMinDate']('2022-06-01');
     await pause(0.2);
     dateSelectHack['limitViewsMaxDate']('2022-06-02');

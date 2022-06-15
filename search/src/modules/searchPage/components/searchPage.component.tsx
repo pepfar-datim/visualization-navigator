@@ -1,6 +1,6 @@
 import React from 'react';
 import {Visualization} from "../types/visualization.type";
-import {AppState} from "../types/appState.type";
+import {AppState, SqlViewVersion} from "../types/appState.type";
 import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {SearchFilters} from '../../searchFilters/components/searchFilters.component';
 import {searchVisualizations} from "../services/searchVisualizations.service";
@@ -11,7 +11,7 @@ import {Loading} from "./loading.component";
 import { SearchSettingsComponent } from '../../searchSettings/components/searchSettings.component';
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 
-export class SearchPage extends React.Component<any, {
+export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],
     appState: AppState,
     searchFilters: SearchFilter[],
@@ -46,9 +46,10 @@ export class SearchPage extends React.Component<any, {
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}
                 triggerSearch={this.triggerSearch}
+                sqlViewVersion={this.props.sqlViewVersion}
             />
             {this.state.appState===AppState.searching&&<Loading/>}
-            {this.state.appState===AppState.success&&<SearchResults visualizations={this.state.visualizations}/>}
+            {this.state.appState===AppState.success&&<SearchResults visualizations={this.state.visualizations} sqlViewVersion={this.props.sqlViewVersion}/>}
         </>
     }
 }

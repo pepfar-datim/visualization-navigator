@@ -8,6 +8,7 @@ import React from "react";
 import {camelCaseToCapitalized, camelCaseToWords} from "../modules/searchPage/services/textFormat.service";
 import {debug, pause, select} from "@pepfar-react-lib/testwrap";
 import {get, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
+import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 
 type TestCase = {
     name:string,
@@ -46,7 +47,7 @@ const testCases:TestCase[] = [{
 
 testCases.forEach(({name,filters,toFind}:TestCase)=>{
     test(`3 > Search > ${name}`,async ()=>{
-        render(<SearchPage/>);
+        render(<SearchPage sqlViewVersion={SqlViewVersion.withUsers}/>);
         filters.forEach(({filterProperty,operator,value}:SearchFilter,i:number)=>{
             if (!filterProperty||!operator||!value) return;
             addFilter();
