@@ -17,7 +17,8 @@ export type Visualization = {
     views: number,
     lastViewed: string,
     owner: string,
-    sql: SqlViewVersion
+    sql: SqlViewVersion,
+    selected: boolean;
 }
 
 export type ServerResponse = {

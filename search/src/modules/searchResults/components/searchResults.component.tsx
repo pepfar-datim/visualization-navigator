@@ -14,19 +14,27 @@ import {SqlViewVersion} from "../../searchPage/types/appState.type";
 import { getViewUrl } from '../../../config/config';
 import {StyledTableCell, StyledTableRow} from './styledTable.component';
 import {ResultActions} from "./resultActions.component";
+import {SelectVisualization} from "../../searchPage/types/methods.type";
+import {Trigger} from "../../shared/types/shared.types";
+import {areAllSelected} from "../../searchPage/services/selectVisualizations.service";
 
 
 
 
 
-export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Visualization[],sqlViewVersion:SqlViewVersion}) {
+export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll}:{
+    visualizations:Visualization[],
+    sqlViewVersion:SqlViewVersion,
+    selectVisualization:SelectVisualization,
+    selectAll:Trigger
+}) {
     let withUsers:boolean = sqlViewVersion===SqlViewVersion.withUsers;
     return (
         <TableContainer component={Paper} className={`searchResultsRoot appear`}>
             <Table sx={{}} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell className={'nowrap zeroPadding'}><Checkbox size={'small'}/></StyledTableCell>
+                        <StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)}/></StyledTableCell>
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell>Views</StyledTableCell>
                         <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
@@ -36,9 +44,9 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {visualizations.map(({id, name,views,lastViewed,type,owner}:Visualization) => (
+                    {visualizations.map(({id, name,views,lastViewed,type,owner,selected}:Visualization) => (
                         <StyledTableRow key={id}>
-                            <StyledTableCell className={'nowrap zeroPadding'}><Checkbox size={'small'}/></StyledTableCell>
+                            <StyledTableCell className={'nowrap zeroPadding'}><Checkbox checked={selected} size={'small'} onClick={()=>selectVisualization(id)}/></StyledTableCell>
                             <StyledTableCell component="th" scope="row">
                                 <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
                             </StyledTableCell>

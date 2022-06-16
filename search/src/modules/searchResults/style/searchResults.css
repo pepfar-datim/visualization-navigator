@@ -37,3 +37,5 @@ thead th {
 .zeroPadding{
     padding:0px!important;
 }
+
+.selectAllCheckbox.Mui-checked{color:inherit!important;}

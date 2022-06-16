@@ -3,10 +3,10 @@ import {allFilterProperties, FilterProperty, getFilterOperators, SearchFilter} f
 import {UpdateFilters} from "../../searchPage/types/methods.type";
 import {SearchFilterComponent} from "./searchFilter.component";
 import {Button} from "@mui/material";
-import {Trigger} from "../types/methods.type";
 import {Add, Search} from "@mui/icons-material";
 import {getAvailableFilters} from "../services/getAvailableFilters.service";
 import {SqlViewVersion} from "../../searchPage/types/appState.type";
+import {Trigger} from "../../shared/types/shared.types";
 
 const changeFilter = (i:number, searchFilter:SearchFilter, searchFilters:SearchFilter[], updateFilters:UpdateFilters)=>{
     let {filterProperty,operator,value}:SearchFilter = searchFilter;

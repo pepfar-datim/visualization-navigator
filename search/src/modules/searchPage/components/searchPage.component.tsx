@@ -10,6 +10,9 @@ import "../style/searchPage.css"
 import {Loading} from "./loading.component";
 import { SearchSettingsComponent } from '../../searchSettings/components/searchSettings.component';
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
+import {SelectVisualization} from "../types/methods.type";
+import {Trigger} from "../../shared/types/shared.types";
+import {areAllSelected, selectAll} from '../services/selectVisualizations.service';
 
 export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],
@@ -20,7 +23,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
     constructor(props:any) {
         super(props);
         this.state = {
-            visualizations:[],
+            visualizations: [],
             appState: AppState.ready,
             searchFilters: [],
             searchSettings: {
@@ -28,7 +31,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 limitedViewRange: false,
                 limitViewsMaxDate: null,
                 limitViewsMinDate: null
-            }
+            },
         };
     }
 
@@ -37,6 +40,19 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
     triggerSearch = ()=>{
         this.setState({appState:AppState.searching})
         searchVisualizations(this.state.searchFilters,this.state.searchSettings).then(visualizations=>this.setState({visualizations, appState: AppState.success}))
+    }
+    selectVisualization:SelectVisualization = (visualizationId:string)=>{
+        let visualizations:Visualization[] = this.state.visualizations;
+        let visualization = visualizations.filter(({id})=>id===visualizationId)[0];
+        visualization.selected = !visualization.selected;
+        this.setState({visualizations});
+    }
+    selectAll:Trigger = ()=>{
+        let allSelected:boolean = areAllSelected(this.state.visualizations);
+        let visualizations;
+        if (allSelected) visualizations = selectAll(this.state.visualizations,false)
+        else visualizations = selectAll(this.state.visualizations,true)
+        this.setState({visualizations})
     }
 
     render() {
@@ -49,7 +65,12 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 sqlViewVersion={this.props.sqlViewVersion}
             />
             {this.state.appState===AppState.searching&&<Loading/>}
-            {this.state.appState===AppState.success&&<SearchResults visualizations={this.state.visualizations} sqlViewVersion={this.props.sqlViewVersion}/>}
+            {this.state.appState===AppState.success&&<SearchResults
+                visualizations={this.state.visualizations}
+                sqlViewVersion={this.props.sqlViewVersion}
+                selectVisualization={this.selectVisualization}
+                selectAll={this.selectAll}
+            />}
         </>
     }
 }
