@@ -5,4 +5,4 @@ export const selectAll = (visualizations:Visualization[],selected:boolean)=>{
     return visualizations;
 }
 
-export const areAllSelected = (visualizations:Visualization[])=>visualizations.filter(({selected})=>selected).length===visualizations.length;
+export const areAllSelected = (selectedVisualizations:string[],visualizations:Visualization[])=>selectedVisualizations.length===visualizations.length;
