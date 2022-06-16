@@ -34,7 +34,7 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
             <Table sx={{}} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)}/></StyledTableCell>
+                        <StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)} inputProps={{'data-testid':'checkbox_selectAll'}as any}/></StyledTableCell>
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell>Views</StyledTableCell>
                         <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
@@ -44,9 +44,9 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {visualizations.map(({id, name,views,lastViewed,type,owner,selected}:Visualization) => (
+                    {visualizations.map(({id, name,views,lastViewed,type,owner,selected}:Visualization,i:number) => (
                         <StyledTableRow key={id}>
-                            <StyledTableCell className={'nowrap zeroPadding'}><Checkbox checked={selected} size={'small'} onClick={()=>selectVisualization(id)}/></StyledTableCell>
+                            <StyledTableCell className={'nowrap zeroPadding'}><Checkbox checked={selected} size={'small'} onClick={()=>selectVisualization(id)} inputProps={{'data-testid':`checkbox_${i}`} as any}/></StyledTableCell>
                             <StyledTableCell component="th" scope="row">
                                 <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
                             </StyledTableCell>

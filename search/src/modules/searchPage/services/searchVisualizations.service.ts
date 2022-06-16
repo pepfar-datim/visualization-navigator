@@ -20,6 +20,6 @@ function responseToModel(response:ServerResponse):Visualization[]{
 }
 
 export function searchVisualizations(searchFilters:SearchFilter[],searchSettings:SearchSettings):Promise<Visualization[]>{
-    let fullUrl:string = `/sqlViews/VisNavgSrch/data?var=${filtersToUrl(searchFilters)},${settingsToUrl(searchSettings)}`
+    let fullUrl:string = `/sqlViews/VisNavgSrch/data?paging=false&var=${filtersToUrl(searchFilters)},${settingsToUrl(searchSettings)}`
     return datimApi.getJson(fullUrl).then(responseToModel);
 }
