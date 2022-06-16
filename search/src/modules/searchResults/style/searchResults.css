@@ -18,6 +18,10 @@ thead th {
 }
 
 .searchResultViewLink:hover{
-    /*font-weight: 500;*/
     color: rgb(44, 102, 147)!important;
+}
+
+[role="document"] > div{
+    width: 800px!important;
+    font-family: "Roboto","Helvetica","Arial",sans-serif!important;
 }

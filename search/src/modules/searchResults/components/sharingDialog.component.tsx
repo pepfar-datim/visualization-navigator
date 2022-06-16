@@ -30,8 +30,11 @@ export function SharingDialog({type,id}:{id:string,type:VisualizationType}) {
                 </IconButton>
             </Tooltip>
         </div>
-        {sharingOpen&&<D2Shim>
-            {({d2}:{d2:any})=>d2&&<SD d2={d2} type={dhis2Type} id={id} open={true} onRequestClose={()=>setSharingOpen(false)}/>}
+        {sharingOpen&&<D2Shim i18nRoot={"./i18n"}>
+            {({d2}:{d2:any})=>{
+                if (!d2) return null;
+                return <SD d2={d2} type={dhis2Type} id={id} open={true} onRequestClose={()=>setSharingOpen(false)}/>
+            }}
         </D2Shim>}
         </>
 }

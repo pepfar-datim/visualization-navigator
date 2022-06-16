@@ -34,6 +34,7 @@ const App = () => {
       <CssVariables colors spacers />
       <D2Shim d2Config={d2Config} i18nRoot="./i18n">
         {({ d2 }) => {
+            console.log(d2);
           if (!d2 && !delayed) {
             <p>{i18n.t("App encountered errors on d2 initialization")}</p>;
           }
