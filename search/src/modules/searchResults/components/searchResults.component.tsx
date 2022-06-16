@@ -40,11 +40,11 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
                             <StyledTableCell component="th" scope="row">
                                 <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
                             </StyledTableCell>
-                            <StyledTableCell>{views}</StyledTableCell>
-                            <StyledTableCell sx={{whiteSpace:'nowrap'}}>{lastViewed}</StyledTableCell>
+                            <StyledTableCell className={'viewsCell'}>{views}</StyledTableCell>
+                            <StyledTableCell className={'nowrap'}>{lastViewed}</StyledTableCell>
                             <StyledTableCell>{type}</StyledTableCell>
                             {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
-                            <StyledTableCell sx={{whiteSpace:'nowrap'}}><ResultActions visualizationId={id} type={type}/></StyledTableCell>
+                            <StyledTableCell className={'nowrap actionButtonsCell'}><ResultActions visualizationId={id} type={type}/></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

@@ -24,7 +24,7 @@ export function SharingDialog({type,id}:{id:string,type:VisualizationType}) {
     let dhis2Type = getDhis2Type(type);
     return <>
         <div className={`actionButton`}>
-            <Tooltip title={'Update sharing (this item)'}>
+            <Tooltip title={'Update sharing'}>
                 <IconButton onClick={()=>setSharingOpen(true)}>
                     <Share/>
                 </IconButton>

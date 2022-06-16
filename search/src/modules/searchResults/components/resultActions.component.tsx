@@ -1,31 +1,60 @@
-import {BarChart, Code, Share } from "@mui/icons-material";
+import {BarChart, Code, Info, LocationOn, Share} from "@mui/icons-material";
 import { IconButton, Link, Tooltip } from "@mui/material";
 import React, {useState} from "react";
 import {VisualizationType} from "../../searchPage/types/visualization.type";
 import {SharingDialog} from "./sharingDialog.component";
+import {getViewUrl} from "../../../config/config";
 
 function ActionLink({link,icon,tooltip}:{link:string,icon:any,tooltip:string}){
     return <div className={`actionButton`}>
         <Tooltip title={tooltip}>
-            <IconButton href={link} target={'_blank'}>
+            <IconButton href={link} target={'_blank'} size={'small'}>
                 {icon}
             </IconButton>
         </Tooltip>
     </div>
 }
 
+function getCustomAppLink(visualizationId:string,type:VisualizationType){
+    switch (type){
+        case VisualizationType.pivot:
+        case VisualizationType.chart:
+            return <ActionLink
+                tooltip={`Open in visualizer`}
+                link={`../../../dhis-web-data-visualizer/index.html#/${visualizationId}`}
+                icon={<BarChart/>}
+            />
+        case VisualizationType.map:
+            return <ActionLink
+                tooltip={`Open in maps`}
+                link={`../../../dhis-web-maps/index.html?id=${visualizationId}`}
+                icon={<LocationOn/>}
+            />
+        case VisualizationType.dashboard:
+            return null;
+    }
+}
+
+const dhis2TypeMap = {
+    [VisualizationType.map]:'maps',
+    [VisualizationType.dashboard]:'dashboards',
+    [VisualizationType.chart]:'visualizations',
+    [VisualizationType.pivot]:'visualizations',
+}
+
 export function ResultActions({visualizationId,type}:{visualizationId:string,type:VisualizationType}) {
     return <>
         <ActionLink
-            tooltip={`Open in visualizer`}
-            link={`../../../dhis-web-data-visualizer/index.html#/${visualizationId}`}
-            icon={<BarChart/>}
-        />
-        <ActionLink
-            tooltip={`Open in API`}
-            link={`/api/visualizations/${visualizationId}`}
-            icon={<Code/>}
+            tooltip={`Show details`}
+            link={getViewUrl(visualizationId)}
+            icon={<Info/>}
         />
         <SharingDialog id={visualizationId} type={type}/>
+        <ActionLink
+            tooltip={`Open in API`}
+            link={`/api/${dhis2TypeMap[type]}/${visualizationId}`}
+            icon={<Code/>}
+        />
+        {getCustomAppLink(visualizationId,type)}
     </>;
 }

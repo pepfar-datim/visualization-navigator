@@ -25,3 +25,15 @@ thead th {
     width: 800px!important;
     font-family: "Roboto","Helvetica","Arial",sans-serif!important;
 }
+
+.nowrap{
+    white-space: nowrap;
+}
+
+.actionButtonsCell{
+    padding:0px!important;
+}
+
+.viewsCell{
+    text-align: right!important;
+}
