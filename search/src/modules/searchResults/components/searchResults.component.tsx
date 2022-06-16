@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Visualization} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
-import {Button, Link, TableFooter} from "@mui/material";
+import {Button, Checkbox, Link, TableFooter} from "@mui/material";
 import {SqlViewVersion} from "../../searchPage/types/appState.type";
 import { getViewUrl } from '../../../config/config';
 import {StyledTableCell, StyledTableRow} from './styledTable.component';
@@ -26,17 +26,19 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
             <Table sx={{}} aria-label="customized table">
                 <TableHead>
                     <TableRow>
+                        <StyledTableCell className={'nowrap zeroPadding'}><Checkbox size={'small'}/></StyledTableCell>
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell>Views</StyledTableCell>
-                        <StyledTableCell sx={{whiteSpace:'nowrap'}}>Last Viewed</StyledTableCell>
+                        <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
                         <StyledTableCell>Type</StyledTableCell>
                         {withUsers&&<StyledTableCell>Owner</StyledTableCell>}
-                        <StyledTableCell sx={{whiteSpace:'nowrap'}}>Actions</StyledTableCell>
+                        <StyledTableCell className={'nowrap'}>Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {visualizations.map(({id, name,views,lastViewed,type,owner}:Visualization) => (
                         <StyledTableRow key={id}>
+                            <StyledTableCell className={'nowrap zeroPadding'}><Checkbox size={'small'}/></StyledTableCell>
                             <StyledTableCell component="th" scope="row">
                                 <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
                             </StyledTableCell>
@@ -44,11 +46,11 @@ export function SearchResults({visualizations,sqlViewVersion}:{visualizations:Vi
                             <StyledTableCell className={'nowrap'}>{lastViewed}</StyledTableCell>
                             <StyledTableCell>{type}</StyledTableCell>
                             {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
-                            <StyledTableCell className={'nowrap actionButtonsCell'}><ResultActions visualizationId={id} type={type}/></StyledTableCell>
+                            <StyledTableCell className={'nowrap zeroPadding'}><ResultActions visualizationId={id} type={type}/></StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>
-                <TableFooter><TableRow><TableCell>Displaying visualizations 1 - {visualizations.length}</TableCell></TableRow></TableFooter>
+                <TableFooter><TableRow><TableCell></TableCell><TableCell>Displaying visualizations 1 - {visualizations.length}</TableCell></TableRow></TableFooter>
             </Table>
         </TableContainer>
     );

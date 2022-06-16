@@ -30,10 +30,10 @@ thead th {
     white-space: nowrap;
 }
 
-.actionButtonsCell{
-    padding:0px!important;
-}
-
 .viewsCell{
     text-align: right!important;
+}
+
+.zeroPadding{
+    padding:0px!important;
 }
