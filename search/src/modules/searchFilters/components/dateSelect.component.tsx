@@ -7,13 +7,13 @@ import {OnDateChange} from "../types/methods.type";
 
 export const dateSelectHack:{[i:number|string]:OnDateChange} = {};
 
-export function DateSelect({value,onChange,i}:{value:string|null,onChange:OnDateChange,i:number|string}) {
+export function DateSelect({value,onChange,disabled,i}:{value:string|null,onChange:OnDateChange,disabled?:boolean,i:number|string}) {
     dateSelectHack[i] = onChange;
-    console.log(`dateSelectHack[${i}]`)
     return <LocalizationProvider dateAdapter={AdapterDateFns}><DesktopDatePicker
         inputFormat="MM/dd/yyyy"
         value={value}
         onChange={(d)=>onChange(d)}
+        disabled={disabled}
         renderInput={(params) =><TextField {...params} variant='standard' inputProps={Object.assign({'data-testid':`filterValue_${i}`},params?.inputProps)}/>}
     /></LocalizationProvider>;
 }

@@ -13,6 +13,7 @@ import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SelectVisualization} from "../types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
 import {areAllSelected, selectAll} from '../services/selectVisualizations.service';
+import {BulkShareButton} from "./bulkShareButton.component";
 
 export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],
@@ -58,6 +59,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
     render() {
         return <>
             <SearchSettingsComponent searchSettings={this.state.searchSettings} updateSettings={this.updateSettings}/>
+            <BulkShareButton visualizations={this.state.visualizations}/>
             <SearchFilters
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}

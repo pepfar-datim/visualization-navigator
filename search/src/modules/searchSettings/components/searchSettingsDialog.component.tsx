@@ -64,24 +64,22 @@ export function SearchSettingsDialog({open, close, searchSettings, updateSetting
                         <FormControlLabel value={true} control={<Radio />} label="Limit view counts to a specified date range" className={'radio'} data-testid={'limitedViewRange'}/>
                     </RadioGroup>
                 </Grid>
-                {searchSettings.limitedViewRange&&<>
                     <Grid item xs={4}>
-                        <Typography className={'searchSettingsLabel'}>Start date</Typography>
+                        <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>Start date</Typography>
                     </Grid>
                     <Grid item xs={8}>
                         <FormControl>
-                            <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} i={`limitViewsMinDate`}/>
+                            <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={`limitViewsMinDate`}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={4}>
-                        <Typography className={'searchSettingsLabel'}>End date</Typography>
+                        <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>End date</Typography>
                     </Grid>
                     <Grid item xs={8}>
                         <FormControl>
-                            <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} i={'limitViewsMaxDate'}/>
+                            <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={'limitViewsMaxDate'}/>
                         </FormControl>
                     </Grid>
-                </>}
             </Grid>
         </DialogContent>
     </Dialog>

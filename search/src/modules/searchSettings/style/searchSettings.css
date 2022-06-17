@@ -15,3 +15,8 @@
     right: 9px!important;
     top: 9px!important;
 }
+
+.disabled{
+    pointer-events: none!important;
+    opacity: 0.4!important;
+}
