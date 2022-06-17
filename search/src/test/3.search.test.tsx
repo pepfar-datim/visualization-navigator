@@ -54,6 +54,6 @@ testCases.forEach(({name,filters,toFind}:TestCase)=>{
             setFilter(i,filterProperty,camelCaseToWords(operator),value);
         })
         search();
-        await textsWait(toFind)
+        await textsWait(toFind,12*1000)
     })
 })
