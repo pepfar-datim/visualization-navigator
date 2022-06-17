@@ -13,7 +13,7 @@ import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SelectVisualization} from "../types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
 import {areAllSelected, selectAll} from '../services/selectVisualizations.service';
-import {BulkShareButton} from "./bulkShareButton.component";
+import {BulkShareButton} from "../../sharing/components/bulkShareButton.component";
 
 export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],

@@ -20,12 +20,3 @@ export function SearchSettingsComponent({searchSettings, updateSettings}:{search
         {open && <SearchSettingsDialog searchSettings={searchSettings} updateSettings={updateSettings} close={()=>setOpen(false)} open={open}/>}
     </div>
 }
-
-
-
-// export function SearchSettingsComponent({searchSettings, updateSettings}:{searchSettings:SearchSettings,updateSettings:UpdateSearchSettings}) {
-//     function SD({open,close}:{close:Trigger,open:boolean}){
-//         return <SearchSettingsDialog open={open} close={close} searchSettings={searchSettings} updateSettings={updateSettings} />
-//     }
-//     return <TopBarButton tooltip={'Settings'} testid={'searchSettingsButton'} Content={SD} icon={<Settings />}/>
-// }

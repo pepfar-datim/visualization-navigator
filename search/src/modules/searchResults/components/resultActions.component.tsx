@@ -2,7 +2,7 @@ import {BarChart, Code, Info, LocationOn, Share} from "@mui/icons-material";
 import { IconButton, Link, Tooltip } from "@mui/material";
 import React, {useState} from "react";
 import {VisualizationType} from "../../searchPage/types/visualization.type";
-import {SharingDialog} from "./sharingDialog.component";
+import {SharingDialog} from "../../sharing/components/sharingDialog.component";
 import {getViewUrl} from "../../../config/config";
 
 function ActionLink({link,icon,tooltip}:{link:string,icon:any,tooltip:string}){
@@ -49,12 +49,12 @@ export function ResultActions({visualizationId,type}:{visualizationId:string,typ
             link={getViewUrl(visualizationId)}
             icon={<Info/>}
         />
-        <SharingDialog id={visualizationId} type={type}/>
         <ActionLink
             tooltip={`Open in API`}
             link={`/api/${dhis2TypeMap[type]}/${visualizationId}`}
             icon={<Code/>}
         />
         {getCustomAppLink(visualizationId,type)}
+        {type!==VisualizationType.dashboard&&<SharingDialog id={visualizationId} type={type} tooltip={`Update sharing (this item)`}/>}
     </>;
 }

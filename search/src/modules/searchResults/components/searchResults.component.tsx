@@ -1,25 +1,20 @@
 import * as React from 'react';
-import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Visualization} from "../../searchPage/types/visualization.type";
+import {Visualization, VisualizationType} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
-import {Button, Checkbox, Link, TableFooter} from "@mui/material";
+import {Checkbox, TableFooter} from "@mui/material";
 import {SqlViewVersion} from "../../searchPage/types/appState.type";
-import { getViewUrl } from '../../../config/config';
 import {StyledTableCell, StyledTableRow} from './styledTable.component';
-import {ResultActions} from "./resultActions.component";
 import {SelectVisualization} from "../../searchPage/types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
 import {areAllSelected} from "../../searchPage/services/selectVisualizations.service";
-
-
-
+import {SearchResultRow} from "./searchResultRow.component";
 
 
 export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll}:{
@@ -44,19 +39,19 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {visualizations.map(({id, name,views,lastViewed,type,owner,selected}:Visualization,i:number) => (
-                        <StyledTableRow key={id}>
-                            <StyledTableCell className={'nowrap zeroPadding'}><Checkbox checked={selected} size={'small'} onClick={()=>selectVisualization(id)} inputProps={{'data-testid':`checkbox_${i}`} as any}/></StyledTableCell>
-                            <StyledTableCell component="th" scope="row">
-                                <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
+                    {visualizations.map((visualization:Visualization,i:number) => {
+                        let {selected, id} = visualization;
+                        return <StyledTableRow key={id}>
+                            <StyledTableCell className={'nowrap zeroPadding'}>
+                                <Checkbox checked={selected}
+                                    size={'small'}
+                                    onClick={() => selectVisualization(id)}
+                                    disabled={visualization.type===VisualizationType.dashboard}
+                                    inputProps={{'data-testid': `checkbox_${i}`} as any}/>
                             </StyledTableCell>
-                            <StyledTableCell className={'viewsCell'}>{views}</StyledTableCell>
-                            <StyledTableCell className={'nowrap'}>{lastViewed}</StyledTableCell>
-                            <StyledTableCell>{type}</StyledTableCell>
-                            {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
-                            <StyledTableCell className={'nowrap zeroPadding'}><ResultActions visualizationId={id} type={type}/></StyledTableCell>
+                            <SearchResultRow visualization={visualization} withUsers={withUsers}/>
                         </StyledTableRow>
-                    ))}
+                    })}
                 </TableBody>
                 <TableFooter><TableRow><TableCell></TableCell><TableCell>Displaying visualizations 1 - {visualizations.length}</TableCell></TableRow></TableFooter>
             </Table>
