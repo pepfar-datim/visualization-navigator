@@ -32,7 +32,7 @@ const generateTest = (sqlType:SqlViewVersion)=> test(`5 > Sql version > ${sqlTyp
     datimApi.registerGetMock(checkSqlQuery,sqlDetectResponse(sqlType))
     render(<SqlDetectWrapper SearchPage={SearchPage}/>)
     search();
-    if (sqlType===SqlViewVersion.withUsers) await textsWait(userProof)
+    if (sqlType===SqlViewVersion.withUsers) await textsWait(userProof,12*1000)
     else {
         await pause(1);
         noTexts(userProof)
