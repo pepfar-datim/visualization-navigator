@@ -39,3 +39,7 @@ thead th {
 }
 
 .selectAllCheckbox.Mui-checked{color:inherit!important;}
+
+.actionsThead{
+    padding-left:8px!important;
+}

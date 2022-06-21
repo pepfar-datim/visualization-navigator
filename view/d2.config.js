@@ -5,6 +5,7 @@ const config = {
   entryPoints: {
     app: "./src/App.js",
   },
+    port: 3001
 };
 
 module.exports = config;

@@ -40,7 +40,7 @@ export const config = {
 export const getViewUrl = (visualizationId:string)=>{
     try {
         if (process.env.NODE_ENV === 'development') {
-            return `http://localhost:3000/#/view/${visualizationId}`
+            return `http://localhost:3001/#/view/${visualizationId}`
         } else {
             return `view.html#/view/${visualizationId}`
         }

@@ -35,7 +35,7 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
                         <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
                         <StyledTableCell>Type</StyledTableCell>
                         {withUsers&&<StyledTableCell>Owner</StyledTableCell>}
-                        <StyledTableCell className={'nowrap'}>Actions</StyledTableCell>
+                        <StyledTableCell className={'nowrap actionsThead'}>Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
