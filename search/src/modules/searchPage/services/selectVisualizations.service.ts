@@ -1,7 +1,7 @@
-import {Visualization} from "../types/visualization.type";
+import {Visualization, VisualizationType} from "../types/visualization.type";
 
 export const selectAll = (visualizations:Visualization[],selected:boolean)=>{
-    visualizations.forEach(v=>v.selected=selected)
+    visualizations.filter(v=>v.type!==VisualizationType.dashboard).forEach(v=>v.selected=selected)
     return visualizations;
 }
 

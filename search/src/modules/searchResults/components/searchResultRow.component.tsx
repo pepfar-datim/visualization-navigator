@@ -5,7 +5,7 @@ import {getViewUrl} from "../../../config/config";
 import {ResultActions} from "./resultActions.component";
 import {Visualization} from "../../searchPage/types/visualization.type";
 
-export function SearchResultRow({visualization,withUsers}:{visualization:Visualization,withUsers:boolean}) {
+function SearchResultRowComponent({visualization,withUsers}:{visualization:Visualization,withUsers:boolean}) {
     let {id, name,views,lastViewed,type,owner} = visualization;
     return <>
         <StyledTableCell component="th" scope="row">
@@ -20,3 +20,5 @@ export function SearchResultRow({visualization,withUsers}:{visualization:Visuali
         </StyledTableCell>
     </>
 }
+
+export const SearchResultRow = React.memo(SearchResultRowComponent,()=>true);

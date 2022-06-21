@@ -51,7 +51,7 @@ const dhis2TypeMap = {
     [VisualizationType.pivot]:'visualizations',
 }
 
-export function ResultActions({visualizationId,type}:{visualizationId:string,type:VisualizationType}) {
+function ResultActionsComponent({visualizationId,type}:{visualizationId:string,type:VisualizationType}) {
     return <>
         <ActionLink
             tooltip={`Show details`}
@@ -67,3 +67,5 @@ export function ResultActions({visualizationId,type}:{visualizationId:string,typ
         {type!==VisualizationType.dashboard&&<SharingDialog id={visualizationId} type={type} tooltip={`Update sharing (this item)`}/>}
     </>;
 }
+
+export const ResultActions = React.memo(ResultActionsComponent,(newProps,oldProps)=>true);
