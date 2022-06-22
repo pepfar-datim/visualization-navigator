@@ -46,7 +46,7 @@ export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
     return <>
         <div className={`actionButton`}>
             <Tooltip title={`Update sharing${areMultipleSelected?' (this and selected items)':' (this item)'}`}>
-                <IconButton onClick={()=>setSingleShareOpen(true)}>
+                <IconButton onClick={()=>setSingleShareOpen(true)} data-testid={`updateSharingButton_${id}`}>
                     <Share/>
                 </IconButton>
             </Tooltip>
