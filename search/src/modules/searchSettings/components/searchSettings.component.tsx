@@ -4,8 +4,6 @@ import {Settings} from "@mui/icons-material";
 import {SearchSettingsDialog} from "./searchSettingsDialog.component";
 import {SearchSettings, UpdateSearchSettings} from "../types/searchSettings.type";
 import "../style/searchSettings.css";
-import {TopBarButton} from "../../searchPage/components/topBarButton.component";
-import {Trigger} from "../../shared/types/shared.types";
 
 export function SearchSettingsComponent({searchSettings, updateSettings}:{searchSettings:SearchSettings,updateSettings:UpdateSearchSettings}) {
     let [open,setOpen] = useState(false);

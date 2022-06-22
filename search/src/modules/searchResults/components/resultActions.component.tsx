@@ -1,8 +1,7 @@
-import {BarChart, Code, Dashboard, GridOn, InfoOutlined, LocationOn, Public, Share} from "@mui/icons-material";
-import { IconButton, Link, Tooltip } from "@mui/material";
-import React, {useState} from "react";
+import {BarChart, Code, Dashboard, GridOn, InfoOutlined, Public} from "@mui/icons-material";
+import {IconButton, Tooltip} from "@mui/material";
+import React from "react";
 import {VisualizationType} from "../../searchPage/types/visualization.type";
-import {SharingDialog} from "../../sharing/components/sharingDialog.component";
 import {getViewUrl} from "../../../config/config";
 import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 

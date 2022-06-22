@@ -1,4 +1,4 @@
-import {InputLabel, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import React from "react";
 import {ChangeFilterValue, OnDateChange} from "../types/methods.type";
 import {FilterProperty} from "../types/searchFilters.type";

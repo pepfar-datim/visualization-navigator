@@ -1,7 +1,6 @@
 import React from "react";
 import {StyledTableCell, StyledTableRow} from "./styledTable.component";
-import {Checkbox, Link} from "@mui/material";
-import {getViewUrl} from "../../../config/config";
+import {Checkbox} from "@mui/material";
 import {ResultActions} from "./resultActions.component";
 import {Visualization, VisualizationType} from "../../searchPage/types/visualization.type";
 import {ApplySharingToAll} from "../../sharing/types/sharing.types";

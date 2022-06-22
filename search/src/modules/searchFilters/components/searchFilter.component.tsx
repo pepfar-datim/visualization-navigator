@@ -1,7 +1,8 @@
 import React from "react";
 import {
-    FilterOperator as FilterOperatorType, FilterProperty,
-    FilterProperty as FilterTypeType, SearchFilter,
+    FilterOperator as FilterOperatorType,
+    FilterProperty,
+    FilterProperty as FilterTypeType,
     SearchFilter as SearchFilterType
 } from "../types/searchFilters.type";
 import {FilterPropertySelect} from "./filterPropertySelect.component";

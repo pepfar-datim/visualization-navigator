@@ -1,6 +1,6 @@
 import React from "react";
 import DialogTitle from "@mui/material/DialogTitle";
-import {Button, Dialog, DialogActions, DialogContent, Divider, IconButton, Typography} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, Divider, Typography} from "@mui/material";
 import {BoolTrigger} from "../types/sharing.types";
 
 export function ShareAllDialog({onClose}:{onClose:BoolTrigger}) {

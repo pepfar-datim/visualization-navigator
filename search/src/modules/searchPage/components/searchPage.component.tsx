@@ -5,15 +5,13 @@ import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {SearchFilters} from '../../searchFilters/components/searchFilters.component';
 import {searchVisualizations} from "../services/searchVisualizations.service";
 import {SearchResults} from "../../searchResults/components/searchResults.component";
-import {CircularProgress} from "@mui/material";
 import "../style/searchPage.css"
 import {Loading} from "./loading.component";
-import { SearchSettingsComponent } from '../../searchSettings/components/searchSettings.component';
+import {SearchSettingsComponent} from '../../searchSettings/components/searchSettings.component';
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SelectVisualization} from "../types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
 import {areAllSelected, getSelectedVisualizations, selectAll} from '../services/selectVisualizations.service';
-import {BulkShareButton} from "../../sharing/components/bulkShareButton.component";
 import {ApplySharingToAll, ShareSettings} from "../../sharing/types/sharing.types";
 import {applySharingToAll} from "../../sharing/services/applySharingToAll.service";
 

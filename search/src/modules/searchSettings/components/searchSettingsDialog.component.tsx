@@ -3,17 +3,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import {SearchSettings, UpdateSearchSettings} from "../types/searchSettings.type";
 import {
-    Button,
     DialogContent,
     Divider,
     FormControlLabel,
-    Grid, IconButton,
-    MenuItem, Radio,
+    Grid,
+    IconButton,
+    MenuItem,
+    Radio,
     RadioGroup,
     Select,
     Typography
 } from "@mui/material";
-import { FormControl } from '../../searchFilters/components/formControl.component';
+import {FormControl} from '../../searchFilters/components/formControl.component';
 import {DateSelect} from "../../searchFilters/components/dateSelect.component";
 import {Close} from "@mui/icons-material";
 

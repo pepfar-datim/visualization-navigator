@@ -4,7 +4,7 @@ import {SearchPage} from './modules/searchPage/components/searchPage.component';
 import datimApi from "@pepfar-react-lib/datim-api"
 import "./index.css";
 import {DatimWrapper} from "./modules/main/components/datimWrapper.component";
-import { ThemeWrapper } from './modules/searchPage/components/themeWrapper.component';
+import {ThemeWrapper} from './modules/searchPage/components/themeWrapper.component';
 import {SqlDetectWrapper} from "./modules/main/components/sqlDetectWrapper.component";
 
 const root = ReactDOM.createRoot(

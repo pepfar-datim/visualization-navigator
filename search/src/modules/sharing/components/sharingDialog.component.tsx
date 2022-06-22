@@ -2,12 +2,11 @@ import React, {useState} from "react";
 // @ts-ignore
 import {default as SD} from "@dhis2/d2-ui-sharing-dialog";
 // @ts-ignore
-import { D2Shim } from "@dhis2/app-runtime-adapter-d2";
-import {Visualization, VisualizationType} from "../../searchPage/types/visualization.type";
+import {D2Shim} from "@dhis2/app-runtime-adapter-d2";
+import {VisualizationType} from "../../searchPage/types/visualization.type";
 import {IconButton, Tooltip} from "@mui/material";
 import {Share} from "@mui/icons-material";
 import {ApplySharingToAll, ShareSettings} from "../types/sharing.types";
-import {applySharingToAll} from "../services/applySharingToAll.service";
 import {ShareAllDialog} from "./shareAllDialog.component";
 
 const getDhis2Type = (type:VisualizationType)=>{

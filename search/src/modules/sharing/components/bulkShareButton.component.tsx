@@ -1,9 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import {Visualization} from "../../searchPage/types/visualization.type";
-import {SharingDialog} from "./sharingDialog.component";
-import {ShareAllDialog} from "./shareAllDialog.component";
-import {applySharingToAll} from "../services/applySharingToAll.service";
-import {ShareSettings} from "../types/sharing.types";
 
 export function BulkShareButton({visualizations}:{visualizations:Visualization[]}) {
     return null;

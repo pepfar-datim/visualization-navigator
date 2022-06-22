@@ -1,8 +1,6 @@
-import {checkSelectValue, click, select} from "@pepfar-react-lib/testwrap";
+import {click, select, type} from "@pepfar-react-lib/testwrap";
 import {camelCaseToCapitalized} from "../../modules/searchPage/services/textFormat.service";
 import {FilterProperty} from "../../modules/searchFilters/types/searchFilters.type";
-import {type} from "@pepfar-react-lib/testwrap";
-import {fireEvent, screen} from "@testing-library/react";
 import {dateSelectHack} from "../../modules/searchFilters/components/dateSelect.component";
 
 export function setFilter(i:number,property:FilterProperty,operator:string,value:string){

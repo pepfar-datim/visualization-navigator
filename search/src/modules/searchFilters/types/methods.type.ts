@@ -1,5 +1,4 @@
 import {FilterOperator, FilterProperty, SearchFilter} from "./searchFilters.type";
-import {VisualizationType} from "../../searchPage/types/visualization.type";
 
 export type ChangeFilterType = (filterType:FilterProperty)=>void;
 export type ChangeFilterValue = (filterType:string)=>void;

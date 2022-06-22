@@ -3,8 +3,7 @@ import {SearchPage} from "../modules/searchPage/components/searchPage.component"
 import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 import {search} from "./lib/shared.testLib";
 import React from "react";
-import {click, get, textWait} from "@pepfar-react-lib/testwrap";
-import {screen} from "@testing-library/react";
+import {click} from "@pepfar-react-lib/testwrap";
 import {getCheckboxValue, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 
 function checkAllSelected():boolean{
