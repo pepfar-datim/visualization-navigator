@@ -13,17 +13,20 @@ import {SqlViewVersion} from "../../searchPage/types/appState.type";
 import {StyledTableCell, StyledTableRow} from './styledTable.component';
 import {SelectVisualization} from "../../searchPage/types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
-import {areAllSelected} from "../../searchPage/services/selectVisualizations.service";
+import {areAllSelected, getSelectedVisualizations} from "../../searchPage/services/selectVisualizations.service";
 import {SearchResultRow} from "./searchResultRow.component";
+import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 
 
-export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll}:{
+export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll,applySharingToAll}:{
     visualizations:Visualization[],
     sqlViewVersion:SqlViewVersion,
     selectVisualization:SelectVisualization,
-    selectAll:Trigger
+    selectAll:Trigger,
+    applySharingToAll:ApplySharingToAll
 }) {
     let withUsers:boolean = sqlViewVersion===SqlViewVersion.withUsers;
+    let areMultipleSelected:boolean=getSelectedVisualizations(visualizations).length>0;
     return (
         <TableContainer component={Paper} className={`searchResultsRoot appear`}>
             <Table sx={{}} aria-label="customized table">
@@ -39,19 +42,16 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {visualizations.map((visualization:Visualization,i:number) => {
-                        let {selected, id} = visualization;
-                        return <StyledTableRow key={id}>
-                            <StyledTableCell className={'nowrap zeroPadding'}>
-                                <Checkbox checked={selected}
-                                    size={'small'}
-                                    onClick={() => selectVisualization(id)}
-                                    disabled={visualization.type===VisualizationType.dashboard}
-                                    inputProps={{'data-testid': `checkbox_${i}`} as any}/>
-                            </StyledTableCell>
-                            <SearchResultRow visualization={visualization} withUsers={withUsers}/>
-                        </StyledTableRow>
-                    })}
+                    {visualizations.map((visualization:Visualization,i:number)=><SearchResultRow
+                        visualization={visualization}
+                        selectVisualization={selectVisualization}
+                        selected={visualization.selected}
+                        withUsers={withUsers}
+                        applySharingToAll={applySharingToAll}
+                        areMultipleSelected={areMultipleSelected}
+                        key={i}
+                        i={i}
+                    />)}
                 </TableBody>
                 <TableFooter><TableRow><TableCell></TableCell><TableCell>Displaying visualizations 1 - {visualizations.length}</TableCell></TableRow></TableFooter>
             </Table>

@@ -12,8 +12,10 @@ import { SearchSettingsComponent } from '../../searchSettings/components/searchS
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SelectVisualization} from "../types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
-import {areAllSelected, selectAll} from '../services/selectVisualizations.service';
+import {areAllSelected, getSelectedVisualizations, selectAll} from '../services/selectVisualizations.service';
 import {BulkShareButton} from "../../sharing/components/bulkShareButton.component";
+import {ApplySharingToAll, ShareSettings} from "../../sharing/types/sharing.types";
+import {applySharingToAll} from "../../sharing/services/applySharingToAll.service";
 
 export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],
@@ -55,11 +57,11 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
         else visualizations = selectAll(this.state.visualizations,true)
         this.setState({visualizations})
     }
+    applySharingToAll:ApplySharingToAll = (shareSettings:ShareSettings)=>applySharingToAll(shareSettings,getSelectedVisualizations(this.state.visualizations))
 
     render() {
         return <>
             <SearchSettingsComponent searchSettings={this.state.searchSettings} updateSettings={this.updateSettings}/>
-            <BulkShareButton visualizations={this.state.visualizations}/>
             <SearchFilters
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}
@@ -72,6 +74,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 sqlViewVersion={this.props.sqlViewVersion}
                 selectVisualization={this.selectVisualization}
                 selectAll={this.selectAll}
+                applySharingToAll={this.applySharingToAll}
             />}
         </>
     }

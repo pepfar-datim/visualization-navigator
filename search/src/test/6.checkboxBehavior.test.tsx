@@ -8,9 +8,12 @@ import {screen} from "@testing-library/react";
 import {getCheckboxValue, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 
 function checkAllSelected():boolean{
-    let checkboxes = document.querySelectorAll(`[data-testid^='checkbox_']`);
+    let rows = document.querySelectorAll(`tbody tr`);
     let sharedValue = true;
-    checkboxes.forEach(c=>{
+    rows.forEach(row=>{
+        let c;
+        if (!row || row.textContent.includes('dashboard')) return;
+        else c = row.querySelector("[data-testid^='checkbox_']");
         // @ts-ignore
         sharedValue = sharedValue && c.checked;
     })

@@ -3,10 +3,12 @@ import React, {useState} from "react";
 import {default as SD} from "@dhis2/d2-ui-sharing-dialog";
 // @ts-ignore
 import { D2Shim } from "@dhis2/app-runtime-adapter-d2";
-import {VisualizationType} from "../../searchPage/types/visualization.type";
+import {Visualization, VisualizationType} from "../../searchPage/types/visualization.type";
 import {IconButton, Tooltip} from "@mui/material";
 import {Share} from "@mui/icons-material";
-import {ShareSettings} from "../types/sharing.types";
+import {ApplySharingToAll, ShareSettings} from "../types/sharing.types";
+import {applySharingToAll} from "../services/applySharingToAll.service";
+import {ShareAllDialog} from "./shareAllDialog.component";
 
 const getDhis2Type = (type:VisualizationType)=>{
     switch(type){
@@ -20,26 +22,42 @@ const getDhis2Type = (type:VisualizationType)=>{
     }
 }
 
-export function SharingDialog({type,id,tooltip,onClose}:{id:string,type:VisualizationType, tooltip:string,onClose?:(shareSettings:ShareSettings)=>void}) {
-    let [sharingOpen,setSharingOpen] = useState<boolean>(false);
+export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
+    id:string,
+    type:VisualizationType,
+    applySharingToAll:ApplySharingToAll,
+    areMultipleSelected:boolean
+}) {
+    let [singleShareOpen,setSingleShareOpen] = useState<boolean>(false);
+    let [bulkShareOpen, setBulkShareOpen] = useState<boolean>(false);
     let dhis2Type = getDhis2Type(type);
+    let shareSettings:ShareSettings;
+
+    function onSingleShareClose(newShareSettings:ShareSettings){
+        setSingleShareOpen(false)
+        if (!areMultipleSelected) return;
+        setBulkShareOpen(true);
+        shareSettings = newShareSettings;
+    }
+    function onBulkShareClose(applyToAllAnswer:boolean){
+        setBulkShareOpen(false);
+        if (applyToAllAnswer) applySharingToAll(shareSettings);
+    }
+
     return <>
         <div className={`actionButton`}>
-            <Tooltip title={tooltip}>
-                <IconButton onClick={()=>setSharingOpen(true)}>
+            <Tooltip title={`Update sharing${areMultipleSelected?' (this and selected items)':' (this item)'}`}>
+                <IconButton onClick={()=>setSingleShareOpen(true)}>
                     <Share/>
                 </IconButton>
             </Tooltip>
         </div>
-        {sharingOpen&&<D2Shim i18nRoot={"./i18n"}>
+        {singleShareOpen&&<D2Shim i18nRoot={"./i18n"}>
             {({d2}:{d2:any})=>{
                 if (!d2) return null;
-                return <SD d2={d2} type={dhis2Type} id={id} open={true} onRequestClose={(shareSettings:any)=>{
-                    console.log(shareSettings);
-                    if (onClose) onClose(shareSettings);
-                    setSharingOpen(false)
-                }}/>
+                return <SD d2={d2} type={dhis2Type} id={id} open={true} onRequestClose={onSingleShareClose}/>
             }}
         </D2Shim>}
-        </>
+        {bulkShareOpen&&<ShareAllDialog onClose={onBulkShareClose}/>}
+    </>
 }

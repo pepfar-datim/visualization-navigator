@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {VisualizationType} from "../../searchPage/types/visualization.type";
 import {SharingDialog} from "../../sharing/components/sharingDialog.component";
 import {getViewUrl} from "../../../config/config";
+import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 
 function ActionLink({link,icon,tooltip}:{link:string,icon:any,tooltip:string}){
     return <div className={`actionButton`}>
@@ -51,7 +52,12 @@ const dhis2TypeMap = {
     [VisualizationType.pivot]:'visualizations',
 }
 
-function ResultActionsComponent({visualizationId,type}:{visualizationId:string,type:VisualizationType}) {
+export function ResultActionsComponent({visualizationId,type,applySharingToAll,areMultipleSelected}:{
+    visualizationId:string,
+    type:VisualizationType,
+    applySharingToAll:ApplySharingToAll,
+    areMultipleSelected:boolean
+}) {
     return <>
         <ActionLink
             tooltip={`Show details`}
@@ -64,7 +70,6 @@ function ResultActionsComponent({visualizationId,type}:{visualizationId:string,t
             link={`/api/${dhis2TypeMap[type]}/${visualizationId}`}
             icon={<Code/>}
         />
-        {type!==VisualizationType.dashboard&&<SharingDialog id={visualizationId} type={type} tooltip={`Update sharing (this item)`}/>}
     </>;
 }
 
