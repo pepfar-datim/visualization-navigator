@@ -3,8 +3,7 @@ import {Visualization} from "../../searchPage/types/visualization.type";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {getDhis2Type} from "./getDhis2SharingType.service";
 
-export function applySharingToAll(shareSettings:ShareSettings,visualizations:Visualization[]){
-    console.log(shareSettings);
+export async function applySharingToAll(shareSettings:ShareSettings,visualizations:Visualization[]):Promise<boolean>{
     let {publicAccess,userGroupAccesses,userAccesses,externalAccess} = shareSettings;
     let payload = {
         object:{
@@ -14,8 +13,6 @@ export function applySharingToAll(shareSettings:ShareSettings,visualizations:Vis
             externalAccess
         }
     }
-    visualizations.forEach(async ({id,type})=>{
-        let r = await datimApi.putJson(`/sharing?type=${getDhis2Type(type)}&id=${id}`,payload);
-        console.log(r);
-    });
+    let queries = await Promise.all(visualizations.map(({id,type})=>datimApi.putJson(`/sharing?type=${getDhis2Type(type)}&id=${id}`,payload)));
+    return queries.map(({success})=>success).every(s=>s);
 }

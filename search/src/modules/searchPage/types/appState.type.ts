@@ -2,7 +2,8 @@ export enum AppState {
     ready='ready',
     searching='searching',
     error='error',
-    success='success'
+    results='results',
+    bulkSharePending='bulkSharePending'
 }
 
 export enum SqlViewVersion {

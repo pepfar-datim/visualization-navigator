@@ -40,7 +40,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
     updateSettings = (searchSettings:SearchSettings)=>this.setState({searchSettings});
     triggerSearch = ()=>{
         this.setState({appState:AppState.searching})
-        searchVisualizations(this.state.searchFilters,this.state.searchSettings).then(visualizations=>this.setState({visualizations, appState: AppState.success}))
+        searchVisualizations(this.state.searchFilters,this.state.searchSettings).then(visualizations=>this.setState({visualizations, appState: AppState.results}))
     }
     selectVisualization:SelectVisualization = (visualizationId:string)=>{
         let visualizations:Visualization[] = this.state.visualizations;
@@ -55,7 +55,11 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
         else visualizations = selectAll(this.state.visualizations,true)
         this.setState({visualizations})
     }
-    applySharingToAll:ApplySharingToAll = (shareSettings:ShareSettings)=>applySharingToAll(shareSettings,getSelectedVisualizations(this.state.visualizations))
+    applySharingToAll:ApplySharingToAll = async (shareSettings:ShareSettings)=>{
+        this.setState({appState: AppState.bulkSharePending});
+        let r:boolean = await applySharingToAll(shareSettings,getSelectedVisualizations(this.state.visualizations));
+        this.setState({appState:AppState.results})
+    }
 
     render() {
         return <>
@@ -67,7 +71,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 sqlViewVersion={this.props.sqlViewVersion}
             />
             {this.state.appState===AppState.searching&&<Loading/>}
-            {this.state.appState===AppState.success&&<SearchResults
+            {this.state.appState===AppState.results&&<SearchResults
                 visualizations={this.state.visualizations}
                 sqlViewVersion={this.props.sqlViewVersion}
                 selectVisualization={this.selectVisualization}
