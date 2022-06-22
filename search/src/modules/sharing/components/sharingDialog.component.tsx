@@ -8,18 +8,7 @@ import {IconButton, Tooltip} from "@mui/material";
 import {Share} from "@mui/icons-material";
 import {ApplySharingToAll, ShareSettings} from "../types/sharing.types";
 import {ShareAllDialog} from "./shareAllDialog.component";
-
-const getDhis2Type = (type:VisualizationType)=>{
-    switch(type){
-        case VisualizationType.pivot:
-        case VisualizationType.chart:
-            return 'visualization'
-        case VisualizationType.dashboard:
-            return 'dashboard'
-        case VisualizationType.map:
-            return 'map'
-    }
-}
+import {getDhis2Type} from "../services/getDhis2SharingType.service";
 
 export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
     id:string,
@@ -29,14 +18,16 @@ export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
 }) {
     let [singleShareOpen,setSingleShareOpen] = useState<boolean>(false);
     let [bulkShareOpen, setBulkShareOpen] = useState<boolean>(false);
+    let [shareSettings,setShareSettings] = useState<{[prop:string]:any}>({})
     let dhis2Type = getDhis2Type(type);
-    let shareSettings:ShareSettings;
+    // let shareSettings:ShareSettings;
 
     function onSingleShareClose(newShareSettings:ShareSettings){
         setSingleShareOpen(false)
         if (!areMultipleSelected) return;
         setBulkShareOpen(true);
-        shareSettings = newShareSettings;
+        // shareSettings = newShareSettings;
+        setShareSettings(newShareSettings)
     }
     function onBulkShareClose(applyToAllAnswer:boolean){
         setBulkShareOpen(false);
