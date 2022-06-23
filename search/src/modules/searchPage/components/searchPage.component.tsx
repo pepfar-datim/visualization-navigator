@@ -12,14 +12,19 @@ import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SelectVisualization} from "../types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
 import {areAllSelected, getSelectedVisualizations, selectAll} from '../services/selectVisualizations.service';
-import {ApplySharingToAll, ShareSettings} from "../../sharing/types/sharing.types";
+import {ApplySharingToAll, BulkSharingStatus, ShareSettings} from "../../sharing/types/sharing.types";
 import {applySharingToAll} from "../../sharing/services/applySharingToAll.service";
+import {MessageBox} from "../../message/components/messageBox.component";
+import {Message, MessageType} from "../../message/types/message.type";
+import {getBulkSharingMessage} from "../../sharing/services/getBulkSharingMessage.service";
+import {FullscreenLoading} from '../../sharing/components/fullscreenLoading.components';
 
 export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],
     appState: AppState,
     searchFilters: SearchFilter[],
     searchSettings: SearchSettings,
+    message?: Message
 }>{
     constructor(props:any) {
         super(props);
@@ -33,6 +38,11 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 limitViewsMaxDate: null,
                 limitViewsMinDate: null
             },
+            message: undefined
+            // message:{
+            //     text: 'test',
+            //     type: MessageType.success
+            // }
         };
     }
 
@@ -57,9 +67,14 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
     }
     applySharingToAll:ApplySharingToAll = async (shareSettings:ShareSettings)=>{
         this.setState({appState: AppState.bulkSharePending});
-        let r:boolean = await applySharingToAll(shareSettings,getSelectedVisualizations(this.state.visualizations));
-        this.setState({appState:AppState.results})
+        let status:BulkSharingStatus = await applySharingToAll(shareSettings,getSelectedVisualizations(this.state.visualizations));
+        this.setState({
+            appState: AppState.results,
+            message: getBulkSharingMessage(status)
+        })
+        setTimeout(this.closeMessage,5*1000)
     }
+    closeMessage:Trigger = ()=>this.setState({message:undefined});
 
     render() {
         return <>
@@ -71,13 +86,15 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 sqlViewVersion={this.props.sqlViewVersion}
             />
             {this.state.appState===AppState.searching&&<Loading/>}
-            {this.state.appState===AppState.results&&<SearchResults
+            {[AppState.results,AppState.bulkSharePending].includes(this.state.appState)&&<SearchResults
                 visualizations={this.state.visualizations}
                 sqlViewVersion={this.props.sqlViewVersion}
                 selectVisualization={this.selectVisualization}
                 selectAll={this.selectAll}
                 applySharingToAll={this.applySharingToAll}
             />}
+            {this.state.appState===AppState.bulkSharePending&&<FullscreenLoading/>}
+            <MessageBox message={this.state.message} closeMessage={this.closeMessage}/>
         </>
     }
 }

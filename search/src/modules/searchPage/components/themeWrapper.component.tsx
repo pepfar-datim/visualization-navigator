@@ -6,6 +6,9 @@ const theme = createTheme({
         primary: {
             main: 'rgb(44, 102, 147)',
         },
+        success:{
+            main: `#5da271`
+        }
     },
 });
 

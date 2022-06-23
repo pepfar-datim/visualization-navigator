@@ -1,0 +1,7 @@
+.messageBoxRoot{
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

@@ -1,9 +1,9 @@
-import {ShareSettings} from "../types/sharing.types";
+import {BulkSharingStatus, ShareSettings} from "../types/sharing.types";
 import {Visualization} from "../../searchPage/types/visualization.type";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {getDhis2Type} from "./getDhis2SharingType.service";
 
-export async function applySharingToAll(shareSettings:ShareSettings,visualizations:Visualization[]):Promise<boolean>{
+export async function applySharingToAll(shareSettings:ShareSettings,visualizations:Visualization[]):Promise<BulkSharingStatus>{
     let {publicAccess,userGroupAccesses,userAccesses,externalAccess} = shareSettings;
     let payload = {
         object:{
@@ -14,5 +14,6 @@ export async function applySharingToAll(shareSettings:ShareSettings,visualizatio
         }
     }
     let queries = await Promise.all(visualizations.map(({id,type})=>datimApi.putJson(`/sharing?type=${getDhis2Type(type)}&id=${id}`,payload)));
-    return queries.map(({success})=>success).every(s=>s);
+    let success:boolean = queries.map(({success})=>success).every(s=>s);
+    return {success,targetCount:visualizations.length}
 }
