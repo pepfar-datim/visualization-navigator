@@ -1,4 +1,4 @@
-import {Message, MessageType} from "../types/message.type";
+import {Message} from "../types/message.type";
 import {Alert} from "@mui/material";
 import "../style/messageBox.css"
 import {Trigger} from "../../shared/types/shared.types";

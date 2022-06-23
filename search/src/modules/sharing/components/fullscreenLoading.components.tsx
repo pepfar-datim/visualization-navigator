@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress } from "@mui/material";
+import {Backdrop, CircularProgress} from "@mui/material";
 import React from "react";
 
 export function FullscreenLoading({}:{}) {

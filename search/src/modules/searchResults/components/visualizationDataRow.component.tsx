@@ -10,8 +10,8 @@ function VisualizationDataRowComponent({visualization, withUsers}:{visualization
         <StyledTableCell component="th" scope="row">
             <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
         </StyledTableCell>
-        <StyledTableCell className={'viewsCell'}>{views}</StyledTableCell>
-        <StyledTableCell className={'nowrap'}>{lastViewed}</StyledTableCell>
+        <StyledTableCell className={'alignRight'}>{views}</StyledTableCell>
+        <StyledTableCell className={'nowrap alignRight'}>{lastViewed}</StyledTableCell>
         <StyledTableCell>{type}</StyledTableCell>
         {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
     </>

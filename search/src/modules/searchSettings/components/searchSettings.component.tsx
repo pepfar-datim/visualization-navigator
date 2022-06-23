@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {FormControl, IconButton, Tooltip} from "@mui/material";
+import {Button, FormControl} from "@mui/material";
 import {Settings} from "@mui/icons-material";
 import {SearchSettingsDialog} from "./searchSettingsDialog.component";
 import {SearchSettings, UpdateSearchSettings} from "../types/searchSettings.type";
@@ -9,11 +9,9 @@ export function SearchSettingsComponent({searchSettings, updateSettings}:{search
     let [open,setOpen] = useState(false);
     return <div className='searchTopBarButton'>
         <FormControl>
-            <Tooltip title='Settings'>
-                <IconButton component="span" onClick={()=>setOpen(true)} data-testid={`searchSettingsButton`}>
-                    <Settings />
-                </IconButton>
-            </Tooltip>
+            <Button onClick={()=>setOpen(true)} variant='outlined' data-testid={`searchSettingsButton`} startIcon={ <Settings />}>
+                Settings
+            </Button>
         </FormControl>
         {open && <SearchSettingsDialog searchSettings={searchSettings} updateSettings={updateSettings} close={()=>setOpen(false)} open={open}/>}
     </div>

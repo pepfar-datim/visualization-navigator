@@ -15,9 +15,10 @@ import {areAllSelected, getSelectedVisualizations, selectAll} from '../services/
 import {ApplySharingToAll, BulkSharingStatus, ShareSettings} from "../../sharing/types/sharing.types";
 import {applySharingToAll} from "../../sharing/services/applySharingToAll.service";
 import {MessageBox} from "../../message/components/messageBox.component";
-import {Message, MessageType} from "../../message/types/message.type";
+import {Message} from "../../message/types/message.type";
 import {getBulkSharingMessage} from "../../sharing/services/getBulkSharingMessage.service";
 import {FullscreenLoading} from '../../sharing/components/fullscreenLoading.components';
+import {DownloadResults} from "./downloadResults.component";
 
 export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
     visualizations:Visualization[],
@@ -39,10 +40,6 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 limitViewsMinDate: null
             },
             message: undefined
-            // message:{
-            //     text: 'test',
-            //     type: MessageType.success
-            // }
         };
     }
 
@@ -79,6 +76,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
     render() {
         return <>
             <SearchSettingsComponent searchSettings={this.state.searchSettings} updateSettings={this.updateSettings}/>
+            {this.state.appState===AppState.results&&<DownloadResults searchFilters={this.state.searchFilters} searchSettings={this.state.searchSettings}/>}
             <SearchFilters
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}

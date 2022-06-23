@@ -1,9 +1,4 @@
-import {act, render} from "@testing-library/react";
-import {SearchPage} from "../modules/searchPage/components/searchPage.component";
-import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
-import {search} from "./lib/shared.testLib";
 import React from "react";
-import {click, pause,debug, textsWait} from "@pepfar-react-lib/testwrap";
 
 
 test(`7 > Sharing > single`, async ()=>{

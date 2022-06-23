@@ -11,8 +11,8 @@ function responseToModel(response:ServerResponse):Visualization[]{
         id: row[0],
         type: row[4] as VisualizationType,
         name: row[1],
-        views: parseInt(row[2]),
-        lastViewed: row[3],
+        views: parseInt(row[2])||0,
+        lastViewed: row[3]||'n/a',
         owner: row[5],
         sql: row[6] as SqlViewVersion,
         selected: false

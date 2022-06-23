@@ -20,8 +20,8 @@ const sqlViewQuery = `select uid, name, count as view_count, date, type, userid 
         and ((dse.timestamp > '\${lastViewedMinDate}' and
               dse.timestamp < '\${lastViewedMaxDate}') or
              (1 = \${includeNeverViewed} and dse.timestamp is null))) x
-  where count > \${minViewCount}
-    and count < \${maxViewCount}
+  where ((count > \${minViewCount} and count < \${maxViewCount}) or
+         (1 = \${includeNeverViewed} and count is null))
   order by name
   limit \${limit};`
 
