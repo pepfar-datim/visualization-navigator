@@ -12,7 +12,7 @@ export function FilterOperator({operator,filterProperty,changeOperator,i}:{opera
             onChange={(e)=>changeOperator(e.target.value as FilterOperatorType)}
             data-testid={`filterOperator_${i}`}
         >
-            {getFilterOperators(filterProperty).map(f=><MenuItem value={f}>{camelCaseToWords(f)}</MenuItem>)}
+            {getFilterOperators(filterProperty).map(f=><MenuItem value={f} key={f}>{camelCaseToWords(f)}</MenuItem>)}
         </Select>
     </FormControl>;
 }

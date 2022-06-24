@@ -9,9 +9,11 @@ export function SearchSettingsComponent({searchSettings, updateSettings}:{search
     let [open,setOpen] = useState(false);
     return <div className='searchTopBarButton'>
         <FormControl>
+            {/*<Badge variant={'dot'} color="error">*/}
             <Button onClick={()=>setOpen(true)} variant='outlined' data-testid={`searchSettingsButton`} startIcon={ <Settings />}>
                 Settings
             </Button>
+            {/*</Badge>*/}
         </FormControl>
         {open && <SearchSettingsDialog searchSettings={searchSettings} updateSettings={updateSettings} close={()=>setOpen(false)} open={open}/>}
     </div>

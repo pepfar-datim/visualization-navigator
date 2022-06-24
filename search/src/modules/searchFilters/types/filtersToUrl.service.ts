@@ -23,7 +23,6 @@ export function filtersToUrl(searchFilters:SearchFilter[]):string{
 favoriteName:${favoriteName||'_'},\
 user:${user||'_'},\
 visualizationType:${visualizationType||'_'},\
-includeNeverViewed:1,\
 minViewCount:${minViewCount||d.minViewCount},\
 maxViewCount:${maxViewCount||d.maxViewCount},\
 lastViewedMinDate:${lastViewedMinDate||d.lastViewedMinDate},\

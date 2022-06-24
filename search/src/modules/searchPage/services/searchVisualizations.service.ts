@@ -1,10 +1,11 @@
 import {ServerResponse, Visualization, VisualizationType} from "../types/visualization.type";
-import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
+import {FilterProperty, SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {filtersToUrl} from "../../searchFilters/types/filtersToUrl.service";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {settingsToUrl} from "../../searchSettings/services/settingsToUrl.service";
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SqlViewVersion} from "../types/appState.type";
+import {includeNeverViewed} from "./includeNeverViewed.service";
 
 function responseToModel(response:ServerResponse):Visualization[]{
     return response.listGrid.rows.map(row=>({
@@ -12,7 +13,7 @@ function responseToModel(response:ServerResponse):Visualization[]{
         type: row[4] as VisualizationType,
         name: row[1],
         views: parseInt(row[2])||0,
-        lastViewed: row[3]||'n/a',
+        lastViewed: row[3],
         owner: row[5],
         sql: row[6] as SqlViewVersion,
         selected: false
@@ -20,6 +21,6 @@ function responseToModel(response:ServerResponse):Visualization[]{
 }
 
 export function searchVisualizations(searchFilters:SearchFilter[],searchSettings:SearchSettings):Promise<Visualization[]>{
-    let fullUrl:string = `/sqlViews/VisNavgSrch/data?paging=false&var=${filtersToUrl(searchFilters)},${settingsToUrl(searchSettings)}`
+    let fullUrl:string = `/sqlViews/VisNavgSrch/data?paging=false&var=${filtersToUrl(searchFilters)},${settingsToUrl(searchSettings)},includeNeverViewed:${includeNeverViewed(searchFilters,searchSettings)?1:0}`
     return datimApi.getJson(fullUrl).then(responseToModel);
 }

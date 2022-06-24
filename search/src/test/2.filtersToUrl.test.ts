@@ -13,11 +13,11 @@ const value='TEST_VALUE';
 const testCases:TestCase[] = [{
     name:'name',
     filters:[{filterProperty:FilterProperty.name,operator: FilterOperator.contains,value}],
-    url:`uid:_,favoriteName:${value},user:_,visualizationType:_,includeNeverViewed:1,minViewCount:${d.minViewCount},maxViewCount:${d.maxViewCount},lastViewedMinDate:${d.lastViewedMinDate},lastViewedMaxDate:${d.lastViewedMaxDate}`
+    url:`uid:_,favoriteName:${value},user:_,visualizationType:_,minViewCount:${d.minViewCount},maxViewCount:${d.maxViewCount},lastViewedMinDate:${d.lastViewedMinDate},lastViewedMaxDate:${d.lastViewedMaxDate}`
 },{
     name:'name,minViewCount',
     filters:[{filterProperty:FilterProperty.name,operator: FilterOperator.contains,value},{filterProperty:FilterProperty.views,operator: FilterOperator.lessThan,value}],
-    url:`uid:_,favoriteName:${value},user:_,visualizationType:_,includeNeverViewed:1,minViewCount:${d.minViewCount},maxViewCount:${value},lastViewedMinDate:${d.lastViewedMinDate},lastViewedMaxDate:${d.lastViewedMaxDate}`
+    url:`uid:_,favoriteName:${value},user:_,visualizationType:_,minViewCount:${d.minViewCount},maxViewCount:${value},lastViewedMinDate:${d.lastViewedMinDate},lastViewedMaxDate:${d.lastViewedMaxDate}`
 }];
 
 testCases.forEach(({name,filters,url}:TestCase)=>{

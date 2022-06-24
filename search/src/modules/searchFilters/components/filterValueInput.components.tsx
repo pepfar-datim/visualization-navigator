@@ -22,9 +22,9 @@ export function FilterValueInput({filterProperty,filterValue, changeFilterValue,
     switch (filterProperty){
         case FilterProperty.name:
         case FilterProperty.owner:
-            return fc(!filterValue,<TextField variant="standard" value={filterValue} onChange={onChange(changeFilterValue)} inputProps={{'data-testid':`filterValue_${i}`}}/>)
+            return fc(!filterValue,<TextField variant="standard" value={filterValue||''} onChange={onChange(changeFilterValue)} inputProps={{'data-testid':`filterValue_${i}`}}/>)
         case FilterProperty.views:
-            return fc(!filterValue,<TextField variant="standard" value={filterValue} type='number' onChange={onChange(changeFilterValue)} inputProps={{'data-testid':`filterValue_${i}`}}/>)
+            return fc(!filterValue,<TextField variant="standard" value={filterValue||''} type='number' onChange={onChange(changeFilterValue)} inputProps={{'data-testid':`filterValue_${i}`}}/>)
         case FilterProperty.lastViewed:
             return fc(false,<DateSelect value={filterValue} onChange={changeFilterValue as OnDateChange} i={i}/>)
         case FilterProperty.type:

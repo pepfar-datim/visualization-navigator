@@ -3,6 +3,7 @@ import {StyledTableCell} from "./styledTable.component";
 import {Link} from "@mui/material";
 import {getViewUrl} from "../../../config/config";
 import React from "react";
+import {NA} from "./na.component";
 
 function VisualizationDataRowComponent({visualization, withUsers}:{visualization:Visualization,withUsers:boolean}){
     let {id, name,views,lastViewed,type,owner} = visualization;
@@ -11,7 +12,7 @@ function VisualizationDataRowComponent({visualization, withUsers}:{visualization
             <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
         </StyledTableCell>
         <StyledTableCell className={'alignRight'}>{views}</StyledTableCell>
-        <StyledTableCell className={'nowrap alignRight'}>{lastViewed}</StyledTableCell>
+        <StyledTableCell className={'nowrap alignRight'}>{lastViewed||<NA/>}</StyledTableCell>
         <StyledTableCell>{type}</StyledTableCell>
         {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
     </>

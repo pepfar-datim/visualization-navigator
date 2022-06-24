@@ -43,3 +43,7 @@ thead th {
 .actionsThead{
     padding-left:8px!important;
 }
+
+.na{
+    opacity: 0.4;
+}

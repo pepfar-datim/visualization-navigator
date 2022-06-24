@@ -6,10 +6,10 @@ import {camelCaseToCapitalized} from "../../searchPage/services/textFormat.servi
 
 export function VisualizationTypeFilterSelect({visualizationType, changeVisualizationType,i}:{visualizationType:VisualizationType,changeVisualizationType:ChangeVisualizationType,i:number}) {
     return <Select
-        value={visualizationType}
+        value={visualizationType||''}
         onChange={(e)=>changeVisualizationType(e)}
         data-testid={`visualizationTypeSelect_${i}`}
     >
-        {visualizationTypeList.map(f=><MenuItem value={f}>{camelCaseToCapitalized(f)}</MenuItem>)}
+        {visualizationTypeList.map(f=><MenuItem value={f} key={f}>{camelCaseToCapitalized(f)}</MenuItem>)}
     </Select>;
 }
