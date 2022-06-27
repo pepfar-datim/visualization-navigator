@@ -9,6 +9,11 @@ import {Share} from "@mui/icons-material";
 import {ApplySharingToAll, ShareSettings} from "../types/sharing.types";
 import {ShareAllDialog} from "./shareAllDialog.component";
 import {getDhis2Type} from "../services/getDhis2SharingType.service";
+import datimApi from "@pepfar-react-lib/datim-api";
+import {getSharing} from "../services/getSharing.service";
+
+let shareSettings:ShareSettings;
+let initialSharing:ShareSettings;
 
 export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
     id:string,
@@ -18,16 +23,20 @@ export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
 }) {
     let [singleShareOpen,setSingleShareOpen] = useState<boolean>(false);
     let [bulkShareOpen, setBulkShareOpen] = useState<boolean>(false);
-    let [shareSettings,setShareSettings] = useState<{[prop:string]:any}>({})
+    // let [shareSettings,setShareSettings] = useState<ShareSettings|null>(null)
     let dhis2Type = getDhis2Type(type);
-    // let shareSettings:ShareSettings;
+
+    async function openSingleShare(){
+        setSingleShareOpen(true);
+        initialSharing = await getSharing(type,id);
+    }
 
     function onSingleShareClose(newShareSettings:ShareSettings){
         setSingleShareOpen(false)
         if (!areMultipleSelected) return;
+        if (JSON.stringify(initialSharing)===JSON.stringify(newShareSettings)) return;
         setBulkShareOpen(true);
-        // shareSettings = newShareSettings;
-        setShareSettings(newShareSettings)
+        shareSettings=newShareSettings;
     }
     function onBulkShareClose(applyToAllAnswer:boolean){
         setBulkShareOpen(false);
@@ -37,7 +46,7 @@ export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
     return <>
         <div className={`actionButton`}>
             <Tooltip title={`Update sharing${areMultipleSelected?' (this and selected items)':' (this item)'}`}>
-                <IconButton onClick={()=>setSingleShareOpen(true)} data-testid={`updateSharingButton_${id}`}>
+                <IconButton onClick={()=>openSingleShare()} data-testid={`updateSharingButton_${id}`}>
                     <Share/>
                 </IconButton>
             </Tooltip>

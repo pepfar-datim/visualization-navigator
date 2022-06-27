@@ -6,12 +6,14 @@ import React from "react";
 import {click} from "@pepfar-react-lib/testwrap";
 import {getCheckboxValue, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 
-function checkAllSelected():boolean{
+function checkAllSelected(){
+    // eslint-disable-next-line testing-library/no-node-access
     let rows = document.querySelectorAll(`tbody tr`);
     let sharedValue = true;
     rows.forEach(row=>{
         let c;
-        if (!row || row.textContent.includes('dashboard')) return;
+        if (!row || row?.textContent?.includes('dashboard')) return;
+        // eslint-disable-next-line testing-library/no-node-access
         else c = row.querySelector("[data-testid^='checkbox_']");
         // @ts-ignore
         sharedValue = sharedValue && c.checked;
