@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {Button, CircularProgress, FormControl} from "@mui/material";
 import {Download} from "@mui/icons-material";
-import {filtersToUrl} from "../../searchFilters/types/filtersToUrl.service";
-import {settingsToUrl} from "../../searchSettings/services/settingsToUrl.service";
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {getSearchParams} from "../services/getSearchParams.service";

@@ -1,8 +1,6 @@
 import {ServerResponse, Visualization, VisualizationType} from "../types/visualization.type";
-import {FilterProperty, SearchFilter} from "../../searchFilters/types/searchFilters.type";
-import {filtersToUrl} from "../../searchFilters/types/filtersToUrl.service";
+import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import datimApi from "@pepfar-react-lib/datim-api";
-import {settingsToUrl} from "../../searchSettings/services/settingsToUrl.service";
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SqlViewVersion} from "../types/appState.type";
 import {getSearchParams} from "./getSearchParams.service";
