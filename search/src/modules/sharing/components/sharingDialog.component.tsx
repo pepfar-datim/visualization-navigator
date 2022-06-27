@@ -23,7 +23,6 @@ export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
 }) {
     let [singleShareOpen,setSingleShareOpen] = useState<boolean>(false);
     let [bulkShareOpen, setBulkShareOpen] = useState<boolean>(false);
-    // let [shareSettings,setShareSettings] = useState<ShareSettings|null>(null)
     let dhis2Type = getDhis2Type(type);
 
     async function openSingleShare(){

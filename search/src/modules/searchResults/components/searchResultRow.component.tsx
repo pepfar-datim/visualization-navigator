@@ -23,13 +23,13 @@ function SearchResultRowComponent({visualization,selectVisualization,selected, w
             <Checkbox checked={selected}
                       size={'small'}
                       onClick={() => selectVisualization(id)}
-                      disabled={visualization.type===VisualizationType.dashboard}
+                      // disabled={visualization.type===VisualizationType.dashboard}
                       inputProps={{'data-testid': `checkbox_${i}`} as any}/>
         </StyledTableCell>
         <VisualizationDataRow visualization={visualization} withUsers={withUsers}/>
         <StyledTableCell className={'nowrap zeroPadding'}>
             <ResultActions visualizationId={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected}/>
-            {type!==VisualizationType.dashboard&&<SharingDialog id={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected}/>}
+            <SharingDialog id={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected}/>
         </StyledTableCell>
     </StyledTableRow>
 }
