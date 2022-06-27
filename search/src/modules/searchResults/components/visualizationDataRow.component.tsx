@@ -12,7 +12,7 @@ function VisualizationDataRowComponent({visualization, withUsers}:{visualization
             <Link href={getViewUrl(id)} target={'_blank'} color={'inherit'} className={`searchResultViewLink`}>{name}</Link>
         </StyledTableCell>
         <StyledTableCell className={'alignRight'}>{views}</StyledTableCell>
-        <StyledTableCell className={'nowrap alignRight'}>{lastViewed||<NA/>}</StyledTableCell>
+        <StyledTableCell className={'nowrap alignRight'}>{lastViewed}</StyledTableCell>
         <StyledTableCell>{type}</StyledTableCell>
         {withUsers&&<StyledTableCell>{owner}</StyledTableCell>}
     </>

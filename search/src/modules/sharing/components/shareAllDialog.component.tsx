@@ -19,7 +19,7 @@ export function ShareAllDialog({onClose}:{onClose:BoolTrigger}) {
             <Button autoFocus onClick={()=>onClose(false)}>
                 Cancel
             </Button>
-            <Button onClick={()=>onClose(true)}>Ok</Button>
+            <Button onClick={()=>onClose(true)} variant={'contained'}>Confirm</Button>
         </DialogActions>
     </Dialog>
 }

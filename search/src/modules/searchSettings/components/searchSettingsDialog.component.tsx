@@ -17,6 +17,7 @@ import {
 import {FormControl} from '../../searchFilters/components/formControl.component';
 import {DateSelect} from "../../searchFilters/components/dateSelect.component";
 import {Close} from "@mui/icons-material";
+import "../style/searchSettings.css"
 
 const onSettingsChange = (
     newSettings:{limit?:string|number; limitedViewRange?:boolean; limitViewsMinDate?:string; limitViewsMaxDate?:string;},
@@ -33,7 +34,7 @@ const onSettingsChange = (
 }
 
 export function SearchSettingsDialog({open, close, searchSettings, updateSettings}:{open: boolean, close:()=>void, searchSettings:SearchSettings,updateSettings:UpdateSearchSettings}) {
-    return <Dialog onClose={close} open={open} className={'searchSettingsDialog'} maxWidth={'md'}>
+    return <Dialog onClose={close} open={open} className={'searchSettingsDialog'} >
         <DialogTitle>
             Search settings
             <IconButton onClick={close} className={'closeSettingsDialog'} data-testid={'closeSettingsDialog'}>
@@ -65,22 +66,28 @@ export function SearchSettingsDialog({open, close, searchSettings, updateSetting
                         <FormControlLabel value={true} control={<Radio />} label="Limit view counts to a specified date range" className={'radio'} data-testid={'limitedViewRange'}/>
                     </RadioGroup>
                 </Grid>
-                    <Grid item xs={4}>
-                        <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>Start date</Typography>
+                <Grid item xs={4}>
+                </Grid>
+                <Grid item xs={8}>
+                    <Grid container>
+                        <Grid item xs={3}>
+                            <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>Start date</Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <FormControl>
+                                <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={`limitViewsMinDate`}/>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>End date</Typography>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <FormControl>
+                                <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={'limitViewsMaxDate'}/>
+                            </FormControl>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={8}>
-                        <FormControl>
-                            <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={`limitViewsMinDate`}/>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>End date</Typography>
-                    </Grid>
-                    <Grid item xs={8}>
-                        <FormControl>
-                            <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={'limitViewsMaxDate'}/>
-                        </FormControl>
-                    </Grid>
+                </Grid>
             </Grid>
         </DialogContent>
     </Dialog>

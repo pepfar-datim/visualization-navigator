@@ -20,3 +20,7 @@
     pointer-events: none!important;
     opacity: 0.4!important;
 }
+
+.searchSettingsDialog .MuiPaper-root{
+    width: 630px;
+}

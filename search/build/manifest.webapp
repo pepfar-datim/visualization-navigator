@@ -7,8 +7,8 @@
     }
   },
   "appType": "APP",
-  "name": "Visualization Navigator (1.0.2)",
-  "version": "1.0.2",
+  "name": "Visualization Navigator",
+  "version": "1.1.0",
   "description": "Visualization Navigator",
   "icons": {
     "48": "app-icon.png"

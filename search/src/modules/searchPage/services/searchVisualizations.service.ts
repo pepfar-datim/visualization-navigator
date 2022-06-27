@@ -5,7 +5,8 @@ import datimApi from "@pepfar-react-lib/datim-api";
 import {settingsToUrl} from "../../searchSettings/services/settingsToUrl.service";
 import {SearchSettings} from "../../searchSettings/types/searchSettings.type";
 import {SqlViewVersion} from "../types/appState.type";
-import {includeNeverViewed} from "./includeNeverViewed.service";
+import {getSearchParams} from "./getSearchParams.service";
+
 
 function responseToModel(response:ServerResponse):Visualization[]{
     return response.listGrid.rows.map(row=>({
@@ -21,6 +22,6 @@ function responseToModel(response:ServerResponse):Visualization[]{
 }
 
 export function searchVisualizations(searchFilters:SearchFilter[],searchSettings:SearchSettings):Promise<Visualization[]>{
-    let fullUrl:string = `/sqlViews/VisNavgSrch/data?paging=false&var=${filtersToUrl(searchFilters)},${settingsToUrl(searchSettings)},includeNeverViewed:${includeNeverViewed(searchFilters,searchSettings)?1:0}`
+    let fullUrl:string = `/sqlViews/VisNavgSrch/data?${getSearchParams(searchFilters,searchSettings)}`
     return datimApi.getJson(fullUrl).then(responseToModel);
 }
