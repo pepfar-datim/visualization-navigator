@@ -3,7 +3,6 @@ import {StyledTableCell} from "./styledTable.component";
 import {Link} from "@mui/material";
 import {getViewUrl} from "../../../config/config";
 import React from "react";
-import {NA} from "./na.component";
 
 function VisualizationDataRowComponent({visualization, withUsers}:{visualization:Visualization,withUsers:boolean}){
     let {id, name,views,lastViewed,type,owner} = visualization;

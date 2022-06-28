@@ -3,7 +3,6 @@ import {IconButton, Tooltip} from "@mui/material";
 import React from "react";
 import {VisualizationType} from "../../searchPage/types/visualization.type";
 import {getViewUrl} from "../../../config/config";
-import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 
 function ActionLink({link,icon,tooltip}:{link:string,icon:any,tooltip:string}){
     return <div className={`actionButton`}>
@@ -37,7 +36,7 @@ function getCustomAppLink(visualizationId:string,type:VisualizationType){
             />
         case VisualizationType.dashboard:
             return <ActionLink
-                tooltip={`Open in maps`}
+                tooltip={`Open as dashboard`}
                 link={`../../../dhis-web-dashboard/#/${visualizationId}`}
                 icon={<Dashboard/>}
             />
@@ -51,11 +50,9 @@ const dhis2TypeMap = {
     [VisualizationType.pivot]:'visualizations',
 }
 
-export function ResultActionsComponent({visualizationId,type,applySharingToAll,areMultipleSelected}:{
+export function ResultActionsComponent({visualizationId,type}:{
     visualizationId:string,
     type:VisualizationType,
-    applySharingToAll:ApplySharingToAll,
-    areMultipleSelected:boolean
 }) {
     return <>
         <ActionLink
@@ -72,4 +69,4 @@ export function ResultActionsComponent({visualizationId,type,applySharingToAll,a
     </>;
 }
 
-export const ResultActions = React.memo(ResultActionsComponent,(newProps,oldProps)=>true);
+export const ResultActions = React.memo(ResultActionsComponent,()=>true);

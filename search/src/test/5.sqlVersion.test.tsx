@@ -1,5 +1,5 @@
 import {SearchPage} from "../modules/searchPage/components/searchPage.component";
-import {SqlDetectWrapper} from "../modules/main/components/sqlDetectWrapper.component";
+import {InitWrapper} from "../modules/main/components/initWrapper.component";
 import React from "react";
 import {render} from "@testing-library/react";
 import datimApi from "@pepfar-react-lib/datim-api";
@@ -30,7 +30,7 @@ const userProof = ['Owner','Sschmidt','bkouadio'];
 
 const generateTest = (sqlType:SqlViewVersion)=> test(`5 > Sql version > ${sqlType}`,async ()=>{
     datimApi.registerGetMock(checkSqlQuery,sqlDetectResponse(sqlType))
-    render(<SqlDetectWrapper SearchPage={SearchPage}/>)
+    render(<InitWrapper SearchPage={SearchPage}/>)
     search();
     if (sqlType===SqlViewVersion.withUsers) await textsWait(userProof,12*1000)
     else {

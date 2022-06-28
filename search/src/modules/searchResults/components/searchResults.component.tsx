@@ -18,12 +18,13 @@ import {SearchResultRow} from "./searchResultRow.component";
 import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 
 
-export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll,applySharingToAll}:{
+export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll,applySharingToAll,isSuperUser}:{
     visualizations:Visualization[],
     sqlViewVersion:SqlViewVersion,
     selectVisualization:SelectVisualization,
     selectAll:Trigger,
-    applySharingToAll:ApplySharingToAll
+    applySharingToAll:ApplySharingToAll,
+    isSuperUser:boolean
 }) {
     let withUsers:boolean = sqlViewVersion===SqlViewVersion.withUsers;
     let areMultipleSelected:boolean=getSelectedVisualizations(visualizations).length>0;
@@ -51,6 +52,7 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
                         areMultipleSelected={areMultipleSelected}
                         key={i}
                         i={i}
+                        isSuperUser={isSuperUser}
                     />)}
                 </TableBody>
                 <TableFooter><TableRow><TableCell></TableCell><TableCell>Displaying visualizations 1 - {visualizations.length}</TableCell></TableRow></TableFooter>

@@ -20,7 +20,7 @@ import {getBulkSharingMessage} from "../../sharing/services/getBulkSharingMessag
 import {FullscreenLoading} from '../../sharing/components/fullscreenLoading.components';
 import {DownloadResults} from "./downloadResults.component";
 
-export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion}, {
+export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion,isSuperUser:boolean}, {
     visualizations:Visualization[],
     appState: AppState,
     searchFilters: SearchFilter[],
@@ -90,6 +90,7 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion},
                 selectVisualization={this.selectVisualization}
                 selectAll={this.selectAll}
                 applySharingToAll={this.applySharingToAll}
+                isSuperUser={this.props.isSuperUser}
             />}
             {this.state.appState===AppState.bulkSharePending&&<FullscreenLoading/>}
             <MessageBox message={this.state.message} closeMessage={this.closeMessage}/>

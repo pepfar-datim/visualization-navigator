@@ -9,7 +9,6 @@ import {Share} from "@mui/icons-material";
 import {ApplySharingToAll, ShareSettings} from "../types/sharing.types";
 import {ShareAllDialog} from "./shareAllDialog.component";
 import {getDhis2Type} from "../services/getDhis2SharingType.service";
-import datimApi from "@pepfar-react-lib/datim-api";
 import {getSharing} from "../services/getSharing.service";
 
 let shareSettings:ShareSettings;
