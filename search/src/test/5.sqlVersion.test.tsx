@@ -1,7 +1,7 @@
 import {SearchPage} from "../modules/searchPage/components/searchPage.component";
 import {InitWrapper} from "../modules/main/components/initWrapper.component";
 import React from "react";
-import {render} from "@testing-library/react";
+import {cleanup, render} from "@testing-library/react";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 import {search} from "./lib/shared.testLib";
@@ -28,7 +28,7 @@ export const sqlDetectResponse = (sqlType:SqlViewVersion) => ({
 
 const userProof = ['Owner','Sschmidt','bkouadio'];
 
-const generateTest = (sqlType:SqlViewVersion)=> test(`5 > Sql version > ${sqlType}`,async ()=>{
+const generateTest = async (sqlType:SqlViewVersion)=> {
     datimApi.registerGetMock(checkSqlQuery,sqlDetectResponse(sqlType))
     render(<InitWrapper SearchPage={SearchPage}/>)
     search();
@@ -37,7 +37,13 @@ const generateTest = (sqlType:SqlViewVersion)=> test(`5 > Sql version > ${sqlTyp
         await pause(1);
         noTexts(userProof)
     }
+    cleanup();
+};
+
+test(`5 > Sql version`,async ()=>{
+    await generateTest(SqlViewVersion.withUsers);
+    await generateTest(SqlViewVersion.withoutUsers);
 });
 
-[SqlViewVersion.withoutUsers,SqlViewVersion.withUsers].forEach(generateTest);
+
 
