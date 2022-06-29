@@ -22,7 +22,7 @@ function checkAllSelected(){
 }
 
 test(`6 > Checkbox behavior`, async ()=>{
-    render(<SearchPage sqlViewVersion={SqlViewVersion.withUsers}/>);
+    render(<SearchPage sqlViewVersion={SqlViewVersion.withUsers} isSuperUser={true}/>);
     search();
     await textsWait(['0001_KBC_TX_CURR_ARTDISP_3 TO 5 months'],1e4);
     click(`checkbox_selectAll`)
