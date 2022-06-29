@@ -42,12 +42,12 @@
     "build:zip": "(rm -f Visualization-Navigator.zip && cd build && zip ../Visualization-Navigator.zip -r .)",
     "dep:copy": "sh node_modules/@pepfar-react-lib/dep-copy/bin/dep-copy.sh",
     "webpack:cache": "rm -rf node_modules/.cache",
-    "test": "REACT_APP_BASE_URL=https://jakub.datim.org/ react-scripts test"
+    "test": "REACT_APP_BASE_URL=https://jakub.datim.org/ react-scripts test",
+    "test:cache": "rm -rf cachedApiCalls/*"
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
