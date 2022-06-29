@@ -33,7 +33,7 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
             <Table sx={{}} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)} inputProps={{'data-testid':'checkbox_selectAll'}as any}/></StyledTableCell>
+                        {isSuperUser&&<StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)} inputProps={{'data-testid':'checkbox_selectAll'}as any}/></StyledTableCell>}
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell>Views</StyledTableCell>
                         <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
