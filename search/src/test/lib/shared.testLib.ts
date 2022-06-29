@@ -17,7 +17,8 @@ export function setFilter(i:number,property:FilterProperty,operator:string,value
             select(`visualizationTypeSelect_${i}`,value);
             break;
         case FilterProperty.lastViewed:
-            act(()=>dateSelectHack[i](value))
+            // act(()=>dateSelectHack[i](value))
+            hackDateSelect(i.toString(),value)
             break;
     }
 }
@@ -28,4 +29,8 @@ export function addFilter(){
 
 export function search(){
     click('searchButton')
+}
+
+export function hackDateSelect(type:string,value:string){
+    act(()=>dateSelectHack[type](value))
 }

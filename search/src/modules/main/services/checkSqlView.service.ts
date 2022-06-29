@@ -7,6 +7,7 @@ import {searchVisualizations} from "../../searchPage/services/searchVisualizatio
 export async function checkSqlView():Promise<SqlViewVersion>{
     try {
         let visualization: Visualization[] = await searchVisualizations([], {limit: 1} as any)
+        if (!visualization[0].sql) throw new Error(`Cannot determine SQL version`)
         return visualization[0].sql;
     }catch(e){
         await datimApi.postJson('/sqlViews',config.createSqlViewQuery);
