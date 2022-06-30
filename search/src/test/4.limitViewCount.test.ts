@@ -1,7 +1,6 @@
 import {render} from "@testing-library/react";
 import {SearchPage} from "../modules/searchPage/components/searchPage.component";
-import {hackDateSelect, search} from "./lib/shared.testLib";
-import React from "react";
+import {hackDateSelect, renderSearch, search} from "./lib/shared.testLib";
 import {click, pause} from "@pepfar-react-lib/testwrap";
 import {textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
 // import {dateSelectHack} from "../modules/searchFilters/components/dateSelect.component";
@@ -9,7 +8,7 @@ import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 
 
 test(`4 > Limit view count by date `,async ()=>{
-    render(<SearchPage sqlViewVersion={SqlViewVersion.withUsers} isSuperUser={true}/>);
+    renderSearch()
     click(`searchSettingsButton`);
     click('limitedViewRange');
     // dateSelectHack['limitViewsMinDate']('2022-06-01');

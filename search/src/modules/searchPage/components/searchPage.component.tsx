@@ -19,8 +19,9 @@ import {Message} from "../../message/types/message.type";
 import {getBulkSharingMessage} from "../../sharing/services/getBulkSharingMessage.service";
 import {FullscreenLoading} from '../../sharing/components/fullscreenLoading.components';
 import {DownloadResults} from "./downloadResults.component";
+import {InitState} from "../../main/types/initState.type";
 
-export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion,isSuperUser:boolean}, {
+export class SearchPage extends React.Component<{initState:InitState}, {
     visualizations:Visualization[],
     appState: AppState,
     searchFilters: SearchFilter[],
@@ -81,16 +82,15 @@ export class SearchPage extends React.Component<{sqlViewVersion:SqlViewVersion,i
                 searchFilters={this.state.searchFilters}
                 updateFilters={this.updateFilters}
                 triggerSearch={this.triggerSearch}
-                sqlViewVersion={this.props.sqlViewVersion}
+                initState={this.props.initState}
             />
             {this.state.appState===AppState.searching&&<Loading/>}
             {[AppState.results,AppState.bulkSharePending].includes(this.state.appState)&&<SearchResults
                 visualizations={this.state.visualizations}
-                sqlViewVersion={this.props.sqlViewVersion}
                 selectVisualization={this.selectVisualization}
                 selectAll={this.selectAll}
                 applySharingToAll={this.applySharingToAll}
-                isSuperUser={this.props.isSuperUser}
+                initState={this.props.initState}
             />}
             {this.state.appState===AppState.bulkSharePending&&<FullscreenLoading/>}
             <MessageBox message={this.state.message} closeMessage={this.closeMessage}/>

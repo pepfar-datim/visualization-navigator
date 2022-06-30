@@ -16,29 +16,29 @@ import {Trigger} from "../../shared/types/shared.types";
 import {areAllSelected, getSelectedVisualizations} from "../../searchPage/services/selectVisualizations.service";
 import {SearchResultRow} from "./searchResultRow.component";
 import {ApplySharingToAll} from "../../sharing/types/sharing.types";
+import {InitState} from "../../main/types/initState.type";
 
 
-export function SearchResults({visualizations,sqlViewVersion,selectVisualization,selectAll,applySharingToAll,isSuperUser}:{
+export function SearchResults({visualizations,selectVisualization,selectAll,applySharingToAll,initState}:{
     visualizations:Visualization[],
-    sqlViewVersion:SqlViewVersion,
     selectVisualization:SelectVisualization,
     selectAll:Trigger,
     applySharingToAll:ApplySharingToAll,
-    isSuperUser:boolean
+    initState:InitState
 }) {
-    let withUsers:boolean = sqlViewVersion===SqlViewVersion.withUsers;
+    let {includeUsers,user} = initState;
     let areMultipleSelected:boolean=getSelectedVisualizations(visualizations).length>0;
     return (
         <TableContainer component={Paper} className={`searchResultsRoot appear`}>
             <Table sx={{}} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        {isSuperUser&&<StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)} inputProps={{'data-testid':'checkbox_selectAll'}as any}/></StyledTableCell>}
+                        {user.superUser&&<StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)} inputProps={{'data-testid':'checkbox_selectAll'}as any}/></StyledTableCell>}
                         <StyledTableCell>Name</StyledTableCell>
                         <StyledTableCell>Views</StyledTableCell>
                         <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
                         <StyledTableCell>Type</StyledTableCell>
-                        {withUsers&&<StyledTableCell>Owner</StyledTableCell>}
+                        {includeUsers&&<StyledTableCell>Owner</StyledTableCell>}
                         <StyledTableCell className={'nowrap actionsThead'}>Actions</StyledTableCell>
                     </TableRow>
                 </TableHead>
@@ -47,12 +47,11 @@ export function SearchResults({visualizations,sqlViewVersion,selectVisualization
                         visualization={visualization}
                         selectVisualization={selectVisualization}
                         selected={visualization.selected}
-                        withUsers={withUsers}
                         applySharingToAll={applySharingToAll}
                         areMultipleSelected={areMultipleSelected}
                         key={i}
                         i={i}
-                        isSuperUser={isSuperUser}
+                        initState={initState}
                     />)}
                 </TableBody>
                 <TableFooter><TableRow><TableCell></TableCell><TableCell>Displaying visualizations 1 - {visualizations.length}</TableCell></TableRow></TableFooter>

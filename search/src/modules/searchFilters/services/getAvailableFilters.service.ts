@@ -5,9 +5,9 @@ function filterOccurences(searchFilters:SearchFilter[], property:FilterProperty)
     return searchFilters.filter(filter=>filter.filterProperty===property).length;
 }
 
-export function getAvailableFilters(searchFilters:SearchFilter[],sqlViewVersion:SqlViewVersion):FilterProperty[]{
+export function getAvailableFilters(searchFilters:SearchFilter[],includeUsers:boolean):FilterProperty[]{
     return allFilterProperties.filter((filter:FilterProperty)=>{
-        if (filter===FilterProperty.owner&&sqlViewVersion===SqlViewVersion.withoutUsers) return false;
+        if (filter===FilterProperty.owner&&!includeUsers) return false;
         switch (filter){
             case FilterProperty.name:
             case FilterProperty.type:
