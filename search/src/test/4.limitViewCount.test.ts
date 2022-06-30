@@ -1,20 +1,14 @@
-import {render} from "@testing-library/react";
-import {SearchPage} from "../modules/searchPage/components/searchPage.component";
 import {hackDateSelect, renderSearch, search} from "./lib/shared.testLib";
 import {click, pause} from "@pepfar-react-lib/testwrap";
 import {textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
-// import {dateSelectHack} from "../modules/searchFilters/components/dateSelect.component";
-import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 
 
 test(`4 > Limit view count by date `,async ()=>{
     renderSearch()
     click(`searchSettingsButton`);
     click('limitedViewRange');
-    // dateSelectHack['limitViewsMinDate']('2022-06-01');
     hackDateSelect('limitViewsMinDate','2022-06-01');
     await pause(0.2);
-    // dateSelectHack['limitViewsMaxDate']('2022-06-02');
     hackDateSelect('limitViewsMaxDate','2022-06-02');
     click('closeSettingsDialog')
     await pause(0.2);

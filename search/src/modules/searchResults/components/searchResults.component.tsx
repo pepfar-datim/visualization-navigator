@@ -9,7 +9,6 @@ import Paper from '@mui/material/Paper';
 import {Visualization} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
 import {Checkbox, TableFooter} from "@mui/material";
-import {SqlViewVersion} from "../../searchPage/types/appState.type";
 import {StyledTableCell} from './styledTable.component';
 import {SelectVisualization} from "../../searchPage/types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";

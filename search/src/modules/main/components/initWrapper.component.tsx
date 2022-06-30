@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {SqlViewVersion} from "../../searchPage/types/appState.type";
 import {getInitState} from "../services/getInitState.service";
 import {InitState} from "../types/initState.type";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Visualization} from "../types/visualization.type";
-import {AppState, SqlViewVersion} from "../types/appState.type";
+import {AppState} from "../types/appState.type";
 import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {SearchFilters} from '../../searchFilters/components/searchFilters.component';
 import {searchVisualizations} from "../services/searchVisualizations.service";

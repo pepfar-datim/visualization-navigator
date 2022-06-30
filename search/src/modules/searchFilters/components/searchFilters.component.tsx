@@ -5,7 +5,6 @@ import {SearchFilterComponent} from "./searchFilter.component";
 import {Button} from "@mui/material";
 import {Add, Search} from "@mui/icons-material";
 import {getAvailableFilters} from "../services/getAvailableFilters.service";
-import {SqlViewVersion} from "../../searchPage/types/appState.type";
 import {Trigger} from "../../shared/types/shared.types";
 import {InitState} from "../../main/types/initState.type";
 

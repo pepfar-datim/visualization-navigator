@@ -1,10 +1,7 @@
 import {FilterOperator, FilterProperty, SearchFilter} from "../modules/searchFilters/types/searchFilters.type";
-import {render} from "@testing-library/react";
-import {SearchPage} from "../modules/searchPage/components/searchPage.component";
 import {addFilter, renderSearch, search, setFilter} from "./lib/shared.testLib";
 import {camelCaseToWords} from "../modules/searchPage/services/textFormat.service";
 import {textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
-import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 
 type TestCase = {
     name:string,

@@ -2,13 +2,11 @@ import {SearchPage} from "../modules/searchPage/components/searchPage.component"
 import {InitWrapper} from "../modules/main/components/initWrapper.component";
 // @ts-ignore
 import React from "react";
-import {act, cleanup, queryByText, render, waitFor} from "@testing-library/react";
+import {act, render} from "@testing-library/react";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 import {search} from "./lib/shared.testLib";
-import {noTexts, textsWait,noTextWait, textWait} from "@pepfar-react-lib/testwrap";
-import {debug, pause} from "@pepfar-react-lib/testwrap";
-import {screen} from "@testing-library/react";
+import {noTextWait, pause, textsWait, textWait} from "@pepfar-react-lib/testwrap";
 
 const checkSqlQuery = `/sqlViews/VisNavgSrch/data?paging=false&var=uid:_,favoriteName:_,user:_,visualizationType:_,minViewCount:-1,maxViewCount:9223372036854776000,lastViewedMinDate:1969-01-01,lastViewedMaxDate:2100-01-01,limitViewsMinDate:1969-01-01,limitViewsMaxDate:2100-01-01,limit:1,includeNeverViewed:1`;
 

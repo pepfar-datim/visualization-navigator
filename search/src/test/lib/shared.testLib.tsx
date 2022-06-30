@@ -4,7 +4,7 @@ import {FilterProperty} from "../../modules/searchFilters/types/searchFilters.ty
 import {dateSelectHack} from "../../modules/searchFilters/components/dateSelect.component";
 import {act, render} from "@testing-library/react";
 import React from "react";
-import { SearchPage } from "../../modules/searchPage/components/searchPage.component";
+import {SearchPage} from "../../modules/searchPage/components/searchPage.component";
 
 export function setFilter(i:number,property:FilterProperty,operator:string,value:string){
     select(`filterProperty_${i}`,camelCaseToCapitalized(property));
@@ -19,7 +19,6 @@ export function setFilter(i:number,property:FilterProperty,operator:string,value
             select(`visualizationTypeSelect_${i}`,value);
             break;
         case FilterProperty.lastViewed:
-            // act(()=>dateSelectHack[i](value))
             hackDateSelect(i.toString(),value)
             break;
     }

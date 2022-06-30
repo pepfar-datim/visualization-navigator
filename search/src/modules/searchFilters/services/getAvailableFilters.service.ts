@@ -1,5 +1,4 @@
 import {allFilterProperties, FilterProperty, SearchFilter} from "../types/searchFilters.type";
-import {SqlViewVersion} from "../../searchPage/types/appState.type";
 
 function filterOccurences(searchFilters:SearchFilter[], property:FilterProperty):number{
     return searchFilters.filter(filter=>filter.filterProperty===property).length;

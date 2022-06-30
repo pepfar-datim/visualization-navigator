@@ -1,6 +1,3 @@
-import {render} from "@testing-library/react";
-import {SearchPage} from "../modules/searchPage/components/searchPage.component";
-import {SqlViewVersion} from "../modules/searchPage/types/appState.type";
 import {renderSearch, search} from "./lib/shared.testLib";
 import {click} from "@pepfar-react-lib/testwrap";
 import {getCheckboxValue, textsWait} from "@pepfar-react-lib/testwrap/jsbuild";
