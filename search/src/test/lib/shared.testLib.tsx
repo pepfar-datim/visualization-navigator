@@ -3,6 +3,7 @@ import {camelCaseToCapitalized} from "../../modules/searchPage/services/textForm
 import {FilterProperty} from "../../modules/searchFilters/types/searchFilters.type";
 import {dateSelectHack} from "../../modules/searchFilters/components/dateSelect.component";
 import {act, render} from "@testing-library/react";
+// @ts-ignore
 import React from "react";
 import {SearchPage} from "../../modules/searchPage/components/searchPage.component";
 
@@ -37,5 +38,6 @@ export function hackDateSelect(type:string,value:string){
 }
 
 export function renderSearch(){
+    // @ts-ignore
     render(<SearchPage initState={{user:{superUser:true,username:''},includeUsers:true}}/>)
 }
