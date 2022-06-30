@@ -51,6 +51,7 @@ export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
         </div>
         {singleShareOpen&&<D2Shim i18nRoot={"./i18n"}>
             {({d2}:{d2:any})=>{
+                console.log('d2',d2)
                 if (!d2) return null;
                 return <SD d2={d2} type={dhis2Type} id={id} open={true} onRequestClose={onSingleShareClose}/>
             }}
