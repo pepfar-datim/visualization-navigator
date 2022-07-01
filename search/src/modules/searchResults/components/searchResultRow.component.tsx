@@ -8,6 +8,7 @@ import {SharingDialog} from "../../sharing/components/sharingDialog.component";
 import {SelectVisualization} from "../../searchPage/types/methods.type";
 import {VisualizationDataRow} from "./visualizationDataRow.component";
 import {InitState} from "../../main/types/initState.type";
+import { canShare } from "../../sharing/services/canShare.service";
 
 function SearchResultRowComponent({visualization,selectVisualization,selected, applySharingToAll,areMultipleSelected,i,initState}:{
     visualization:Visualization,
@@ -18,10 +19,10 @@ function SearchResultRowComponent({visualization,selectVisualization,selected, a
     i:number,
     initState:InitState
 }) {
-    let {id,type} = visualization;
+    let {id,type,owner} = visualization;
     let {user,includeUsers} = initState;
     return <StyledTableRow>
-        {user.superUser&&<StyledTableCell className={'nowrap zeroPadding'}>
+        {canShare(user,owner)&&<StyledTableCell className={'nowrap zeroPadding'}>
             <Checkbox checked={selected}
                       size={'small'}
                       onClick={() => selectVisualization(id)}
@@ -30,7 +31,7 @@ function SearchResultRowComponent({visualization,selectVisualization,selected, a
         <VisualizationDataRow visualization={visualization} withUsers={includeUsers}/>
         <StyledTableCell className={'nowrap zeroPadding'}>
             <ResultActions visualizationId={id} type={type}/>
-            {user.superUser&&<SharingDialog id={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected}/>}
+            {canShare(user,owner)&&<SharingDialog id={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected}/>}
         </StyledTableCell>
     </StyledTableRow>
 }
