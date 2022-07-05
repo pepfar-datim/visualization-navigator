@@ -8,7 +8,6 @@ import {SharingDialog} from "../../sharing/components/sharingDialog.component";
 import {PostMessage, SelectVisualization} from "../../searchPage/types/methods.type";
 import {VisualizationDataRow} from "./visualizationDataRow.component";
 import {InitState} from "../../main/types/initState.type";
-import { canShare } from "../../sharing/services/canShare.service";
 
 function SearchResultRowComponent({visualization,selectVisualization,selected, applySharingToAll,areMultipleSelected,i,initState,postMessage}:{
     visualization:Visualization,
