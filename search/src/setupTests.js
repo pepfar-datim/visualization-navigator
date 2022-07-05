@@ -12,5 +12,5 @@ global.fetch = fetch;
 //@ts-ignore
 global.TextDecoder = TextDecoder;
 datimApi.register(process.env.NODE_ENV, process.env.REACT_APP_BASE_URL)
-datimApi.setTestUsername(`jflaska`,`Basic amZsYXNrYTpHcmVlbjE4IQ==`);
+datimApi.setTestUsername(`jflaska`,`Basic dGVzdC1zdXBlclVzZXI6UGFzc3dvcmQxMjM=`);
 jest.setTimeout(20000);
