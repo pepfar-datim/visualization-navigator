@@ -12,3 +12,7 @@
     float: right;
     margin: 10px 10px 10px 0px;
 }
+
+.MuiAlert-message {
+    line-height: 23px!important;
+}

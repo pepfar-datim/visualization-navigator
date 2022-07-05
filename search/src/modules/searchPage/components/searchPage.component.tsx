@@ -73,6 +73,10 @@ export class SearchPage extends React.Component<{initState:InitState}, {
         setTimeout(this.closeMessage,5*1000)
     }
     closeMessage:Trigger = ()=>this.setState({message:undefined});
+    postMessage = (message:Message)=>{
+        this.setState({message})
+        setTimeout(this.closeMessage,5*1000)
+    }
 
     render() {
         return <>
@@ -91,6 +95,7 @@ export class SearchPage extends React.Component<{initState:InitState}, {
                 selectAll={this.selectAll}
                 applySharingToAll={this.applySharingToAll}
                 initState={this.props.initState}
+                postMessage={this.postMessage}
             />}
             {this.state.appState===AppState.bulkSharePending&&<FullscreenLoading/>}
             <MessageBox message={this.state.message} closeMessage={this.closeMessage}/>

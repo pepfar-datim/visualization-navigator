@@ -5,33 +5,34 @@ import {ResultActions} from "./resultActions.component";
 import {Visualization} from "../../searchPage/types/visualization.type";
 import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 import {SharingDialog} from "../../sharing/components/sharingDialog.component";
-import {SelectVisualization} from "../../searchPage/types/methods.type";
+import {PostMessage, SelectVisualization} from "../../searchPage/types/methods.type";
 import {VisualizationDataRow} from "./visualizationDataRow.component";
 import {InitState} from "../../main/types/initState.type";
 import { canShare } from "../../sharing/services/canShare.service";
 
-function SearchResultRowComponent({visualization,selectVisualization,selected, applySharingToAll,areMultipleSelected,i,initState}:{
+function SearchResultRowComponent({visualization,selectVisualization,selected, applySharingToAll,areMultipleSelected,i,initState,postMessage}:{
     visualization:Visualization,
     selectVisualization:SelectVisualization,
     selected:boolean,
     applySharingToAll:ApplySharingToAll,
     areMultipleSelected:boolean,
     i:number,
-    initState:InitState
+    initState:InitState,
+    postMessage:PostMessage
 }) {
-    let {id,type,owner} = visualization;
+    let {id,type} = visualization;
     let {user,includeUsers} = initState;
     return <StyledTableRow>
-        {canShare(user,owner)&&<StyledTableCell className={'nowrap zeroPadding'}>
+        <StyledTableCell className={'nowrap zeroPadding'}>
             <Checkbox checked={selected}
                       size={'small'}
                       onClick={() => selectVisualization(id)}
                       inputProps={{'data-testid': `checkbox_${i}`} as any}/>
-        </StyledTableCell>}
+        </StyledTableCell>
         <VisualizationDataRow visualization={visualization} withUsers={includeUsers}/>
         <StyledTableCell className={'nowrap zeroPadding'}>
             <ResultActions visualizationId={id} type={type}/>
-            {canShare(user,owner)&&<SharingDialog id={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected}/>}
+            <SharingDialog id={id} type={type} applySharingToAll={applySharingToAll} areMultipleSelected={areMultipleSelected} user={user} postMessage={postMessage}/>
         </StyledTableCell>
     </StyledTableRow>
 }

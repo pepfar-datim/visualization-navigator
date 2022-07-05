@@ -10,21 +10,33 @@ import {ApplySharingToAll, ShareSettings} from "../types/sharing.types";
 import {ShareAllDialog} from "./shareAllDialog.component";
 import {getDhis2Type} from "../services/getDhis2SharingType.service";
 import {getSharing} from "../services/getSharing.service";
+import {User} from "../../main/types/initState.type";
+import {isOwner} from "../services/isOwner.service";
+import {PostMessage} from "../../searchPage/types/methods.type";
+import {MessageType} from "../../message/types/message.type";
 
 let shareSettings:ShareSettings;
 let initialSharing:ShareSettings;
 
-export function SharingDialog({type,id,applySharingToAll,areMultipleSelected}:{
+export function SharingDialog({type,id,applySharingToAll,areMultipleSelected,user,postMessage}:{
     id:string,
     type:VisualizationType,
     applySharingToAll:ApplySharingToAll,
-    areMultipleSelected:boolean
+    areMultipleSelected:boolean,
+    user:User,
+    postMessage:PostMessage
 }) {
     let [singleShareOpen,setSingleShareOpen] = useState<boolean>(false);
     let [bulkShareOpen, setBulkShareOpen] = useState<boolean>(false);
     let dhis2Type = getDhis2Type(type);
 
     async function openSingleShare(){
+        if (!user.superUser) {
+            if (!await isOwner(id,user.username)) {
+                postMessage({type:MessageType.error, text: `Not authorized`})
+                return;
+            }
+        }
         setSingleShareOpen(true);
         initialSharing = await getSharing(type,id);
     }
