@@ -1,7 +1,7 @@
 import React from 'react';
 import {Visualization} from "../types/visualization.type";
 import {AppState} from "../types/appState.type";
-import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
+import {FilterOperator, FilterProperty, SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {SearchFilters} from '../../searchFilters/components/searchFilters.component';
 import {searchVisualizations} from "../services/searchVisualizations.service";
 import {SearchResults} from "../../searchResults/components/searchResults.component";
@@ -98,6 +98,11 @@ export class SearchPage extends React.Component<{initState:InitState}, {
                 postMessage={this.postMessage}
             />}
             {this.state.appState===AppState.bulkSharePending&&<FullscreenLoading/>}
+            {/*<div onClick={async ()=>{*/}
+            {/*    this.updateFilters([{filterProperty:FilterProperty.name,operator:FilterOperator.contains,value:'mine'}])*/}
+            {/*    await new Promise((r)=>setTimeout(r,100));*/}
+            {/*    this.triggerSearch();*/}
+            {/*}}>test</div>*/}
             <MessageBox message={this.state.message} closeMessage={this.closeMessage}/>
         </>
     }
