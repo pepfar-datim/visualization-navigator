@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "REACT_APP_BASE_URL=https://jakub.datim.org/ craco start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_BASE_URL=../../.. craco build",
     "build:zip": "(rm -f Visualization-Navigator.zip && cd build && zip ../Visualization-Navigator.zip -r .)",
     "dep:copy": "sh node_modules/@pepfar-react-lib/dep-copy/bin/dep-copy.sh",
     "webpack:cache": "rm -rf node_modules/.cache",
