@@ -1,4 +1,4 @@
-const sqlViewQuery = `select uid, name, count as view_count, date, type, userid as user, 'default' as sql from (
+const sqlViewQuery = `select uid, name, count as view_count, date, type, userid from (
     select * from (
           select uid, name, userid, 'dashboard' as type from dashboard where uid like '%\${uid}%'
           union
@@ -23,7 +23,8 @@ const sqlViewQuery = `select uid, name, count as view_count, date, type, userid 
   where ((count > \${minViewCount} and count < \${maxViewCount}) or
          (1 = \${includeNeverViewed} and count is null))
   order by name
-  limit \${limit};`
+  limit \${limit}
+`
 
 export const config = {
     sqlViewName: 'VisNavgSrch',
