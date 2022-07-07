@@ -38,7 +38,7 @@ button+button{
     margin-left:10px!important;
 }
 
-button {
+.searchFiltersRoot button {
     text-transform: none!important;
 }
 

@@ -20,6 +20,7 @@ import {getBulkSharingMessage} from "../../sharing/services/getBulkSharingMessag
 import {FullscreenLoading} from '../../sharing/components/fullscreenLoading.components';
 import {DownloadResults} from "./downloadResults.component";
 import {InitState} from "../../main/types/initState.type";
+import {registerEnterKey} from "../services/searchOnEnter.service";
 
 export class SearchPage extends React.Component<{initState:InitState}, {
     visualizations:Visualization[],
@@ -42,6 +43,7 @@ export class SearchPage extends React.Component<{initState:InitState}, {
             },
             message: undefined
         };
+        registerEnterKey(this.triggerSearch)
     }
 
     updateFilters = (searchFilters:SearchFilter[])=>this.setState({searchFilters})
@@ -98,11 +100,6 @@ export class SearchPage extends React.Component<{initState:InitState}, {
                 postMessage={this.postMessage}
             />}
             {this.state.appState===AppState.bulkSharePending&&<FullscreenLoading/>}
-            {/*<div onClick={async ()=>{*/}
-            {/*    this.updateFilters([{filterProperty:FilterProperty.name,operator:FilterOperator.contains,value:'mine'}])*/}
-            {/*    await new Promise((r)=>setTimeout(r,100));*/}
-            {/*    this.triggerSearch();*/}
-            {/*}}>test</div>*/}
             <MessageBox message={this.state.message} closeMessage={this.closeMessage}/>
         </>
     }

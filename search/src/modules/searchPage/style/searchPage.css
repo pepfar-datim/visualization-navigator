@@ -16,3 +16,12 @@
 .MuiAlert-message {
     line-height: 23px!important;
 }
+
+[data-testid="searchSettingsButton"],[data-testid="downloadResultsButton"]{
+    text-transform: none!important;
+}
+
+.notFound {
+    text-align: center;
+    margin-top:50px;
+}

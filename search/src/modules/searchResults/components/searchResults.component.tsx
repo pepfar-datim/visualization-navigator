@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Visualization} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
-import {Checkbox, TableFooter} from "@mui/material";
+import {Checkbox, TableFooter, Typography} from "@mui/material";
 import {StyledTableCell} from './styledTable.component';
 import {PostMessage, SelectVisualization} from "../../searchPage/types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
@@ -16,6 +16,7 @@ import {areAllSelected, getSelectedVisualizations} from "../../searchPage/servic
 import {SearchResultRow} from "./searchResultRow.component";
 import {ApplySharingToAll} from "../../sharing/types/sharing.types";
 import {InitState} from "../../main/types/initState.type";
+import {NotFound} from "../../searchPage/components/notFound.component";
 
 
 export function SearchResults({visualizations,selectVisualization,selectAll,applySharingToAll,initState,postMessage}:{
@@ -28,6 +29,7 @@ export function SearchResults({visualizations,selectVisualization,selectAll,appl
 }) {
     let {includeUsers,user} = initState;
     let areMultipleSelected:boolean=getSelectedVisualizations(visualizations).length>0;
+    if (visualizations.length===0) return <NotFound/>
     return (
         <TableContainer component={Paper} className={`searchResultsRoot appear`}>
             <Table sx={{}} aria-label="customized table">

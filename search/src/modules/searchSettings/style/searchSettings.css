@@ -22,5 +22,17 @@
 }
 
 .searchSettingsDialog .MuiPaper-root{
-    width: 630px;
+    /*width: 730px;*/
+}
+
+.dateSelectRoot > .MuiFormControl-root {
+    margin-top: 6px!important;
+}
+
+.dateSelectRoot button {
+    margin-top: 2px!important;
+}
+
+.MuiDialog-container > div {
+    max-width: 624px!important;
 }

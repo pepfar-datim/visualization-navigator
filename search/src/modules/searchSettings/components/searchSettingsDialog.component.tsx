@@ -28,13 +28,13 @@ const onSettingsChange = (
     updateSettings({
         limit: limit || currentSettings.limit,
         limitedViewRange: limitedViewRange===undefined?currentSettings.limitedViewRange:limitedViewRange,
-        limitViewsMinDate:limitViewsMinDate||currentSettings.limitViewsMinDate,
-        limitViewsMaxDate:limitViewsMaxDate||currentSettings.limitViewsMaxDate
+        limitViewsMinDate:limitViewsMinDate===undefined?currentSettings.limitViewsMinDate:limitViewsMinDate,
+        limitViewsMaxDate:limitViewsMaxDate===undefined?currentSettings.limitViewsMaxDate:limitViewsMaxDate
     })
 }
 
 export function SearchSettingsDialog({open, close, searchSettings, updateSettings}:{open: boolean, close:()=>void, searchSettings:SearchSettings,updateSettings:UpdateSearchSettings}) {
-    return <Dialog onClose={close} open={open} className={'searchSettingsDialog'} >
+    return <Dialog onClose={close} open={open} className={'searchSettingsDialog'} maxWidth={'md'}>
         <DialogTitle>
             Search settings
             <IconButton onClick={close} className={'closeSettingsDialog'} data-testid={'closeSettingsDialog'}>
@@ -74,17 +74,13 @@ export function SearchSettingsDialog({open, close, searchSettings, updateSetting
                             <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>Start date</Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <FormControl>
-                                <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={`limitViewsMinDate`}/>
-                            </FormControl>
+                            <DateSelect value={searchSettings.limitViewsMinDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMinDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={`limitViewsMinDate`}/>
                         </Grid>
                         <Grid item xs={3}>
                             <Typography className={`searchSettingsLabel ${searchSettings.limitedViewRange||'disabled'}`}>End date</Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <FormControl>
-                                <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={'limitViewsMaxDate'}/>
-                            </FormControl>
+                            <DateSelect value={searchSettings.limitViewsMaxDate} onChange={(d:string|null)=>onSettingsChange({limitViewsMaxDate:d as string},searchSettings,updateSettings)} disabled={!searchSettings.limitedViewRange} i={'limitViewsMaxDate'}/>
                         </Grid>
                     </Grid>
                 </Grid>
