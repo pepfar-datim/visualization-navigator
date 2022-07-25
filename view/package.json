@@ -8,7 +8,7 @@
   "type": "commonjs",
   "scripts": {
     "build:zip": "(cd build/bundle && mv dhis2-visualization-navigator-*.zip visualization-navigator.zip)",
-    "build": "d2-app-scripts build",
+    "build": "GENERATE_SOURCEMAP=false d2-app-scripts build",
     "start": "PORT=3001 d2-app-scripts start",
     "test": "cypress open",
     "test:ci": "cypress run",

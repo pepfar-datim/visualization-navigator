@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Visualization} from "../../searchPage/types/visualization.type";
 import "../style/searchResults.css"
-import {Checkbox, TableFooter, Typography} from "@mui/material";
+import {Checkbox, TableFooter} from "@mui/material";
 import {StyledTableCell} from './styledTable.component';
 import {PostMessage, SelectVisualization} from "../../searchPage/types/methods.type";
 import {Trigger} from "../../shared/types/shared.types";
@@ -37,9 +37,9 @@ export function SearchResults({visualizations,selectVisualization,selectAll,appl
                     <TableRow>
                         <StyledTableCell className={'nowrap zeroPadding'}><Checkbox className={'selectAllCheckbox'} size={'small'} onClick={()=>selectAll()} checked={areAllSelected(visualizations)} inputProps={{'data-testid':'checkbox_selectAll'}as any}/></StyledTableCell>
                         <StyledTableCell>Name</StyledTableCell>
-                        <StyledTableCell>Views</StyledTableCell>
-                        <StyledTableCell className={'nowrap'}>Last Viewed</StyledTableCell>
-                        <StyledTableCell>Type</StyledTableCell>
+                        <StyledTableCell className={'alignRight'}>Views</StyledTableCell>
+                        <StyledTableCell className={'nowrap alignCenter'}>Last Viewed</StyledTableCell>
+                        <StyledTableCell className={'alignCenter zeroLeftPadding'}>Type</StyledTableCell>
                         {includeUsers&&<StyledTableCell>Owner</StyledTableCell>}
                         <StyledTableCell className={'nowrap actionsThead'}>Actions</StyledTableCell>
                     </TableRow>

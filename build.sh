@@ -1,5 +1,6 @@
 rm -rf build
 mkdir build
+rm Visualization-Navigator.zip
 (cd search && npm run build)
 (cd view && npm run build)
 cp -r view/build/app/* build/

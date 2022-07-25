@@ -5,7 +5,7 @@ import {IconButton, TextField} from "@mui/material";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import {OnDateChange} from "../types/methods.type";
 import CloseIcon from "@mui/icons-material/Close";
-import { FormControl } from "./formControl.component";
+import {FormControl} from "./formControl.component";
 
 export const dateSelectHack:{[i:number|string]:OnDateChange} = {};
 
@@ -23,7 +23,7 @@ export function DateSelect({value,onChange,disabled,i}:{value:string|null,onChan
             />
             </FormControl>
         </LocalizationProvider>
-        <IconButton onClick={()=>onChange(null)} color="inherit">
+        <IconButton onClick={()=>onChange(null)} color="inherit" disabled={disabled}>
             <CloseIcon />
         </IconButton>
     </div>

@@ -1,11 +1,10 @@
-import {addFilter, renderSearch, search, setFilter} from "./lib/shared.testLib";
-import {camelCaseToWords} from "../modules/searchPage/services/textFormat.service";
-import {FilterProperty} from "../modules/searchFilters/types/searchFilters.type";
+import {renderSearch, search} from "./lib/shared.testLib";
 import datimApi from "@pepfar-react-lib/datim-api";
 import {click, textsWait} from "@pepfar-react-lib/testwrap";
 import React from "react";
 import {ShareSettings} from "../modules/sharing/types/sharing.types";
 import {clickByText, texts} from "@pepfar-react-lib/testwrap/jsbuild";
+
 jest.mock('@dhis2/app-runtime-adapter-d2',()=>({
     D2Shim: ({children}:{children:any})=> {
         return children({d2:true});

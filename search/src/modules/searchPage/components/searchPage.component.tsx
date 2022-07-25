@@ -1,7 +1,7 @@
 import React from 'react';
 import {Visualization} from "../types/visualization.type";
 import {AppState} from "../types/appState.type";
-import {FilterOperator, FilterProperty, SearchFilter} from "../../searchFilters/types/searchFilters.type";
+import {SearchFilter} from "../../searchFilters/types/searchFilters.type";
 import {SearchFilters} from '../../searchFilters/components/searchFilters.component';
 import {searchVisualizations} from "../services/searchVisualizations.service";
 import {SearchResults} from "../../searchResults/components/searchResults.component";

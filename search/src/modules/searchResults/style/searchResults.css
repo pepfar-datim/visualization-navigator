@@ -34,8 +34,16 @@ thead th {
     text-align: right!important;
 }
 
+.alignCenter{
+    text-align: center!important;
+}
+
 .zeroPadding{
     padding:0px!important;
+}
+
+.zeroLeftPadding{
+    padding-left:0px!important;
 }
 
 .selectAllCheckbox.Mui-checked{color:inherit!important;}
