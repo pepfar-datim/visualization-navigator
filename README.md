@@ -77,5 +77,5 @@ Developed by [@jakub-bao](https://github.com/jakub-bao) and [@tomzemp](https://g
 
 ## References
 
-1. Create React App https://create-react-app.dev/
-2. DHIS2 App Platform https://platform.dhis2.nu/
+1. [Create React App](https://create-react-app.dev/)
+2. [DHIS2 App Platform](https://platform.dhis2.nu/)
