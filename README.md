@@ -14,7 +14,7 @@ You can also delete each visualization, view it in the API, or change its sharin
 
 1. Install the app via the [App Hub](https://apps.dhis2.org/) or by uploading the zip from `npm run build` into the DHIS2 App Management app
 2. By default, only superusers will be able to use the app. If you wish for other users to be able to access the Visualization Navigator, please add the app to the relevant roles in your DHIS2 system.
-3. By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres dabase, you can change that by [following these instructions](https://github.com/pepfar-datim/visualization-navigator/blob/main/docs/SeeingUsernames.md).
+3. By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres database, you can change that by [following these instructions](https://github.com/pepfar-datim/visualization-navigator/blob/main/docs/SeeingUsernames.md).
 
 ## Development
 The code of Visualization Navigator (VN) is split into two modules: **search** and **view**
@@ -41,7 +41,7 @@ The search module is a REACT app built on CRA<sup>1</sup>. In order to serve the
 loadUsers([superUser], 'your-instance.com', 'Basic xxxx')
 ```
 
-2. Generate a Base64 hash for your DHIS2 account. For example from Chrom DevTools `btoa('username:password')`
+2. Generate a Base64 hash for your DHIS2 account. For example from Chrome DevTools `btoa('username:password')`
 
 3. Insert the hash to the same line of `testData/loadTestUsers.js`
 
