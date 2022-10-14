@@ -1,6 +1,6 @@
 # Seeing Usernames
 
-By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres dabase, you can change that by following these steps.
+By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres database, you can change that by following these steps.
 
 **Step 1.** If you are using DHIS 2.38 or later, run this command in `psql`:
 ```
