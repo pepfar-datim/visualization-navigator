@@ -6,18 +6,18 @@
 
 The Visualization Navigator is a DHIS2 app that allows you to view all pivot tables, data visualizations, and dashboards in a DHIS2 instance.
 
-You can search, filter, and get information about each visualization, such as view counts, the the user that created it, the user groups and users it has been shared with, the last date it has been viewed, its data dimensions (type, name, item, uid and its layout column/row, etc), and even a handy "preview" window of the visualization.
+You can search, filter, and get information about each visualization, such as view counts, the user that created it, the user groups and users it has been shared with, the last date it was viewed, its data dimensions (type, name, item, uid, layout, etc.), and even a handy "preview" window of the visualization.
 
-You can also delete each visualization, view it in the API, or change its sharing settings, allowing quick and easy maintenance all in one place. 
+You can also delete each visualization, view it via the API, or change its sharing settings, allowing quick and easy maintenance all in one place. 
 
 ## Installation on DHIS2
 
-1. Install the app via the [App Hub](https://apps.dhis2.org/) or by uploading the zip from `npm run build` into the DHIS2 App Management app
+1. Install the app via the [App Hub](https://apps.dhis2.org/) or by uploading into the DHIS2 App Management app the zip either from [our releases|https://github.com/pepfar-datim/visualization-navigator/releases] or from `npm run build`
 2. By default, only superusers will be able to use the app. If you wish for other users to be able to access the Visualization Navigator, please add the app to the relevant roles in your DHIS2 system.
 3. By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres database, you can change that by [following these instructions](https://github.com/pepfar-datim/visualization-navigator/blob/main/docs/SeeingUsernames.md).
 
 ## Development
-The code of Visualization Navigator (VN) is split into two modules: **search** and **view**
+The code of Visualization Navigator is split into two modules: **search** and **view**
 
 ### Search
 The search module is a REACT app built on CRA<sup>1</sup>. In order to serve the app locally in dev-mode follow these steps:
@@ -41,7 +41,7 @@ The search module is a REACT app built on CRA<sup>1</sup>. In order to serve the
 loadUsers([superUser], 'your-instance.com', 'Basic xxxx')
 ```
 
-2. Generate a Base64 hash for your DHIS2 account. For example from Chrome DevTools `btoa('username:password')`
+2. Generate a Base64 hash for your DHIS2 account. For example, from Chrome DevTools, run: `btoa('username:password')`
 
 3. Insert the hash to the same line of `testData/loadTestUsers.js`
 
