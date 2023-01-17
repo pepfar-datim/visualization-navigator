@@ -8,18 +8,20 @@ The Visualization Navigator is a DHIS2 app that allows you to view all pivot tab
 
 You can search, filter, and get information about each visualization, such as view counts, the user that created it, the user groups and users it has been shared with, the last date it was viewed, its data dimensions (type, name, item, uid, layout, etc.), and even a handy "preview" window of the visualization.
 
-You can also delete each visualization, view it via the API, or change its sharing settings, allowing quick and easy maintenance all in one place. 
+You can also delete each visualization, view it via the API, or change its sharing settings, allowing quick and easy maintenance all in one place.
 
 ## Installation on DHIS2
 
 1. Install the app via the [App Hub](https://apps.dhis2.org/) or by uploading into the DHIS2 App Management app the zip either from [our releases](https://github.com/pepfar-datim/visualization-navigator/releases) or from `npm run build`
-2. By default, only superusers will be able to use the app. If you wish for other users to be able to access the Visualization Navigator, please add the app to the relevant roles in your DHIS2 system.
+2. By default, only superusers will be able to use the app. If you wish for other users to be able to access the Visualization Navigator, please add the app to a role that these users have and then share the `Visualization Navigator App Search` SQL view (uid `VisNavgSrch`) with a group that these users are in.
 3. By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres database, you can change that by [following these instructions](https://github.com/pepfar-datim/visualization-navigator/blob/main/docs/SeeingUsernames.md).
 
 ## Development
+
 The code of Visualization Navigator is split into two modules: **search** and **view**
 
 ### Search
+
 The search module is a REACT app built on CRA<sup>1</sup>. In order to serve the app locally in dev-mode follow these steps:
 
 1. Add address of your **DHIS2** instance to the following lines of **package.json**
@@ -31,6 +33,7 @@ The search module is a REACT app built on CRA<sup>1</sup>. In order to serve the
 2. Run the dev-server `npm start`
 
 3. Log into the DHIS2 instance in Chrome
+
 4. Open `http://localhost:3000`
 
 #### Inserting test user accounts
