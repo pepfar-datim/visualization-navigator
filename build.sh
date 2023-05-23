@@ -1,3 +1,4 @@
+export NODE_OPTIONS=--openssl-legacy-provider
 rm -rf build
 mkdir build
 rm Visualization-Navigator.zip
