@@ -12,7 +12,7 @@ You can also delete each visualization, view it via the API, or change its shari
 
 ## Installation on DHIS2
 
-1. Install the app via the [App Hub](https://apps.dhis2.org/) or by uploading into the DHIS2 App Management app the zip either from [our releases](https://github.com/pepfar-datim/visualization-navigator/releases) or from `npm run build`
+1. Install the app via the [App Hub](https://apps.dhis2.org/user/app/47c2f9ae-6a8a-4534-b41d-84cd567fcc04) or by uploading into the DHIS2 App Management app the zip either from [our releases](https://github.com/pepfar-datim/visualization-navigator/releases) or from `npm run build`
 2. By default, only superusers will be able to use the app. If you wish for other users to be able to access the Visualization Navigator, please add the app to a role that these users have and then share the `Visualization Navigator App Search` SQL view (uid `VisNavgSrch`) with a group that these users are in.
 3. By default, the Visualization Navigator cannot show the usernames of the owners of DHIS2 visualizations. If you have administrative access to your postgres database, you can change that by [following these instructions](https://github.com/pepfar-datim/visualization-navigator/blob/main/docs/SeeingUsernames.md).
 
